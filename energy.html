@@ -130,16 +130,20 @@ const monthNamesTr = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz"
 function readMonthlyAnalysis() {
   const table = document.getElementById('monthlyAnalysis');
   const rows = table.querySelectorAll('tbody tr');
+
+  if (rows.length < 3) return {};
+
+  const monthCells = rows[0].querySelectorAll('td');
+  const dailyCells = rows[1].querySelectorAll('td');
+  const monthlyCells = rows[2].querySelectorAll('td');
+
   const map = {};
-  rows.forEach(r => {
-    const cols = r.querySelectorAll('td');
-    if(cols.length >= 3) {
-      const month = cols[0].textContent.trim();
-      const dailyAvg = parseFloat(cols[1].textContent) || 0;
-      const monthlyAvg = parseFloat(cols[2].textContent) || 0;
-      map[month] = { dailyAvg, monthlyAvg };
-    }
-  });
+  for (let i = 0; i < monthCells.length; i++) {
+    const month = monthCells[i].textContent.trim();
+    const dailyAvg = parseFloat(dailyCells[i]?.textContent) || 0;
+    const monthlyAvg = parseFloat(monthlyCells[i]?.textContent) || 0;
+    map[month] = { dailyAvg, monthlyAvg };
+  }
   return map;
 }
 
