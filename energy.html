@@ -12,18 +12,37 @@
   th, td { border:1px solid #cfcfcf; padding:8px 10px; font-size:14px; vertical-align:middle; }
   th { background:#e6f0ff; text-align:left; font-weight:700; }
   td.num { text-align:right; font-family: "Courier New", monospace; }
-  .section-title {
-  background: #bcd4fa;          /* darker blue to separate sections clearly */
-  color: #08244c;               /* deeper text color for contrast */
+/* Base style for all section titles */
+.section-title {
+  background: #e8f0ff;
+  color: #0c2a66;
   font-weight: 700;
   font-size: 15px;
   padding: 10px;
   margin: 18px 0 8px 0;
   border-radius: 6px;
-  border: 1px solid #94b5f5;    /* subtle border for definition */
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* Darker colors for main utility headers only */
+.section-title.gas-main {
+  background: #bcd4fa;          /* blue tone */
+  color: #08244c;
+  border: 1px solid #94b5f5;
+}
+
+.section-title.electricity {
+  background: #fae3bc;          /* orange tone */
+  color: #5b3c00;
+  border: 1px solid #f0c97a;
+}
+
+.section-title.water {
+  background: #c9f3dc;          /* green tone */
+  color: #004d1a;
+  border: 1px solid #97e0b6;
 }
   .muted { color:#666; font-size:13px; }
   .warning { background:#fff3f0; color:#8a1f00; padding:6px 8px; border-radius:4px; display:inline-block; font-weight:700; }
