@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy Dashboard - Fatih Meclis</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* === Additional Styles for Energy Page === */
+    main.energy-dashboard {
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2.section-header {
+      background-color: #008B8B;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 40px;
+      font-size: 1.3em;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    h3.analysis-header {
+      background-color: #00A9A9;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 1.1em;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .progress-container {
+      position: relative;
+      height: 22px;
+      background: #ddd;
+      border-radius: 12px;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: #00A9A9;
+      width: 0%;
+      border-radius: 12px 0 0 12px;
+      transition: width 1s ease-in-out;
+    }
+
+    .progress-limit {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: red;
+      opacity: 0.7;
+    }
+
+    .status-info {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+
+    .smiley {
+      display: inline-block;
+      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- === Site Header === -->
+  <header class="site-header" id="mainHeader">
+    <div class="header-content">
+      <div class="logo-title">
+        <img src="images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+        <div class="site-info">
+          <h1>Fatih Meclis</h1>
+          <p>Personal Website & Engineering Portfolio</p>
+        </div>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="pages/photos/photos.htm">PHOTOS</a></li>
+          <li><a href="pages/myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="pages/contact/contact.htm">CONTACT</a></li>
+          <li><a href="pages/blog/blog.htm">BLOG</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- === ENERGY DASHBOARD MAIN === -->
+  <main class="energy-dashboard">
+    <h2 class="section-header">BAŞKENTGAZ</h2>
+    <table id="gasTable">
+      <tr><th>First Reading Date</th><td id="gasStartDate"></td></tr>
+      <tr><th>Current Date</th><td id="gasNowDate"></td></tr>
+      <tr><th>Days Passed</th><td id="gasDays"></td></tr>
+      <tr><th>Consumption (m³)</th><td id="gasConsumption"></td></tr>
+      <tr><th>Daily Average (m³/day)</th><td id="gasDailyAvg"></td></tr>
+      <tr><th>Estimated Monthly (m³)</th><td id="gasEstMonth"></td></tr>
+      <tr><th>Estimated Cost (₺)</th><td id="gasCost"></td></tr>
+    </table>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="gasProgress"></div>
+      <div class="progress-limit" id="gasLimitLine"></div>
+    </div>
+    <div class="status-info" id="gasStatus"></div>
+
+    <h3 class="analysis-header">MONTHLY GAS ANALYSIS</h3>
+    <table id="gasAnalysis">
+      <tr><th>Month</th><th>Average (m³)</th></tr>
+      <tr><td>Ocak</td><td>75.82</td></tr>
+      <tr><td>Şubat</td><td>66.41</td></tr>
+      <tr><td>Mart</td><td>52.33</td></tr>
+      <tr><td>Nisan</td><td>33.65</td></tr>
+      <tr><td>Mayıs</td><td>18.72</td></tr>
+      <tr><td>Haziran</td><td>6.84</td></tr>
+      <tr><td>Temmuz</td><td>4.32</td></tr>
+      <tr><td>Ağustos</td><td>4.21</td></tr>
+      <tr><td>Eylül</td><td>8.42</td></tr>
+      <tr><td>Ekim</td><td>42.61</td></tr>
+      <tr><td>Kasım</td><td>53.62</td></tr>
+      <tr><td>Aralık</td><td>69.45</td></tr>
+    </table>
+
+    <h2 class="section-header">ENERJİSA (Electricity)</h2>
+    <table id="electricTable">
+      <tr><th>Consumption (kWh)</th><td id="elecConsumption">320</td></tr>
+      <tr><th>Estimated Monthly (kWh)</th><td id="elecEstMonth"></td></tr>
+      <tr><th>Estimated Cost (₺)</th><td id="elecCost"></td></tr>
+    </table>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="elecProgress"></div>
+      <div class="progress-limit" id="elecLimitLine"></div>
+    </div>
+    <div class="status-info" id="elecStatus"></div>
+
+    <h2 class="section-header">ASKİ (Water)</h2>
+    <table id="waterTable">
+      <tr><th>Consumption (m³)</th><td id="waterConsumption">5.2</td></tr>
+      <tr><th>Estimated Monthly (m³)</th><td id="waterEstMonth"></td></tr>
+      <tr><th>Estimated Cost (₺)</th><td id="waterCost"></td></tr>
+    </table>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="waterProgress"></div>
+      <div class="progress-limit" id="waterLimitLine"></div>
+    </div>
+    <div class="status-info" id="waterStatus"></div>
+
+  </main>
+
+  <!-- === FOOTER === -->
+  <footer>
+    <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // === Utility Functions ===
+    function format2(v) { return v.toFixed(2); }
+
+    // === GAS SECTION ===
+    const gasStartDate = new Date("2025-10-06T11:19:57");
+    const gasNow = new Date();
+    const daysPassed = (gasNow - gasStartDate) / (1000*60*60*24);
+    const gasConsumption = 48.8; // example current reading difference
+    const dailyAvg = gasConsumption / daysPassed;
+    const estMonth = dailyAvg * 30;
+    const gasPrice = 11.50;
+    const estCost = estMonth * gasPrice;
+
+    document.getElementById("gasStartDate").textContent = gasStartDate.toLocaleString();
+    document.getElementById("gasNowDate").textContent = gasNow.toLocaleString();
+    document.getElementById("gasDays").textContent = format2(daysPassed);
+    document.getElementById("gasConsumption").textContent = format2(gasConsumption);
+    document.getElementById("gasDailyAvg").textContent = format2(dailyAvg);
+    document.getElementById("gasEstMonth").textContent = format2(estMonth);
+    document.getElementById("gasCost").textContent = format2(estCost) + " ₺";
+
+    // Monthly average (Ekim)
+    const gasAvg = 42.61;
+    const gasLimit = gasAvg * 1.25;
+
+    const gasProgress = document.getElementById("gasProgress");
+    const gasLimitLine = document.getElementById("gasLimitLine");
+    const gasStatus = document.getElementById("gasStatus");
+
+    const usagePct = (estMonth / gasLimit) * 100;
+    gasProgress.style.width = Math.min(usagePct, 100) + "%";
+    gasLimitLine.style.left = "100%";
+
+    if (estMonth > gasLimit) {
+      const extraVol = estMonth - gasLimit;
+      const extraCost = extraVol * gasPrice;
+      gasStatus.innerHTML = `⚠️ Estimated monthly (${format2(estMonth)} m³) exceeds limit.<br>
+        Extra volume: ${format2(extraVol)} m³ → Extra cost: ${format2(extraCost)} ₺ 
+        <span class="smiley">😠</span>`;
+    } else if (usagePct > 85) {
+      gasStatus.innerHTML = `Approaching limit (${format2(usagePct)}%) 
+        <span class="smiley">😐</span>`;
+    } else {
+      gasStatus.innerHTML = `Usage normal (${format2(usagePct)}%) 
+        <span class="smiley">😊</span>`;
+    }
+
+    // === ELECTRICITY SECTION ===
+    const elecDailyAvg = 4.52;
+    const elecLimit = elecDailyAvg * 1.25 * 30;
+    const elecCons = 320;
+    const elecEst = elecCons;
+    const elecCost = elecEst * 2.45;
+
+    document.getElementById("elecEstMonth").textContent = format2(elecEst);
+    document.getElementById("elecCost").textContent = format2(elecCost) + " ₺";
+
+    const elecProgress = document.getElementById("elecProgress");
+    const elecLimitLine = document.getElementById("elecLimitLine");
+    const elecStatus = document.getElementById("elecStatus");
+
+    const elecPct = (elecEst / elecLimit) * 100;
+    elecProgress.style.width = Math.min(elecPct, 100) + "%";
+    elecLimitLine.style.left = "100%";
+
+    elecStatus.innerHTML = elecPct > 100
+      ? `⚠️ Exceeds limit! ${format2(elecPct)}% <span class="smiley">😠</span>`
+      : elecPct > 85
+      ? `Near limit ${format2(elecPct)}% <span class="smiley">😐</span>`
+      : `Usage normal ${format2(elecPct)}% <span class="smiley">😊</span>`;
+
+    // === WATER SECTION ===
+    const waterDailyAvg = 0.37;
+    const waterLimit = waterDailyAvg * 1.25 * 30;
+    const waterCons = 5.2;
+    const waterEst = waterCons;
+    const waterCost = 0; // Placeholder
+
+    document.getElementById("waterEstMonth").textContent = format2(waterEst);
+    document.getElementById("waterCost").textContent = "—";
+
+    const waterProgress = document.getElementById("waterProgress");
+    const waterLimitLine = document.getElementById("waterLimitLine");
+    const waterStatus = document.getElementById("waterStatus");
+
+    const waterPct = (waterEst / waterLimit) * 100;
+    waterProgress.style.width = Math.min(waterPct, 100) + "%";
+    waterLimitLine.style.left = "100%";
+
+    waterStatus.innerHTML = waterPct > 100
+      ? `⚠️ Over limit ${format2(waterPct)}% <span class="smiley">😠</span>`
+      : waterPct > 85
+      ? `Near limit ${format2(waterPct)}% <span class="smiley">😐</span>`
+      : `Usage normal ${format2(waterPct)}% <span class="smiley">😊</span>`;
+  </script>
+</body>
+</html>
