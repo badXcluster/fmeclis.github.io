@@ -52,6 +52,32 @@
   .meta .pill { background:#eef3ff; padding:6px 8px; border-radius:6px; font-size:13px; }
   .footnote { font-size:12px; color:#555; margin-top:8px; }
   @media (max-width:700px){ table, th, td { font-size:13px; } }
+  
+.progress-container {
+  position: relative;
+  width: 75%;
+  margin: 6px 0;
+  background-color: #ddd;
+  border-radius: 10px;
+  height: 12px;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.8s ease, background-color 0.8s ease;
+}
+
+/* 👇 The %100 limit line */
+.progress-limit-line {
+  position: absolute;
+  left: 100%;                  /* places the line at the end of the “limit” width */
+  top: 0;
+  bottom: 0;
+  width: 2px;                  /* thin line */
+  background-color: #444;      /* dark gray line (can change to red or orange) */
+  transform: translateX(-1px); /* centers the line visually */
+}
 </style>
 </head>
 <body>
@@ -76,29 +102,39 @@
         <th>Daily AVG (m³/d)</th>
         <th>Estimated Monthly Cons. (m³)</th>
         <th>Unit Price (m3/TL)</th>
-        <th>Estimated Monthly Cost (TL)</th>
         <th>Actual Cost (TL)</th>
+        <th>Estimated Monthly Cost (TL)</th>
+      
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="small">Period</td>
-        <td id="firstDateCell">--</td>
-        <td id="firstReadingCell" class="num">--</td>
-        <td id="nowDateCell">--</td>
-        <td id="lastReadingCell" class="num">--</td>
-        <td id="daysCell" class="num">--</td>
-        <td id="consCell" class="num">--</td>
-        <td id="dailyAvgCell" class="num">--</td>
-        <td id="estMonthlyCell" class="num">--</td>
-        <td id="unitPriceCell" class="num">--</td>
-        <td id="estMonthlyCostCell" class="num">--</td>
-        <td id="periodTotalCostCell" class="num">--</td>
+        <td id="gas_firstDateCell">--</td>
+        <td id="gas_firstReadingCell" class="num">--</td>
+        <td id="gas_nowDateCell">--</td>
+        <td id="gas_lastReadingCell" class="num">--</td>
+        <td id="gas_daysCell" class="num">--</td>
+        <td id="gas_consCell" class="num">--</td>
+        <td id="gas_dailyAvgCell" class="num">--</td>
+        <td id="gas_estMonthlyCell" class="num">--</td>
+        <td id="gas_unitPriceCell" class="num">--</td>
+        <td id="gas_periodTotalCostCell" class="num">--</td>
+        <td id="gas_estMonthlyCostCell" class="num">--</td>
+       
       </tr>
       <tr>
-        <td class="small">Note</td>
-        <td colspan="11" id="limitNote" class="small">Limit check will appear here.</td>
+        <td class="small">Note</td> 
+        <td colspan="11" id="gas_limitNote" class="small">Limit check will appear here.</td>
       </tr>
+             
+        <tr><td colspan="10">
+  <div class="progress-container">
+    <div id="gas_progressBar" class="progress-bar"></div>
+  </div>
+</td></tr>
+        
+          
     </tbody>
   </table>
 
@@ -119,9 +155,9 @@
     </tbody>
   </table>
 
-  <!-- ENERJISA -->
-  <div class="section-title">ENERJISA (Electricity) <div class="pill"></div></div>
-  <table id="elcTable">
+    <!-- ENERJISA -->
+  <div class="section-title">ENERJISA</div>
+  <table id="elecTable">
     <thead>
       <tr>
         <th>Label</th>
@@ -134,38 +170,79 @@
         <th>Daily AVG (m³/d)</th>
         <th>Estimated Monthly Cons. (m³)</th>
         <th>Unit Price (m3/TL)</th>
-        <th>Estimated Monthly Cost (TL)</th>
         <th>Actual Cost (TL)</th>
+        <th>Estimated Monthly Cost (TL)</th>
+      
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="small">Period</td>
-        <td id="EfirstDateCell">--</td>
-        <td id="EfirstReadingCell" class="num">--</td>
-        <td id="EnowDateCell">--</td>
-        <td id="ElastReadingCell" class="num">--</td>
-        <td id="EdaysCell" class="num">--</td>
-        <td id="EconsCell" class="num">--</td>
-        <td id="EdailyAvgCell" class="num">--</td>
-        <td id="EestMonthlyCell" class="num">--</td>
-        <td id="EunitPriceCell" class="num">--</td>
-        <td id="EestMonthlyCostCell" class="num">--</td>
-        <td id="EperiodTotalCostCell" class="num">--</td>
+        <td id="elec_firstDateCell">--</td>
+        <td id="elec_firstReadingCell" class="num">--</td>
+        <td id="elec_nowDateCell">--</td>
+        <td id="elec_lastReadingCell" class="num">--</td>
+        <td id="elec_daysCell" class="num">--</td>
+        <td id="elec_consCell" class="num">--</td>
+        <td id="elec_dailyAvgCell" class="num">--</td>
+        <td id="elec_estMonthlyCell" class="num">--</td>
+        <td id="elec_unitPriceCell" class="num">--</td>
+        <td id="elec_periodTotalCostCell" class="num">--</td>
+        <td id="elec_estMonthlyCostCell" class="num">--</td>
+        
       </tr>
       <tr>
         <td class="small">Note</td>
-        <td colspan="11" id="ElimitNote" class="small">Limit check will appear here.</td>
+        <td colspan="11" id="elec_limitNote" class="small">Limit check will appear here.</td>
       </tr>
+    <tr><td colspan="10">
+  <div class="progress-container">
+    <div id="elec_progressBar" class="progress-bar"></div>
+  </div>
+</td></tr>  
+      
     </tbody>
   </table>
 
-  <!-- ASKI (Water) placeholder -->
-  <div class="section-title">ASKI (Water) — Placeholder</div>
-  <table>
-    <thead><tr><th>Label</th><th>Value</th></tr></thead>
+    <!-- ASKI -->
+  <div class="section-title">ASKI</div>
+  <table id="waterTable">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>First Reading Date</th>
+        <th>First Reading</th>
+        <th>Last Reading Date</th>
+        <th>Last Reading</th>
+        <th>Days Passed</th>
+        <th>Consumption (m³)</th>
+        <th>Daily AVG (m³/d)</th>
+        <th>Estimated Monthly Cons. (m³)</th>
+        <th>Unit Price (m3/TL)</th>
+        <th>Actual Cost (TL)</th>
+        <th>Estimated Monthly Cost (TL)</th>
+       
+      </tr>
+    </thead>
     <tbody>
-      <tr><td>Note</td><td class="small">Currently empty — formatted for future use.</td></tr>
+      <tr>
+        <td class="small">Period</td>
+        <td id="water_firstDateCell">--</td>
+        <td id="water_firstReadingCell" class="num">--</td>
+        <td id="water_nowDateCell">--</td>
+        <td id="water_lastReadingCell" class="num">--</td>
+        <td id="water_daysCell" class="num">--</td>
+        <td id="water_consCell" class="num">--</td>
+        <td id="water_dailyAvgCell" class="num">--</td>
+        <td id="water_estMonthlyCell" class="num">--</td>
+        <td id="water_unitPriceCell" class="num">--</td>
+        <td id="water_periodTotalCostCell" class="num">--</td>
+        <td id="water_estMonthlyCostCell" class="num">--</td>  
+      </tr>
+      <tr>
+        <td class="small">Note</td>
+        <td colspan="11" id="limitNote" class="small">Limit check will appear here.</td>
+      </tr>
     </tbody>
   </table>
 
@@ -175,113 +252,171 @@
 </div>
 
 <script>
-/* ===== EDIT THESE VALUES BEFORE PUBLISHING =====
-   - firstDateStr: the first reading timestamp (ISO format or YYYY-MM-DDTHH:mm:ss)
-   - firstReading: numeric first reading
-   - lastDateStr: the timestamp of the last reading (you can keep it fixed)
-   - lastReading: numeric last reading
-   - unitPrice: TL per m³ (set to 11.50 as requested)
-*/
-const firstDateStr = "2025-10-06T11:19:57";   // First reading datetime (edit if needed)
-const firstReading = 6982;                    // First reading value
-const lastDateStr = "2025-10-06T11:19:57";    // (Optional) The timestamp of the last recorded reading. Keep fixed or update when you update reading.
-const lastReading = 7036.95;                  // Last meter reading (fixed until you update)
-const unitPrice = 11.50;                      // TL per m³ (updated to 11.50)
-  
-/* ===== ENERJISA VALUES ===== */
-const EfirstDateStr = "2025-10-01T11:19:57";   // First reading datetime (edit if needed)
-const EfirstReading = 1798.723;                    // First reading value
-const ElastDateStr = "2025-10-20T11:19:57";    // (Optional) The timestamp of the last recorded reading. Keep fixed or update when you update reading.
-const ElastReading = 1893.45;                  // Last meter reading (fixed until you update)
-const EunitPrice = 2.6;                      // TL per m³ (updated to 11.50)
-/* ===== End editable block ===== */
+/* ======= CONFIGURATION ======= */
 
-/* Turkish month names map */
+// GAS
+const gasConfig = {
+  prefix: "gas",
+  firstDateStr: "2025-10-06T11:19:57",
+  firstReading: 6982,
+  lastReading: 7036.95,
+  unitPrice: 11.50,
+  limitType: "gas"
+};
+
+// ELECTRICITY
+const elecConfig = {
+  prefix: "elec",
+  firstDateStr: "2025-10-01T09:00:00",
+  firstReading: 1798.723,
+  lastReading: 1893.45,
+  unitPrice: 2.60,
+  dailyLimit: 5.65,    // 4.52 * 1.25
+  monthlyLimit: 169.5, // 5.65 * 30
+  limitType: "fixed"
+};
+
+// WATER
+const waterConfig = {
+  prefix: "water",
+  firstDateStr: "2025-10-08T08:20:00",
+  firstReading: 284.2,
+  lastReading: 288.9,
+  unitPrice: 25.00,
+  dailyLimit: 0.46,   // 0.37 * 1.25
+  monthlyLimit: 13.8, // 0.46 * 30
+  limitType: "fixed"
+};
+
+/* ======= HELPERS ======= */
+const fmt = (v, dp=2) =>
+  isNaN(v) ? "--" :
+  Number(v).toLocaleString(undefined, { minimumFractionDigits: dp, maximumFractionDigits: dp });
+
 const monthNamesTr = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
 
+/* --- Reads MONTHLY GAS ANALYSIS TABLE --- */
 function readMonthlyAnalysis() {
   const table = document.getElementById('monthlyAnalysis');
-  const rows = table.querySelectorAll('tbody tr');
+  const rows = table?.querySelectorAll('tbody tr');
+  if (!rows || rows.length < 3) return {};
 
-  if (rows.length < 3) return {};
+  const months = rows[0].querySelectorAll('td');
+  const dailyAvgs = rows[1].querySelectorAll('td');
+  const monthlyAvgs = rows[2].querySelectorAll('td');
 
-  const monthCells = rows[0].querySelectorAll('td');
-  const dailyCells = rows[1].querySelectorAll('td');
-  const monthlyCells = rows[2].querySelectorAll('td');
-
-  const map = {};
-  for (let i = 0; i < monthCells.length; i++) {
-    const month = monthCells[i].textContent.trim();
-    const dailyAvg = parseFloat(dailyCells[i]?.textContent) || 0;
-    const monthlyAvg = parseFloat(monthlyCells[i]?.textContent) || 0;
-    map[month] = { dailyAvg, monthlyAvg };
+  const data = {};
+  for (let i = 0; i < months.length; i++) {
+    const name = months[i].textContent.trim();
+    const daily = parseFloat(dailyAvgs[i]?.textContent) || 0;
+    const monthly = parseFloat(monthlyAvgs[i]?.textContent) || 0;
+    data[name] = { daily, monthly };
   }
-  return map;
+  return data;
 }
 
+/* ======= MAIN FUNCTION ======= */
+function updateConsumption(cfg, monthlyData={}) {
+  const now = new Date();
+  const firstDate = new Date(cfg.firstDateStr);
+  let daysPassed = (now - firstDate) / (1000 * 60 * 60 * 24);
+  if (daysPassed <= 0.00001) daysPassed = 0.00001;
+
+  const consumption = cfg.lastReading - cfg.firstReading;
+  const dailyAvg = consumption / daysPassed;
+  const estMonthly = dailyAvg * 30;
+  const periodTotalCost = consumption * cfg.unitPrice;
+  const estMonthlyCost = estMonthly * cfg.unitPrice;
+
+  // Update table values
+  document.getElementById(`${cfg.prefix}_firstDateCell`).textContent = firstDate.toLocaleString();
+  document.getElementById(`${cfg.prefix}_firstReadingCell`).textContent = fmt(cfg.firstReading, 2);
+  document.getElementById(`${cfg.prefix}_nowDateCell`).textContent = now.toLocaleString();
+  document.getElementById(`${cfg.prefix}_lastReadingCell`).textContent = fmt(cfg.lastReading, 2);
+  document.getElementById(`${cfg.prefix}_daysCell`).textContent = fmt(daysPassed, 2);
+  document.getElementById(`${cfg.prefix}_consCell`).textContent = fmt(consumption, 3);
+  document.getElementById(`${cfg.prefix}_dailyAvgCell`).textContent = fmt(dailyAvg, 3);
+  document.getElementById(`${cfg.prefix}_estMonthlyCell`).textContent = fmt(estMonthly, 3);
+  document.getElementById(`${cfg.prefix}_unitPriceCell`).textContent = fmt(cfg.unitPrice, 2);
+  document.getElementById(`${cfg.prefix}_estMonthlyCostCell`).textContent = fmt(estMonthlyCost, 2);
+  document.getElementById(`${cfg.prefix}_periodTotalCostCell`).textContent = fmt(periodTotalCost, 2);
+
+  // ===== LIMIT CHECK =====
+  const noteEl = document.getElementById(`${cfg.prefix}_limitNote`);
+  const barEl = document.getElementById(`${cfg.prefix}_progressBar`);
+
+  let dailyLimit = 0, monthlyLimit = 0;
+
+  if (cfg.limitType === "gas") {
+    const currentMonth = monthNamesTr[now.getMonth()];
+    const avgData = monthlyData[currentMonth];
+    if (avgData) {
+      dailyLimit = avgData.daily * 1.25;
+      monthlyLimit = avgData.monthly * 1.25;
+    }
+  } else {
+    dailyLimit = cfg.dailyLimit;
+    monthlyLimit = cfg.monthlyLimit;
+  }
+
+  let percent = (dailyAvg / dailyLimit) * 100;
+  if (percent > 150) percent = 150;
+
+  // Progress bar color
+  let barColor = "green";
+  if (percent > 90 && percent <= 110) barColor = "orange";
+  else if (percent > 110) barColor = "red";
+
+  barEl.style.width = `${percent}%`;
+  barEl.style.backgroundColor = barColor;
+
+  // Overusage cost
+  let msg = "";
+  if (dailyAvg > dailyLimit) {
+    const overUsage = estMonthly - monthlyLimit;
+    const extraCost = overUsage * cfg.unitPrice;
+    msg = `Over limit by ${fmt(overUsage,2)} units → Extra cost ≈ ${fmt(extraCost,2)} ₺`;
+  } else {
+    msg = `Within limit. Estimated monthly usage ${fmt(estMonthly,2)} / limit ${fmt(monthlyLimit,2)}.`;
+  }
+
+  noteEl.innerHTML = `<span style="font-weight:600; color:${barColor};">${msg}</span>`;
+}
+
+/* ======= UPDATE LOOP ======= */
 function recalcAndRender() {
   const now = new Date();
   document.getElementById('nowText').textContent = now.toLocaleString();
 
-  const firstDate = new Date(firstDateStr);
-  // Use current "now" as the second timestamp for dynamic daily average.
-  let daysPassed = (now - firstDate) / (1000*60*60*24); // fractional days
-  if (daysPassed <= 0.00001) daysPassed = 0.00001; // avoid divide-by-zero
+  const monthlyData = readMonthlyAnalysis();
 
-  const consumption = (lastReading - firstReading); // measured consumption since firstReading
-  const dailyAvg = consumption / daysPassed;
-  const estMonthly = dailyAvg * 30;
+  updateConsumption(gasConfig, monthlyData);
+  updateConsumption(elecConfig);
+  updateConsumption(waterConfig);
+  
+  // inside updateConsumption or similar function
+const container = document.createElement("div");
+container.className = "progress-container";
 
-  // Correct cost calculations:
-  const periodTotalCost = consumption * unitPrice;    // cost for the measured consumption (period)
-  const estMonthlyCost = estMonthly * unitPrice;      // estimated monthly cost (based on estMonthly)
+const bar = document.createElement("div");
+bar.className = "progress-bar";
+bar.style.width = `${Math.min(percent, 120)}%`;  // actual usage bar
+bar.style.backgroundColor = percent > 100 ? "#ff6b6b" : "#5cb85c";
 
-  // Monthly limit lookup (based on current month)
-  const monthName = monthNamesTr[now.getMonth()];
-  const monthlyMap = readMonthlyAnalysis();
-  const monthlyAvgInfo = monthlyMap[monthName] || {monthlyAvg: 0, dailyAvg:0};
-  const monthlyAvg = monthlyAvgInfo.monthlyAvg || 0;
-  const limit = monthlyAvg * 1.25;
-  const overLimit = estMonthly > limit;
-  const extraVolume = overLimit ? (estMonthly - limit) : 0;
-  const extraPayment = extraVolume * unitPrice;
+const limitLine = document.createElement("div");
+limitLine.className = "progress-limit-line";     // 👈 adds the marker
 
-  const fmt = (v, dp=2) => {
-    if (v === null || typeof v === 'undefined' || isNaN(v)) return "--";
-    return Number(v).toLocaleString(undefined, {minimumFractionDigits: dp, maximumFractionDigits: dp});
-  };
-
-  // Write values to UI
-  document.getElementById('firstDateCell').textContent = new Date(firstDateStr).toLocaleString();
-  document.getElementById('nowDateCell').textContent = now.toLocaleString();
-  document.getElementById('firstReadingCell').textContent = fmt(firstReading, 2);
-  document.getElementById('lastReadingCell').textContent = fmt(lastReading, 2);
-  document.getElementById('daysCell').textContent = fmt(daysPassed, 4);
-  document.getElementById('consCell').textContent = fmt(consumption, 3);
-  document.getElementById('dailyAvgCell').textContent = fmt(dailyAvg, 4);
-  document.getElementById('estMonthlyCell').textContent = fmt(estMonthly, 3);
-  document.getElementById('unitPriceCell').textContent = fmt(unitPrice, 2);
-  document.getElementById('estMonthlyCostCell').textContent = fmt(estMonthlyCost, 2);
-  document.getElementById('periodTotalCostCell').textContent = fmt(periodTotalCost, 2);
-
-  // Limit note
-  const noteEl = document.getElementById('limitNote');
-  if (monthlyAvg <= 0) {
-    noteEl.innerHTML = `Monthly average for <strong>${monthName}</strong> not found (or zero) in analysis table. Limit check unavailable.`;
-  } else {
-    let note = `Current month: <strong>${monthName}</strong>. Monthly AVG = ${fmt(monthlyAvg,3)} m³. Limit (AVG +25%) = ${fmt(limit,3)} m³. `;
-    if (overLimit) {
-      note += `<span class="warning">⚠️ Estimated monthly (${fmt(estMonthly,3)} m³) exceeds limit. Extra volume: ${fmt(extraVolume,3)} m³ → Extra payment estimate: <span class="red">${fmt(extraPayment,2)} TL</span></span>`;
-    } else {
-      note += `Estimated monthly (${fmt(estMonthly,3)} m³) is within the limit.`;
-    }
-    noteEl.innerHTML = note;
-  }
+container.appendChild(bar);
+container.appendChild(limitLine);
+cell.appendChild(container);
+  
+  
+  
 }
 
-// initial render + periodic updates (every 30s)
+// Initial run + refresh every 30s
 recalcAndRender();
-setInterval(recalcAndRender, 30*1000);
+setInterval(recalcAndRender, 30 * 1000);
 </script>
 </body>
 </html>
