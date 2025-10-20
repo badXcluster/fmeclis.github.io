@@ -375,7 +375,7 @@ function updateConsumption(cfg, monthlyData={}) {
   if (dailyAvg > dailyLimit) {
     const overUsage = estMonthly - monthlyLimit;
     const extraCost = overUsage * cfg.unitPrice;
-    msg = `Over limit by ${fmt(overUsage,2)} units → Extra cost ≈ ${fmt(extraCost,2)} ₺`;
+    msg = `Estimated over limit by ${fmt(overUsage,2)} units → Extra cost ≈ ${fmt(extraCost,2)} ₺`;
   } else {
     msg = `Within limit. Estimated monthly usage ${fmt(estMonthly,2)} / limit ${fmt(monthlyLimit,2)}.`;
   }
