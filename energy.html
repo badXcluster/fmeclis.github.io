@@ -119,12 +119,44 @@
     </tbody>
   </table>
 
-  <!-- ENERJISA (placeholder) -->
-  <div class="section-title">ENERJISA (Electricity) — Placeholder</div>
-  <table>
-    <thead><tr><th>Label</th><th>Value</th></tr></thead>
+  <!-- ENERJISA -->
+  <div class="section-title">ENERJISA (Electricity) <div class="pill"></div></div>
+  <table id="elcTable">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>First Reading Date</th>
+        <th>First Reading</th>
+        <th>Last Reading Date</th>
+        <th>Last Reading</th>
+        <th>Days Passed</th>
+        <th>Consumption (m³)</th>
+        <th>Daily AVG (m³/d)</th>
+        <th>Estimated Monthly Cons. (m³)</th>
+        <th>Unit Price (m3/TL)</th>
+        <th>Estimated Monthly Cost (TL)</th>
+        <th>Actual Cost (TL)</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td>Note</td><td class="small">Currently empty — formatted for future use.</td></tr>
+      <tr>
+        <td class="small">Period</td>
+        <td id="EfirstDateCell">--</td>
+        <td id="EfirstReadingCell" class="num">--</td>
+        <td id="EnowDateCell">--</td>
+        <td id="ElastReadingCell" class="num">--</td>
+        <td id="EdaysCell" class="num">--</td>
+        <td id="EconsCell" class="num">--</td>
+        <td id="EdailyAvgCell" class="num">--</td>
+        <td id="EestMonthlyCell" class="num">--</td>
+        <td id="EunitPriceCell" class="num">--</td>
+        <td id="EestMonthlyCostCell" class="num">--</td>
+        <td id="EperiodTotalCostCell" class="num">--</td>
+      </tr>
+      <tr>
+        <td class="small">Note</td>
+        <td colspan="11" id="ElimitNote" class="small">Limit check will appear here.</td>
+      </tr>
     </tbody>
   </table>
 
