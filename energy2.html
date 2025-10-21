@@ -9,8 +9,8 @@
   <style>
   /* =============== ENERGY DASHBOARD SCOPED STYLES =============== */
   .energy-dashboard {
-    font-family: "Segoe UI", Arial, sans-serif;
-    padding: 65px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
     background:#f7f7f7;
     color:#111;
     display:none; /* hidden until access granted */
@@ -21,7 +21,7 @@
     padding:14px;
     border-radius:6px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    max-width:1200px;
+    max-width:1100px;
     margin:auto;
   }
 
@@ -33,80 +33,66 @@
   .energy-dashboard table {
     border-collapse: collapse;
     width:100%;
-    margin-bottom:1px;
+    margin-bottom:18px;
   }
 
   .energy-dashboard th, 
   .energy-dashboard td {
     border:1px solid #cfcfcf;
-    padding:4px 5px;
-    font-size:13px;
+    padding:8px 10px;
+    font-size:14px;
     vertical-align:middle;
   }
 
   .energy-dashboard th {
     background:#e6f0ff;
-    text-align:center;
-    font-weight:600;
+    text-align:left;
+    font-weight:700;
   }
 
-.energy-dashboard td.num {
-  text-align: center;
-  font-family: "Segoe UI", Arial, sans-serif; /* unified font */
-}
+  .energy-dashboard td.num {
+    text-align:right;
+    font-family: "Courier New", monospace;
+  }
 
-/* Center align all date cells */
-.energy-dashboard td[id$="DateCell"] {
-  text-align: center;
+  /* Center date values */
+  .energy-dashboard td[id*="DateCell"] {
+    text-align: center;
+  }
 
   /* Section titles */
   .energy-dashboard .section-title {
-    background: #024a4a;
-    color: #fff;
+    background: #bcd4fa;
+    color: #052d54;
     font-weight: 700;
     font-size: 15px;
-    padding: 15px;
-    margin: 10px 0 5px 0;
+    padding: 10px;
+    margin: 18px 0 8px 0;
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: 1px solid #8fb6ec;
   }
-  .energy-dashboard .section-title .pill {
-  font-weight: normal;    /* removes bold */
-  font-size: 13px;        /* smaller text */
-  color: #fff;            /* optional – softer color if you want */
-}
-
-.energy-dashboard .section-title.monthlyAnalysis {
-  padding: 10px;
-  font-size: 14px;
-  font-weight: normal;
-  background: rgb(210, 231, 236);
-  color: #111;
-  border: 1px solid #8fb6ec;
-}
 
   .energy-dashboard .section-title.electricity {
-    background: #024a4a;
-    color: #fff;
-    border: 1px solid #8fb6ec;
+    background: #f7dca8;
+    color: #5b3c00;
+    border: 1px solid #e8be6b;
   }
 
   .energy-dashboard .section-title.water {
-    background: #024a4a;
-    color: #fff;
-    border: 1px solid #8fb6ec;
+    background: #9de6b8;
+    color: #003a15;
+    border: 1px solid #68c992;
   }
 
   .energy-dashboard .muted { color:#666; font-size:13px; }
   .energy-dashboard .small { font-size:13px; color:#333; }
-  .energy-dashboard .footnote { font-size:12px; color:#555; margin-top:8px; }
-  
+
   .energy-dashboard .progress-container {
     position: relative;
-    width: 60%;
+    width: 75%;
     margin: 6px 0;
     background-color: #ddd;
     border-radius: 10px;
@@ -119,17 +105,17 @@
     transition: width 0.8s ease, background-color 0.8s ease;
   }
 
-   .energy-dashboard .progress-limit-line {
+  .energy-dashboard .progress-limit-line {
     position: absolute;
     left: 100%;
     top: 0;
     bottom: 0;
-    width: 5px;
+    width: 2px;
     background-color: #444;
     transform: translateX(-1px);
   }
 
-    @media (max-width:700px){
+  @media (max-width:700px){
     .energy-dashboard table, .energy-dashboard th, .energy-dashboard td {
       font-size:13px;
     }
@@ -356,7 +342,7 @@
   </footer>
 
   <script>
-  const ACCESS_CODE = "231";
+  const ACCESS_CODE = "FM2025";
 
   function checkAccess() {
     const entered = document.getElementById("accessCode").value.trim();
