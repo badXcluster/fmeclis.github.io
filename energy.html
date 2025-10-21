@@ -9,8 +9,8 @@
   <style>
   /* =============== ENERGY DASHBOARD SCOPED STYLES =============== */
   .energy-dashboard {
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 20px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    padding: 65px;
     background:#f7f7f7;
     color:#111;
   }
@@ -20,7 +20,7 @@
     padding:14px;
     border-radius:6px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    max-width:1100px;
+    max-width:1200px;
     margin:auto;
   }
 
@@ -32,53 +32,71 @@
   .energy-dashboard table {
     border-collapse: collapse;
     width:100%;
-    margin-bottom:18px;
+    margin-bottom:1px;
   }
 
   .energy-dashboard th, 
   .energy-dashboard td {
     border:1px solid #cfcfcf;
-    padding:8px 10px;
-    font-size:14px;
+    padding:4px 5px;
+    font-size:13px;
     vertical-align:middle;
   }
 
   .energy-dashboard th {
     background:#e6f0ff;
-    text-align:left;
-    font-weight:700;
+    text-align:center;
+    font-weight:600;
   }
 
-  .energy-dashboard td.num {
-    text-align:right;
-    font-family: "Courier New", monospace;
-  }
+.energy-dashboard td.num {
+  text-align: center;
+  font-family: "Segoe UI", Arial, sans-serif; /* unified font */
+}
 
+/* Center align all date cells */
+.energy-dashboard td[id$="DateCell"] {
+  text-align: center;
+}    
   /* Section titles */
   .energy-dashboard .section-title {
-    background: #bcd4fa;
-    color: #052d54;
+    background: #024a4a;
+    color: #fff;
     font-weight: 700;
     font-size: 15px;
-    padding: 10px;
-    margin: 18px 0 8px 0;
+    padding: 15px;
+    margin: 10px 0 5px 0;
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: 1px solid #8fb6ec;
   }
+.energy-dashboard .section-title .pill {
+  font-weight: normal;    /* removes bold */
+  font-size: 13px;        /* smaller text */
+  color: #fff;            /* optional – softer color if you want */
+}
 
+.energy-dashboard .section-title.monthlyAnalysis {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: normal;
+  background: rgb(210, 231, 236);
+  color: #111;
+  border: 1px solid #8fb6ec;
+}
+    
   .energy-dashboard .section-title.electricity {
-    background: #9de6b8;
-    color: #003a15;
-    border: 1px solid #e8be6b;
+    background: #024a4a;
+    color: #fff;
+    border: 1px solid #8fb6ec;
   }
 
   .energy-dashboard .section-title.water {
-    background: #9de6b8;
-    color: #003a15;
-    border: 1px solid #68c992;
+    background: #024a4a;
+    color: #fff;
+    border: 1px solid #8fb6ec;
   }
 
   .energy-dashboard .muted { color:#666; font-size:13px; }
@@ -144,17 +162,16 @@
   <!-- ======= DASHBOARD BODY ======= -->
   <main class="energy-dashboard">
     <div class="sheet">
-      <h1>🏠 Home — Energy Consumption Dashboard</h1>
-      <div class="meta">
-        <div class="pill">Auto-updates: <span id="nowText"></span></div>
-      </div>
+  
+      
 
       <!-- GAS -->
-      <div class="section-title">BAŞKENTGAZ</div>
+      <div class="section-title">BAŞKENTGAZ<div class="pill">Auto-updates: <span id="nowText"></span></div></div>
+
       <table id="gasTable">
         <thead>
           <tr>
-            <th>Label</th>
+            <th>Period</th>
             <th>First Reading Date</th>
             <th>First Reading</th>
             <th>Last Reading Date</th>
@@ -170,7 +187,7 @@
         </thead>
         <tbody>
           <tr>
-            <td class="small">Period</td>
+            <td class="small">Ekim25</td>
             <td id="gas_firstDateCell">--</td>
             <td id="gas_firstReadingCell" class="num">--</td>
             <td id="gas_nowDateCell">--</td>
@@ -196,7 +213,7 @@
       </table>
 
       <!-- MONTHLY GAS ANALYSIS -->
-      <div class="section-title">MONTHLY GAS ANALYSIS for past 5 years</div>
+      <div class="section-title monthlyAnalysis">MONTHLY GAS ANALYSIS for past 5 years</div>
       <table id="monthlyAnalysis">
         <tbody>
           <tr style="background-color:#eaf3ff;">
@@ -215,14 +232,14 @@
       <table id="elecTable">
         <thead>
           <tr>
-            <th>Label</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th>
+            <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th>
             <th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th>
             <th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="small">Period</td>
+            <td class="small">Ekim25</td>
             <td id="elec_firstDateCell">--</td>
             <td id="elec_firstReadingCell" class="num">--</td>
             <td id="elec_nowDateCell">--</td>
@@ -252,14 +269,14 @@
       <table id="waterTable">
         <thead>
           <tr>
-            <th>Label</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th>
+            <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th>
             <th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th>
             <th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="small">Period</td>
+            <td class="small">Ekim25</td>
             <td id="water_firstDateCell">--</td>
             <td id="water_firstReadingCell" class="num">--</td>
             <td id="water_nowDateCell">--</td>
