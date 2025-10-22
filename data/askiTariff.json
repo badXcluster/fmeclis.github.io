@@ -13,7 +13,7 @@ const askiTariff = {
       { min: 15, max: 30,  su: 87.87, atik: 43.94 },
       { min: 30, max: Infinity, su: 146.46, atik: 73.23 }
     ],
-    normal: [
+    "normal": [
       { min: 0,  max: 10,  su: 29.29, atik: 14.65 },
       { min: 10, max: 15,  su: 29.29, atik: 14.65 },
       { min: 15, max: 30,  su: 87.87, atik: 43.94 },
