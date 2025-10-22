@@ -9,10 +9,11 @@
   <style>
   /* =============== ENERGY DASHBOARD SCOPED STYLES =============== */
   .energy-dashboard {
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     padding: 65px;
     background:#f7f7f7;
     color:#111;
+    display:none; /* hidden until access granted */
   }
 
   .energy-dashboard .sheet {
@@ -49,15 +50,15 @@
     font-weight:600;
   }
 
-.energy-dashboard td.num {
-  text-align: center;
-  font-family: "Segoe UI", Arial, sans-serif; /* unified font */
-}
+  .energy-dashboard td.num {
+    text-align:center;
+    font-family: "Segoe UI", Arial, sans-serif; /* unified font */
+  }
 
 /* Center align all date cells */
 .energy-dashboard td[id$="DateCell"] {
   text-align: center;
-}    
+}
   /* Section titles */
   .energy-dashboard .section-title {
     background: #024a4a;
@@ -72,7 +73,7 @@
     align-items: center;
     border: 1px solid #8fb6ec;
   }
-.energy-dashboard .section-title .pill {
+  .energy-dashboard .section-title .pill {
   font-weight: normal;    /* removes bold */
   font-size: 13px;        /* smaller text */
   color: #fff;            /* optional – softer color if you want */
@@ -85,7 +86,7 @@
   background: rgb(210, 231, 236);
   color: #111;
   border: 1px solid #8fb6ec;
-}
+}  
     
   .energy-dashboard .section-title.electricity {
     background: #024a4a;
@@ -133,6 +134,46 @@
       font-size:13px;
     }
   }
+
+  /* =============== PASSWORD SCREEN =============== */
+  #accessScreen {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:70vh;
+    text-align:center;
+  }
+
+  #accessScreen input {
+    padding:10px 14px;
+    font-size:16px;
+    border:1px solid #aaa;
+    border-radius:6px;
+    margin-top:10px;
+  }
+
+  #accessScreen button {
+    margin-top:12px;
+    padding:8px 18px;
+    border:none;
+    border-radius:6px;
+    background-color:#007fa8;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+  }
+
+  #accessScreen button:hover {
+    background-color:#005f7a;
+  }
+
+  #wrongPass {
+    color:red;
+    margin-top:8px;
+    font-size:14px;
+    display:none;
+  }
   </style>
 </head>
 
@@ -159,11 +200,18 @@
     </div>
   </header>
 
+  <!-- ======= ACCESS SCREEN ======= -->
+  <div id="accessScreen">
+    <h2>🔒 Restricted Access</h2>
+    <p>Please enter the access code to view Private Area:</p>
+    <input type="password" id="accessCode" placeholder="Enter code..." />
+    <button onclick="checkAccess()">Enter</button>
+    <div id="wrongPass">Incorrect code. Please try again.</div>
+  </div>
+
   <!-- ======= DASHBOARD BODY ======= -->
-  <main class="energy-dashboard">
+  <main id="dashboard" class="energy-dashboard">
     <div class="sheet">
-  
-      
 
       <!-- GAS -->
       <div class="section-title">BAŞKENTGAZ<div class="pill">Auto-updates: <span id="nowText"></span></div></div>
@@ -307,7 +355,25 @@
     <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
   </footer>
 
-  <!-- ======= SCRIPT ======= -->
+  <script>
+  const ACCESS_CODE = "231";
+
+  function checkAccess() {
+    const entered = document.getElementById("accessCode").value.trim();
+    const screen = document.getElementById("accessScreen");
+    const dashboard = document.getElementById("dashboard");
+    const wrong = document.getElementById("wrongPass");
+
+    if (entered === ACCESS_CODE) {
+      screen.style.display = "none";
+      dashboard.style.display = "block";
+    } else {
+      wrong.style.display = "block";
+      setTimeout(() => { wrong.style.display = "none"; }, 2000);
+    }
+  }
+  </script>
+    <!-- ======= SCRIPT ======= -->
   <script>
   const gasConfig = {
     prefix: "gas",
@@ -421,5 +487,6 @@
 
   document.getElementById("nowText").textContent = new Date().toLocaleString();
   </script>
+  
 </body>
 </html>
