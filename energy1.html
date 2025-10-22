@@ -466,26 +466,7 @@
     barEl.style.width = percent+"%";
     barEl.style.backgroundColor = color;
 
-    if (cfg.limitType === "water") {
-      noteEl.innerHTML = "<em>Cost calculation for water to be added later.</em>";
-      return;
-    }
-
-    if (dailyAvg > dailyLimit) {
-      const over = estMonthly - monthlyLimit;
-      const extra = over * cfg.unitPrice;
-      noteEl.innerHTML = `<span style="color:${color};font-weight:600;">⚠ Above limit:</span> Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)}  → Est. Monthly ${fmt(estMonthly)} vs limit ${fmt(monthlyLimit)}. <span class='muted'>Extra cost ≈ ${fmt(extra)} TL</span>`;
-    } else {
-      noteEl.innerHTML = `<span style="color:${color};font-weight:600;">✓ Within limit</span> (Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)}, Est. Monthly ${fmt(estMonthly)} / ${fmt(monthlyLimit)})`;
-    }
-  }
-
-  const monthlyData = readMonthlyAnalysis();
-  updateConsumption(gasConfig, monthlyData);
-  updateConsumption(elecConfig);
-  updateConsumption(waterConfig);
-   <!-- tariff calculation for water --> 
-    if (cfg.limitType === "water") {
+if (cfg.limitType === "water") {
   // Load ASKİ tariff and calculate cost dynamically
   fetch("data/askiTariff.json")
     .then(res => res.json())
@@ -528,7 +509,21 @@
     });
   return;
 }
-<!-- tariff calculation for water -->
+
+    if (dailyAvg > dailyLimit) {
+      const over = estMonthly - monthlyLimit;
+      const extra = over * cfg.unitPrice;
+      noteEl.innerHTML = `<span style="color:${color};font-weight:600;">⚠ Above limit:</span> Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)}  → Est. Monthly ${fmt(estMonthly)} vs limit ${fmt(monthlyLimit)}. <span class='muted'>Extra cost ≈ ${fmt(extra)} TL</span>`;
+    } else {
+      noteEl.innerHTML = `<span style="color:${color};font-weight:600;">✓ Within limit</span> (Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)}, Est. Monthly ${fmt(estMonthly)} / ${fmt(monthlyLimit)})`;
+    }
+  }
+
+  const monthlyData = readMonthlyAnalysis();
+  updateConsumption(gasConfig, monthlyData);
+  updateConsumption(elecConfig);
+  updateConsumption(waterConfig);
+   
   document.getElementById("nowText").textContent = new Date().toLocaleString();
   </script>
   
