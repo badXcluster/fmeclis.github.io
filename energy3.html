@@ -47,6 +47,17 @@
   header.site-header { background:#fff; border-bottom:1px solid #eee; padding:10px 18px; }
   header .logo-title { display:flex; gap:10px; align-items:center; }
   header img{height:40px;}
+    
+     /* Sayfanın geri kalanı kendi renginde kalacak, ama header orijinal stil dosyasından beslenecek */
+  header.site-header {
+    background: transparent !important;
+  }
+
+  /* Eğer sayfanın body kısmına özel bir arka plan atadıysak, sadece ana içerik için uygula */
+  main.page-content {
+    background-color: #f8f9fa; /* veya eski energy dashboard'un arka planı */
+  }
+    
   </style>
 </head>
 <body>
