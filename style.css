@@ -178,7 +178,7 @@ body {
 }
 
 /* ADDED */
-.page-content { max-width: 900px; margin: 120px auto 60px; padding: 0 20px; text-align: center; }
+.page-content { max-width: 900px; margin: 100px auto 60px; padding: 0 20px; text-align: center; }
 .content-section h2 { color: #008080; font-size: 1.8rem; margin-bottom: 15px; }
 .content-section p { color: #444; font-size: 1rem; }
 /* ADDED */
