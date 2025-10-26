@@ -308,8 +308,8 @@ footer {
 }
 
 .country-header h3 {
-  color: #008080;
-  font-size: 1.4rem;
+  color: #333;
+  font-size: 1.2rem;
   margin: 0;
 }
 
@@ -322,10 +322,10 @@ footer {
 
 /* PHOTOS SECTION boşluk ayarı */
 .photos-country {
-  margin: 2rem auto; /* önceden 3rem idi, biraz yukarı alıyoruz */
+  margin: 1rem auto; /* önceden 3rem idi, biraz yukarı alıyoruz */
   max-width: 1000px;
-  border-bottom: 1px solid #ccc; /* alt çizgi (gri, ince) */
-  padding-bottom: 2rem; /* çizgiye biraz nefes alanı */
+  border-bottom: 1px solid #12629d; /* alt çizgi (gri, ince) */
+  padding-bottom: 1rem; /* çizgiye biraz nefes alanı */
   
   
 }
