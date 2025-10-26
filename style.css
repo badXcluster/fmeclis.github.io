@@ -170,7 +170,7 @@ body {
 .section-header {
   display: flex;
   align-items: baseline;
-  justify-content: center; /* sola yaslı */
+  justify-content: flex-start; /* sola yaslı */
   gap: 15px;
   flex-wrap: wrap;
 }
