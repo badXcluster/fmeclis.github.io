@@ -174,8 +174,8 @@ body {
   gap: 15px;
   flex-wrap: wrap;
   border-bottom: 1px solid #008080; /* TEAL çizgi */
-  /*padding-bottom: 1px; /* çizgiye biraz boşluk kod not olarak duruyor şu an SIFIR*/*/
-  margin-bottom: 20px; /* alttaki içerikten ayır */
+  padding-bottom: 1px; /* çizgiye biraz boşluk kod not olarak duruyor şu an SIFIR*/
+  margin-bottom: 2px; /* alttaki içerikten ayır */
 }
 
 .section-header h2 {
@@ -238,7 +238,7 @@ footer {
     }
 
     .photos-country h3 {
-      border-bottom: 2px solid #ccc;
+      /*border-bottom: 10px solid #ccc;*/
       padding-bottom: 0.3rem;
       margin-bottom: 0.8rem;
       color: #333;
@@ -290,5 +290,42 @@ footer {
 
     .photo-item:hover .photo-caption {
       opacity: 1;
+      
+    
     }
  /* --- Page-specific styling PHOTOS--- Added 20.10.2025*/
+
+/* COUNTRY HEADER (bayrak + ülke adı + açıklama) */
+.country-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 15px;
+  flex-wrap: wrap;
+  
+ 
+  margin-bottom: 1.5rem;
+}
+
+.country-header h3 {
+  color: #008080;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.country-header p {
+  color: #666;
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0;
+}
+
+/* PHOTOS SECTION boşluk ayarı */
+.photos-country {
+  margin: 2rem auto; /* önceden 3rem idi, biraz yukarı alıyoruz */
+  max-width: 1000px;
+  border-bottom: 1px solid #ccc; /* alt çizgi (gri, ince) */
+  padding-bottom: 2rem; /* çizgiye biraz nefes alanı */
+  
+  
+}
