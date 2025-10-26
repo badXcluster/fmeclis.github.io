@@ -186,6 +186,21 @@
 .contact-form.compact button:hover {
   background-color: #005fa3;
 }
+           
+           .contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  margin: 6px 0;
+}
+/*CSS ile ikonları hizalayalım:*/
+.contact-info i {
+  color: #008080; /* ikon rengi */
+  font-size: 1.1rem;
+  width: 20px; /* hizalama için sabit genişlik */
+  text-align: center;
+}
 
 /* Mobile adjustment */
 @media (max-width: 600px) {
@@ -197,6 +212,10 @@
   }
 }           
          </style>
+/*FONT AWESOME _____*/   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+/*FONT AWESOME ___________*/   
+
   
 </head>
 <body>
@@ -227,12 +246,15 @@
     
     <!-- LEFT SIDE -->
     <div class="contact-info">
-      <h2>Contact Information</h2>
-      <p><strong>Mobile:</strong> +90 532 578 9654</p>
-      <p><strong>Email:</strong> <a href="mailto:fatihmeclis@gmail.com">fatihmeclis@gmail.com</a></p>
-      <p><strong>Location:</strong> Ankara, Turkey</p>
+      <h2 style="color: #008080;text-align:center;" >Contact Information</h2>
 
-      <h4>Send a Message</h4>
+       <p><i class="fa-solid fa-phone"></i> +90 532 578 9654</p>
+  <p><i class="fa-solid fa-envelope"></i> 
+    <a href="mailto:fatihmeclis@gmail.com">fatihmeclis@gmail.com</a>
+  </p>
+  <p><i class="fa-solid fa-house"></i> Ankara, Turkey</p>
+
+      <h3 style="color: #008080;text-align:center;">Contact Form</h3>
       <form action="mailto:fatihmeclis@gmail.com" method="post" enctype="text/plain" class="contact-form compact">
   <div class="form-row">
     <label for="name">Your Name:</label>
