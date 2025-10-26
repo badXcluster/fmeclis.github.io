@@ -173,6 +173,9 @@ body {
   justify-content: flex-start; /* sola yaslı */
   gap: 15px;
   flex-wrap: wrap;
+  border-bottom: 2px solid #008080; /* TEAL çizgi */
+  padding-bottom: 8px; /* çizgiye biraz boşluk */
+  margin-bottom: 20px; /* alttaki içerikten ayır */
 }
 
 .section-header h2 {
