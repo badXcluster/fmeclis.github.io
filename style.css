@@ -346,5 +346,33 @@ footer {
   opacity: 1;
   text-decoration: underline;
 }
-/* Hidden link ayarı */
+
+/* 🔐 Vault Link – Gizemli Stil */
+.vault-link {
+  position: relative;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(48, 213, 200, 0.2);
+  transition: all 0.3s ease;
+  animation: vaultGlow 3s infinite alternate ease-in-out;
+}
+
+/* Hover efekti */
+.vault-link:hover {
+  color: #30D5C8;
+  text-shadow: 0 0 8px rgba(48, 213, 200, 0.9);
+}
+
+/* Hafif parlayan animasyon */
+@keyframes vaultGlow {
+  0% {
+    text-shadow: 0 0 4px rgba(48, 213, 200, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+  }
+  100% {
+    text-shadow: 0 0 12px rgba(48, 213, 200, 0.8);
+    color: #30D5C8;
+  }
+}
 
