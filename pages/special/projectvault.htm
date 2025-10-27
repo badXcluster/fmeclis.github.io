@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Vault - Fatih Meclis</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    /* === Project Vault özel teması === */
+    body {
+      background-color: #0d1b1e;
+      color: #20b2aa;
+      font-family: "Courier New", monospace;
+      text-align: center;
+      padding-top: 120px;
+    }
+
+    .vault-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      border: 1px solid #20b2aa;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(32,178,170,0.4);
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .subtext {
+      color: #7fffd4;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+
+    .access-btn {
+      background-color: transparent;
+      border: 1px solid #20b2aa;
+      color: #20b2aa;
+      padding: 10px 25px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .access-btn:hover {
+      background-color: #20b2aa;
+      color: #0d1b1e;
+    }
+
+    .access-log {
+      margin-top: 25px;
+      color: #98f5e1;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    /* access granted / denied efektleri */
+    .granted {
+      color: #00ffcc;
+      text-shadow: 0 0 8px #00ffcc;
+      animation: flicker 1.5s infinite alternate;
+    }
+
+    .denied {
+      color: #ff5555;
+      text-shadow: 0 0 8px #ff0000;
+      animation: flicker 1s infinite alternate;
+    }
+
+    @keyframes flicker {
+      from { opacity: 1; }
+      to { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="mainHeader">
+    <div class="header-content">
+      <div class="logo-title">
+        <img src="../../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+        <div class="site-info">
+          <h1>Fatih Meclis</h1>
+          <p>Personal Website & Engineering Portfolio</p>
+        </div>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../photos/photos.htm">PHOTOS</a></li>
+          <li><a href="../myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="projectvault.htm" class="active">PROJECT VAULT</a></li>
+          <li><a href="../contact/contact.htm">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="vault-container">
+      <h1>PROJECT VAULT</h1>
+      <p class="subtext">Authorized personnel only.</p>
+      <button class="access-btn" onclick="requestAccess()">Request Access</button>
+      <div class="access-log" id="accessLog"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function requestAccess() {
+      const code = prompt("Enter Access Code:");
+      const accessLog = document.getElementById("accessLog");
+      accessLog.style.display = "block";
+
+      if (code === "FM-2025") {
+        accessLog.innerHTML = "<span class='granted'>ACCESS GRANTED</span><br>Welcome to the Vault...";
+        setTimeout(() => {
+          window.location.href = "vaultcontent.htm";
+        }, 2000);
+      } else {
+        accessLog.innerHTML = "<span class='denied'>ACCESS DENIED</span><br>Unauthorized attempt logged.";
+      }
+    }
+  </script>
+</body>
+</html>
