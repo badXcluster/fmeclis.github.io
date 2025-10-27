@@ -1,86 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Vault - Fatih Meclis</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vault Content - Private Projects</title>
   <link rel="stylesheet" href="../../style.css">
   <style>
-    /* === Project Vault özel teması === */
+    /* === VAULT PAGE DARK MODE === */
     body {
-      background-color: #0d1b1e;
-      color: #20b2aa;
-      font-family: "Courier New", monospace;
+      background-color: #0a0f0f;
+      color: #e0f2f1;
+    }
+
+    .page-content {
+      max-width: 1200px;
+      margin: 120px auto 60px;
+      padding: 0 20px;
       text-align: center;
-      padding-top: 120px;
     }
 
-    .vault-container {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      border: 1px solid #20b2aa;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(32,178,170,0.4);
-      background-color: rgba(0, 0, 0, 0.3);
+    .content-section h2, 
+    .content-section p {
+      color: #30D5C8;
     }
 
-    h1 {
-      font-size: 2rem;
+    /* --- Vault grid layout --- */
+    .vault-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    /* --- Neon project cards --- */
+    .project-card {
+      background: rgba(0, 20, 20, 0.8);
+      border: 1px solid rgba(48, 213, 200, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 12px rgba(48, 213, 200, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 22px rgba(48, 213, 200, 0.4);
+    }
+
+    .project-card .title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #30D5C8;
       margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
     }
 
-    .subtext {
-      color: #7fffd4;
-      margin-bottom: 30px;
-      font-style: italic;
+    .project-card .teaser {
+      color: #a0b0af;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      min-height: 48px;
+      filter: blur(2px);
+      transition: filter 0.4s ease;
     }
 
-    .access-btn {
-      background-color: transparent;
-      border: 1px solid #20b2aa;
-      color: #20b2aa;
-      padding: 10px 25px;
-      font-size: 1rem;
-      border-radius: 5px;
+    .project-card:hover .teaser {
+      filter: none;
+    }
+
+    .enter-btn {
+      background: #30D5C8;
+      color: #000;
+      font-weight: 600;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    .access-btn:hover {
-      background-color: #20b2aa;
-      color: #0d1b1e;
+    .enter-btn:hover {
+      background: #00ffff;
+      color: #001010;
     }
 
-    .access-log {
-      margin-top: 25px;
-      color: #98f5e1;
-      font-size: 0.9rem;
-      display: none;
+    .enter-btn[disabled] {
+      background: #444;
+      color: #888;
+      cursor: not-allowed;
     }
 
-    /* access granted / denied efektleri */
-    .granted {
-      color: #00ffcc;
-      text-shadow: 0 0 8px #00ffcc;
-      animation: flicker 1.5s infinite alternate;
+    .status {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #999;
     }
 
-    .denied {
-      color: #ff5555;
-      text-shadow: 0 0 8px #ff0000;
-      animation: flicker 1s infinite alternate;
+    /* --- Glow Scan Effect for cards --- */
+    .project-card::after {
+      content: "";
+      position: absolute;
+      top: -60%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(48, 213, 200, 0.15),
+        transparent
+      );
+      transform: rotate(25deg);
+      animation: vaultScan 6s infinite linear;
     }
 
-    @keyframes flicker {
-      from { opacity: 1; }
-      to { opacity: 0.6; }
+    @keyframes vaultScan {
+      0% { transform: translateY(-150%) rotate(25deg); opacity: 0; }
+      20% { opacity: 0.6; }
+      50% { opacity: 0; }
+      100% { transform: translateY(150%) rotate(25deg); opacity: 0; }
     }
+
+    /* Footer dark mode uyumu */
+    footer {
+      background-color: #061212;
+      border-top: 1px solid #30D5C8;
+      color: #a0b0af;
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- Header (standart kaldı) -->
   <header class="site-header" id="mainHeader">
     <div class="header-content">
       <div class="logo-title">
@@ -95,42 +148,84 @@
           <li><a href="../../index.html">HOME</a></li>
           <li><a href="../photos/photos.htm">PHOTOS</a></li>
           <li><a href="../myworks/myworks.htm">MY WORKS</a></li>
-          <li><a href="projectvault.htm" class="active">PROJECT VAULT</a></li>
+          <li><a href="vaultcontent.htm" class="active">VAULT</a></li>
           <li><a href="../contact/contact.htm">CONTACT</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
-    <div class="vault-container">
-      <h1>PROJECT VAULT</h1>
-      <p class="subtext">Authorized personnel only.</p>
-      <button class="access-btn" onclick="requestAccess()">Request Access</button>
-      <div class="access-log" id="accessLog"></div>
-    </div>
-    <br>
+  <main class="page-content">
+    <section class="content-section">
+      <div class="section-header">
+        <h2>PROJECT VAULT</h2>
+        <p>Authorized Access Only</p>
+      </div>
+
+      <div class="vault-grid" id="vaultGrid"></div>
+    </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
+    <p>&copy; 2025 Fatih Meclis. Restricted Access Area.</p>
   </footer>
 
   <script>
-    function requestAccess() {
-      const code = prompt("Enter Access Code:");
-      const accessLog = document.getElementById("accessLog");
-      accessLog.style.display = "block";
+    /* === Project List === */
+    const PROJECTS = [
+      { id: 'p1', title: 'Energy Consumption Dashboard', teaser: 'Ev kullanıcıları için enerji tüketimi izleme arayüzü.', redirect: 'projects/energy/index.html', password: 'energy-user' },
+      { id: 'p2', title: 'Project Alpha', teaser: 'Yöneticiler için proje izleme ve raporlama sistemi.', redirect: 'projects/alpha/index.html', password: 'alpha-secret' },
+      { id: 'p3', title: 'Project Beta', teaser: 'Saha mühendisliği ve günlük veri kayıt sistemi.', redirect: 'projects/beta/index.html', password: 'beta2025' },
+      { id: 'p4', title: 'Thermal Efficiency Analyzer', teaser: 'Endüstriyel enerji verimlilik analiz aracı.', redirect: 'projects/efficiency/index.html', password: 'thermalX' },
+      { id: 'p5', title: 'Structural Load Calculator', teaser: 'Statik hesaplamalar için mühendislik scriptleri.', redirect: 'projects/loadcalc/index.html', password: 'struct2025' },
+      { id: 'p6', title: 'Research Archive', teaser: 'Teknik raporlar, saha notları ve kaynaklar.', redirect: 'projects/archive/index.html', password: 'archiveFM' },
+    ];
 
-      if (code === "FM-2025") {
-        accessLog.innerHTML = "<span class='granted'>ACCESS GRANTED</span><br>Welcome to the Vault...";
-        setTimeout(() => {
-          window.location.href = "vaultcontent.htm";
-        }, 2000);
-      } else {
-        accessLog.innerHTML = "<span class='denied'>ACCESS DENIED</span><br>Unauthorized attempt logged.";
-      }
+    const MAX_ATTEMPTS = 5;
+    const grid = document.getElementById('vaultGrid');
+
+    function loadAttempts(projId) {
+      const all = JSON.parse(localStorage.getItem('vaultAttempts') || '{}');
+      return all[projId] || 0;
     }
+    function saveAttempt(projId, count) {
+      const all = JSON.parse(localStorage.getItem('vaultAttempts') || '{}');
+      all[projId] = count;
+      localStorage.setItem('vaultAttempts', JSON.stringify(all));
+    }
+
+    function buildCard(p) {
+      const el = document.createElement('div');
+      el.className = 'project-card';
+      const attempts = loadAttempts(p.id);
+      const locked = attempts >= MAX_ATTEMPTS;
+
+      el.innerHTML = `
+        <div class="title">${p.title}</div>
+        <div class="teaser">${p.teaser}</div>
+        <button class="enter-btn" id="${p.id}-btn" ${locked ? 'disabled' : ''}>Enter</button>
+        <div class="status">${locked ? 'Locked due to failed attempts.' : (attempts ? attempts + ' failed attempt(s)' : '')}</div>
+      `;
+
+      el.querySelector('.enter-btn').addEventListener('click', () => {
+        if (locked) return;
+        const code = prompt('Enter access code for "' + p.title + '":');
+        if (code === null) return;
+        if (code === p.password) {
+          alert('Access granted. Redirecting...');
+          window.location.href = p.redirect;
+        } else {
+          let c = loadAttempts(p.id) + 1;
+          saveAttempt(p.id, c);
+          el.querySelector('.status').textContent = c >= MAX_ATTEMPTS ? 'Locked due to failed attempts.' : `${c} failed attempt(s)`;
+          if (c < MAX_ATTEMPTS) alert('Access denied.');
+          else el.querySelector('.enter-btn').disabled = true;
+        }
+      });
+      return el;
+    }
+
+    PROJECTS.forEach(p => grid.appendChild(buildCard(p)));
   </script>
 </body>
 </html>
