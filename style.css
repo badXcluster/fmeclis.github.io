@@ -334,7 +334,7 @@ footer {
 .hidden-link {
   opacity: 0.5;
   font-size: 0.9rem;
-  text-align: center;
+  text-align: left;
   margin-top: 40px;
 }
 .hidden-link a {
