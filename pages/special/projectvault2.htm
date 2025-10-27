@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vault Content - Private Projects</title>
+  <link rel="stylesheet" href="../../style.css"> <!-- mevcut stilini kullan -->
+  <style>
+    /* Basit proje kart stili (vault uyumlu) */
+    .vault-grid {
+      max-width: 1100px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 18px;
+      padding: 0 20px;
+    }
+    .project-card {
+      background: #f7f7f7;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card .title {
+      color: #008080;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .project-card .teaser {
+      color: #444;
+      margin-bottom: 12px;
+      min-height: 48px;
+    }
+    .project-card .enter-btn {
+      background: #008080;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .project-card .enter-btn[disabled] {
+      background: #a9d6d4;
+      cursor: not-allowed;
+    }
+
+    /* küçük durum mesajları */
+    .status {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* teaser blur (isteğe bağlı: gerçek içeriği gizleme hissi) */
+    .teaser-blur {
+      filter: blur(3px);
+      transition: filter 0.4s;
+    }
+    .unblur {
+      filter: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- header / footer senin mevcut yapınla uyumlu -->
+  <header class="site-header" id="mainHeader">
+    <div class="header-content">
+      <div class="logo-title">
+        <img src="../../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+        <div class="site-info">
+          <h1>Fatih Meclis</h1>
+          <p>Personal Website & Engineering Portfolio</p>
+        </div>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../photos/photos.htm">PHOTOS</a></li>
+          <li><a href="../myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="projectvault.htm">PROJECT VAULT</a></li>
+          <li><a href="../contact/contact.htm">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <section class="content-section">
+      <div class="section-header">
+        <h2>Vault Projects</h2>
+        <p>Restricted project list — click a card to request access</p>
+      </div>
+
+      <div class="vault-grid" id="vaultGrid">
+        <!-- Kartlar JS ile render edilecek (kolayca düzenlenebilir) -->
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
+  </footer>
+
+  <script>
+    /********* CONFIG: projeleri buraya tanımla *********
+     * her proje: { id, title, teaser, redirect }
+     * redirect: erişim doğruysa yönlendirilecek sayfa (ör: 'projects/energy/index.html')
+     * password: burada örnek, değiştir ve güçlü yap
+     **************************************************/
+    const PROJECTS = [
+      { id: 'proj-energy', title: 'Energy Consumption Dashboard', teaser: 'Ev kullanıcıları için enerji tüketim izleme arayüzü (özet & grafikler).', redirect: 'projects/energy/index.html', password: 'energy-user' },
+      { id: 'proj-current', title: 'Project Alpha - Internal', teaser: 'Yöneticiler ve mühendisler için proje detayları, raporlar ve dokümanlar.', redirect: 'projects/alpha/index.html', password: 'alpha-secret' },
+      { id: 'proj-2', title: 'Project Beta - Field', teaser: 'Saha verileri ve günlük raporlar. Yetkili personel erişimi.', redirect: 'projects/beta/index.html', password: 'beta2025' },
+      // istersen daha ekle
+    ];
+
+    // Maksimum yanlış deneme sayısı her proje için
+    const MAX_ATTEMPTS = 5;
+
+    // Vault grid render
+    const grid = document.getElementById('vaultGrid');
+
+    function loadAttempts(projId) {
+      const all = JSON.parse(localStorage.getItem('vaultAttempts') || '{}');
+      return all[projId] || 0;
+    }
+    function saveAttempt(projId, count) {
+      const all = JSON.parse(localStorage.getItem('vaultAttempts') || '{}');
+      all[projId] = count;
+      localStorage.setItem('vaultAttempts', JSON.stringify(all));
+    }
+
+    function logAccess(projId, attemptCode, success) {
+      const log = JSON.parse(localStorage.getItem('vaultLog') || '[]');
+      log.push({ project: projId, time: new Date().toISOString(), codeAttempt: attemptCode, success: !!success });
+      localStorage.setItem('vaultLog', JSON.stringify(log));
+    }
+
+    function buildCard(p) {
+      const el = document.createElement('div');
+      el.className = 'project-card';
+      el.id = p.id;
+      const attempts = loadAttempts(p.id);
+      const locked = attempts >= MAX_ATTEMPTS;
+
+      el.innerHTML = `
+        <div class="title">${p.title}</div>
+        <div class="teaser teaser-blur" id="${p.id}-teaser">${p.teaser}</div>
+        <button class="enter-btn" id="${p.id}-btn" ${locked ? 'disabled' : ''}>Enter</button>
+        <div class="status" id="${p.id}-status">${locked ? 'Temporarily locked due to multiple failed attempts.' : (attempts ? (attempts + ' failed attempt(s)') : '')}</div>
+      `;
+
+      // Button handler
+      el.querySelector('.enter-btn').addEventListener('click', () => {
+        if (locked) return;
+        const code = prompt('Enter access code for ' + p.title + ':');
+        if (code === null) return; // kullanıcı iptal etti
+
+        // Basit kontrol (case-sensitive)
+        if (code === p.password) {
+          // başarılı
+          logAccess(p.id, code, true);
+          // (isteğe bağlı) teaser'ı aç (unblur) - veya redirect et
+          // burada önce log, sonra redirect
+          alert('Access granted. Redirecting...');
+          window.location.href = p.redirect;
+        } else {
+          // başarısız
+          logAccess(p.id, code, false);
+          let current = loadAttempts(p.id);
+          current++;
+          saveAttempt(p.id, current);
+          const statusEl = document.getElementById(p.id + '-status');
+          statusEl.textContent = current + ' failed attempt(s)';
+          if (current >= MAX_ATTEMPTS) {
+            // kilitle
+            const btn = document.getElementById(p.id + '-btn');
+            btn.disabled = true;
+            statusEl.textContent = 'Temporarily locked due to multiple failed attempts.';
+          } else {
+            alert('Access denied.');
+          }
+        }
+      });
+
+      return el;
+    }
+
+    // render tüm kartları
+    PROJECTS.forEach(p => grid.appendChild(buildCard(p)));
+
+    /***** Admin helper: console'dan logları görmek için *****/
+    window.vaultAdmin = {
+      getLog() { return JSON.parse(localStorage.getItem('vaultLog') || '[]'); },
+      clearLog() { localStorage.removeItem('vaultLog'); localStorage.removeItem('vaultAttempts'); alert('Vault logs cleared'); }
+    };
+  </script>
+</body>
+</html>
