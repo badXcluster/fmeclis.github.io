@@ -397,7 +397,7 @@ footer {
   background: linear-gradient(90deg, transparent, #30D5C8, transparent);
   opacity: 0;
   transform: translateY(0);
-  animation: vaultScan 3s infinite ease-in-out;
+  animation: vaultScan 4s infinite ease-in-out;
 }
 
 /* Tarama efekti animasyonu */
