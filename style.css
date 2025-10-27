@@ -348,12 +348,13 @@ footer {
 }
 
 /* 🔐 Vault Link – Gizemli Stil */
+/* 🔐 Vault Link – Scan Glow Efekti */
 .vault-link {
   position: relative;
   color: rgba(255, 255, 255, 0.7);
   font-style: italic;
   letter-spacing: 1px;
-  text-shadow: 0 0 5px rgba(48, 213, 200, 0.2);
+  text-shadow: 0 0 5px rgba(48, 213, 200, 0.3);
   transition: all 0.3s ease;
   animation: vaultGlow 3s infinite alternate ease-in-out;
 }
@@ -361,7 +362,7 @@ footer {
 /* Hover efekti */
 .vault-link:hover {
   color: #30D5C8;
-  text-shadow: 0 0 8px rgba(48, 213, 200, 0.9);
+  text-shadow: 0 0 10px rgba(48, 213, 200, 0.9);
 }
 
 /* Hafif parlayan animasyon */
@@ -376,3 +377,41 @@ footer {
   }
 }
 
+@keyframes vaultGlow {
+  0% {
+    text-shadow: 0 0 4px rgba(48, 213, 200, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 12px rgba(48, 213, 200, 0.8);
+  }
+}
+
+/* 🔎 Scan Glow efekti — üstten alta geçen ince ışık çizgisi */
+.vault-link::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #30D5C8, transparent);
+  opacity: 0;
+  transform: translateY(0);
+  animation: vaultScan 6s infinite ease-in-out;
+}
+
+/* Tarama efekti animasyonu */
+@keyframes vaultScan {
+  0%, 90% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  95% {
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
