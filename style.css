@@ -329,3 +329,22 @@ footer {
   
   
 }
+
+/* Hidden link ayarı */
+.hidden-link {
+  opacity: 0.5;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 40px;
+}
+.hidden-link a {
+  color: #008080;
+  text-decoration: none;
+  font-style: italic;
+}
+.hidden-link a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+/* Hidden link ayarı */
+
