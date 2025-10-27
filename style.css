@@ -299,7 +299,7 @@ footer {
 .country-header {
   display: flex;
   align-items: baseline;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 15px;
   flex-wrap: wrap;
   
