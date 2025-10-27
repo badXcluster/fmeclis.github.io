@@ -170,7 +170,7 @@ body {
 .section-header {
   display: flex;
   align-items: baseline;
-  justify-content: flex-start; /* sola yaslı */
+  justify-content: center; /* sayfa başlığı sola yaslı: flex-start, merkez: center */
   gap: 15px;
   flex-wrap: wrap;
   border-bottom: 1px solid #008080; /* TEAL çizgi */
@@ -299,7 +299,7 @@ footer {
 .country-header {
   display: flex;
   align-items: baseline;
-  justify-content: center;
+  justify-content: center; 
   gap: 15px;
   flex-wrap: wrap;
   
