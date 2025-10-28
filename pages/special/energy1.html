@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Energy Dashboard - Fatih Meclis</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../../style.css" />
 
   <style>
   /* =============== ENERGY DASHBOARD SCOPED STYLES =============== */
@@ -182,7 +182,7 @@
   <header class="site-header" id="mainHeader">
     <div class="header-content">
       <div class="logo-title">
-        <img src="images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+        <img src="../../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
         <div class="site-info">
           <h1>Fatih Meclis</h1>
           <p>Personal Website & Engineering Portfolio</p>
@@ -190,24 +190,20 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="pages/photos/photos.htm">PHOTOS</a></li>
-          <li><a href="pages/myworks/myworks.htm">MY WORKS</a></li>
-          <li><a href="pages/contact/contact.htm">CONTACT</a></li>
-          <li><a href="pages/blog/blog.htm">BLOG</a></li>
+          <li><a href="index.html" class="active">HOME</a></li>
+		  <li><a href="./pages/photos/photos.htm">PHOTOS</a></li>
+		  <li><a href="./pages/myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="./pages/special/projectvault.htm" class="vault-link" target="_blank">🔒 VAULT</a></li>          
+          <li><a href="./pages/aboutme/aboutme.htm">ABOUT ME</a></li>
+          <li><a href="./pages/blog/blog.htm">BLOG</a></li>
+          <li><a href="./pages/contact/contact.htm">CONTACT</a></li>
+          
+                   
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- ======= ACCESS SCREEN ======= -->
-  <div id="accessScreen">
-    <h2>🔒 Restricted Access</h2>
-    <p>Please enter the access code to view Private Area:</p>
-    <input type="password" id="accessCode" placeholder="Enter code..." />
-    <button onclick="checkAccess()">Enter</button>
-    <div id="wrongPass">Incorrect code. Please try again.</div>
-  </div>
 
   <!-- ======= DASHBOARD BODY ======= -->
   <main id="dashboard" class="energy-dashboard">
@@ -356,22 +352,6 @@
   </footer>
 
   <script>
-  const ACCESS_CODE = "231";
-
-  function checkAccess() {
-    const entered = document.getElementById("accessCode").value.trim();
-    const screen = document.getElementById("accessScreen");
-    const dashboard = document.getElementById("dashboard");
-    const wrong = document.getElementById("wrongPass");
-
-    if (entered === ACCESS_CODE) {
-      screen.style.display = "none";
-      dashboard.style.display = "block";
-    } else {
-      wrong.style.display = "block";
-      setTimeout(() => { wrong.style.display = "none"; }, 2000);
-    }
-  }
   </script>
     <!-- ======= SCRIPT ======= -->
   <script>
