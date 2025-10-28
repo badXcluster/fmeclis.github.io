@@ -204,15 +204,6 @@
     </div>
   </header>
 
-  <!-- ======= ACCESS SCREEN ======= -->
-  <div id="accessScreen">
-    <h2>🔒 Restricted Access</h2>
-    <p>Please enter the access code to view Private Area:</p>
-    <input type="password" id="accessCode" placeholder="Enter code..." />
-    <button onclick="checkAccess()">Enter</button>
-    <div id="wrongPass">Incorrect code. Please try again.</div>
-  </div>
-
   <!-- ======= DASHBOARD BODY ======= -->
   <main id="dashboard" class="energy-dashboard">
     <div class="sheet">
@@ -359,24 +350,6 @@
     <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
   </footer>
 
-  <script>
-  const ACCESS_CODE = "231";
-
-  function checkAccess() {
-    const entered = document.getElementById("accessCode").value.trim();
-    const screen = document.getElementById("accessScreen");
-    const dashboard = document.getElementById("dashboard");
-    const wrong = document.getElementById("wrongPass");
-
-    if (entered === ACCESS_CODE) {
-      screen.style.display = "none";
-      dashboard.style.display = "block";
-    } else {
-      wrong.style.display = "block";
-      setTimeout(() => { wrong.style.display = "none"; }, 2000);
-    }
-  }
-  </script>
     <!-- ======= SCRIPT ======= -->
   <script>
   const gasConfig = {
