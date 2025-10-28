@@ -13,7 +13,7 @@
     padding: 65px;
     background:#f7f7f7;
     color:#111;
-    display:none; /* hidden until access granted */
+    /*display:none; /* hidden until access granted */
   }
 
   .energy-dashboard .sheet {
@@ -135,45 +135,7 @@
     }
   }
 
-  /* =============== PASSWORD SCREEN =============== */
-  #accessScreen {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    height:70vh;
-    text-align:center;
-  }
-
-  #accessScreen input {
-    padding:10px 14px;
-    font-size:16px;
-    border:1px solid #aaa;
-    border-radius:6px;
-    margin-top:10px;
-  }
-
-  #accessScreen button {
-    margin-top:12px;
-    padding:8px 18px;
-    border:none;
-    border-radius:6px;
-    background-color:#007fa8;
-    color:white;
-    cursor:pointer;
-    font-size:15px;
-  }
-
-  #accessScreen button:hover {
-    background-color:#005f7a;
-  }
-
-  #wrongPass {
-    color:red;
-    margin-top:8px;
-    font-size:14px;
-    display:none;
-  }
+ 
   </style>
 </head>
 
@@ -356,7 +318,7 @@
     prefix: "gas",
     firstDateStr: "2025-10-06T11:19:57",
     firstReading: 6982,
-    lastReading: 7050.20,
+    lastReading: 7061.42,
     unitPrice: 11.50,
     limitType: "gas"
   };
@@ -365,7 +327,7 @@
     prefix: "elec",
     firstDateStr: "2025-10-01T09:00:00",
     firstReading: 1798.723,
-    lastReading: 1902.55,
+    lastReading: 1926.83,
     unitPrice: 2.60,
     dailyLimit: 5.65,
     monthlyLimit: 169.5,
@@ -374,9 +336,9 @@
 
   const waterConfig = {
     prefix: "water",
-    firstDateStr: "2025-10-08T08:20:00",
-    firstReading: 284.2,
-    lastReading: 288.9,
+    firstDateStr: "2025-10-07T08:20:00",
+    firstReading: 951,
+    lastReading: 963,
     unitPrice: 25.00,
     dailyLimit: 0.46,
     monthlyLimit: 13.8,
