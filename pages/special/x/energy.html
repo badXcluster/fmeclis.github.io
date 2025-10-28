@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy Dashboard - Fatih Meclis</title>
+  <link rel="stylesheet" href="../../../style.css" />
+
+  <style>
+  /* =============== ENERGY DASHBOARD SCOPED STYLES =============== */
+  .energy-dashboard {
+    font-family: "Segoe UI", Arial, sans-serif;
+    padding: 65px;
+    background:#f7f7f7;
+    color:#111;
+    /*display:none; /* hidden until access granted */
+  }
+
+  .energy-dashboard .sheet {
+    background: white;
+    padding:14px;
+    border-radius:6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    max-width:1200px;
+    margin:auto;
+  }
+
+  .energy-dashboard h1 {
+    margin:0 0 10px 0;
+    font-size:20px;
+  }
+
+  .energy-dashboard table {
+    border-collapse: collapse;
+    width:100%;
+    margin-bottom:1px;
+  }
+
+  .energy-dashboard th, 
+  .energy-dashboard td {
+    border:1px solid #cfcfcf;
+    padding:4px 5px;
+    font-size:13px;
+    vertical-align:middle;
+  }
+
+  .energy-dashboard th {
+    background:#e6f0ff;
+    text-align:center;
+    font-weight:600;
+  }
+
+  .energy-dashboard td.num {
+    text-align:center;
+    font-family: "Segoe UI", Arial, sans-serif; /* unified font */
+  }
+
+/* Center align all date cells */
+.energy-dashboard td[id$="DateCell"] {
+  text-align: center;
+}
+  /* Section titles */
+  .energy-dashboard .section-title {
+    background: #024a4a;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 15px;
+    margin: 10px 0 5px 0;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #8fb6ec;
+  }
+  .energy-dashboard .section-title .pill {
+  font-weight: normal;    /* removes bold */
+  font-size: 13px;        /* smaller text */
+  color: #fff;            /* optional – softer color if you want */
+}
+
+.energy-dashboard .section-title.monthlyAnalysis {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: normal;
+  background: rgb(210, 231, 236);
+  color: #111;
+  border: 1px solid #8fb6ec;
+}  
+    
+  .energy-dashboard .section-title.electricity {
+    background: #024a4a;
+    color: #fff;
+    border: 1px solid #8fb6ec;
+  }
+
+  .energy-dashboard .section-title.water {
+    background: #024a4a;
+    color: #fff;
+    border: 1px solid #8fb6ec;
+  }
+
+  .energy-dashboard .muted { color:#666; font-size:13px; }
+  .energy-dashboard .small { font-size:13px; color:#333; }
+  .energy-dashboard .footnote { font-size:12px; color:#555; margin-top:8px; }
+
+  .energy-dashboard .progress-container {
+    position: relative;
+    width: 60%;
+    margin: 6px 0;
+    background-color: #ddd;
+    border-radius: 10px;
+    height: 12px;
+  }
+
+  .energy-dashboard .progress-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.8s ease, background-color 0.8s ease;
+  }
+
+  .energy-dashboard .progress-limit-line {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: #444;
+    transform: translateX(-1px);
+  }
+
+  @media (max-width:700px){
+    .energy-dashboard table, .energy-dashboard th, .energy-dashboard td {
+      font-size:13px;
+    }
+  }
+
+ 
+  </style>
+</head>
+
+<body>
+  <!-- ======= SITE HEADER ======= -->
+  <header class="site-header" id="mainHeader">
+    <div class="header-content">
+      <div class="logo-title">
+        <img src="../../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+        <div class="site-info">
+          <h1>Fatih Meclis</h1>
+          <p>Personal Website & Engineering Portfolio</p>
+        </div>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../../index.html">HOME</a></li>
+		  <li><a href="../../pages/photos/photos.htm">PHOTOS</a></li>
+		  <li><a href="../../pages/myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="../../pages/special/projectvault.htm" class="vault-link" target="_blank">🔒 VAULT</a></li>          
+          <li><a href="../../pages/aboutme/aboutme.htm">ABOUT ME</a></li>
+          <li><a href="../../pages/blog/blog.htm">BLOG</a></li>
+          <li><a href="../../pages/contact/contact.htm">CONTACT</a></li>
+          
+                   
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======= DASHBOARD BODY ======= -->
+  <main id="dashboard" class="energy-dashboard">
+    <div class="sheet">
+
+      <!-- GAS -->
+      <div class="section-title">BAŞKENTGAZ<div class="pill">Auto-updates: <span id="nowText"></span></div></div>
+
+      <table id="gasTable">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>First Reading Date</th>
+            <th>First Reading</th>
+            <th>Last Reading Date</th>
+            <th>Last Reading</th>
+            <th>Days Passed</th>
+            <th>Consumption (m³)</th>
+            <th>Daily AVG (m³/d)</th>
+            <th>Estimated Monthly Cons. (m³)</th>
+            <th>Unit Price (TL/m³)</th>
+            <th>Actual Cost (TL)</th>
+            <th>Estimated Monthly Cost (TL)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="small">Ekim25</td>
+            <td id="gas_firstDateCell">--</td>
+            <td id="gas_firstReadingCell" class="num">--</td>
+            <td id="gas_nowDateCell">--</td>
+            <td id="gas_lastReadingCell" class="num">--</td>
+            <td id="gas_daysCell" class="num">--</td>
+            <td id="gas_consCell" class="num">--</td>
+            <td id="gas_dailyAvgCell" class="num">--</td>
+            <td id="gas_estMonthlyCell" class="num">--</td>
+            <td id="gas_unitPriceCell" class="num">--</td>
+            <td id="gas_periodTotalCostCell" class="num">--</td>
+            <td id="gas_estMonthlyCostCell" class="num">--</td>
+          </tr>
+          <tr>
+            <td colspan="12">
+              <div class="progress-container">
+                <div id="gas_progressBar" class="progress-bar"></div>
+                <div class="progress-limit-line"></div>
+              </div>
+              <div id="gas_limitNote" class="small"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- MONTHLY GAS ANALYSIS -->
+      <div class="section-title monthlyAnalysis">MONTHLY GAS ANALYSIS for past 5 years</div>
+      <table id="monthlyAnalysis">
+        <tbody>
+          <tr style="background-color:#eaf3ff;">
+            <th>Month</th><td>Ocak</td><td>Şubat</td><td>Mart</td><td>Nisan</td><td>Mayıs</td><td>Haziran</td>
+            <td>Temmuz</td><td>Ağustos</td><td>Eylül</td><td>Ekim</td><td>Kasım</td><td>Aralık</td>
+          </tr>
+          <tr><th>Daily AVG (m³/d)</th><td>3.23</td><td>3.91</td><td>2.97</td><td>1.92</td><td>0.89</td><td>0.77</td>
+            <td>0.66</td><td>0.56</td><td>0.72</td><td>1.37</td><td>2.75</td><td>3.35</td></tr>
+          <tr><th>Monthly AVG (m³/mo)</th><td>100.21</td><td>113.46</td><td>91.99</td><td>57.47</td><td>27.74</td><td>23.07</td>
+            <td>20.61</td><td>17.50</td><td>21.52</td><td>42.61</td><td>82.62</td><td>103.78</td></tr>
+        </tbody>
+      </table>
+
+      <!-- ELECTRICITY -->
+      <div class="section-title electricity">ENERJİSA</div>
+      <table id="elecTable">
+        <thead>
+          <tr>
+            <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th>
+            <th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th>
+            <th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="small">Ekim25</td>
+            <td id="elec_firstDateCell">--</td>
+            <td id="elec_firstReadingCell" class="num">--</td>
+            <td id="elec_nowDateCell">--</td>
+            <td id="elec_lastReadingCell" class="num">--</td>
+            <td id="elec_daysCell" class="num">--</td>
+            <td id="elec_consCell" class="num">--</td>
+            <td id="elec_dailyAvgCell" class="num">--</td>
+            <td id="elec_estMonthlyCell" class="num">--</td>
+            <td id="elec_unitPriceCell" class="num">--</td>
+            <td id="elec_periodTotalCostCell" class="num">--</td>
+            <td id="elec_estMonthlyCostCell" class="num">--</td>
+          </tr>
+          <tr>
+            <td colspan="12">
+              <div class="progress-container">
+                <div id="elec_progressBar" class="progress-bar"></div>
+                <div class="progress-limit-line"></div>
+              </div>
+              <div id="elec_limitNote" class="small"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- WATER -->
+      <div class="section-title water">ASKİ</div>
+      <table id="waterTable">
+        <thead>
+          <tr>
+            <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th>
+            <th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th>
+            <th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="small">Ekim25</td>
+            <td id="water_firstDateCell">--</td>
+            <td id="water_firstReadingCell" class="num">--</td>
+            <td id="water_nowDateCell">--</td>
+            <td id="water_lastReadingCell" class="num">--</td>
+            <td id="water_daysCell" class="num">--</td>
+            <td id="water_consCell" class="num">--</td>
+            <td id="water_dailyAvgCell" class="num">--</td>
+            <td id="water_estMonthlyCell" class="num">--</td>
+            <td id="water_unitPriceCell" class="num">--</td>
+            <td id="water_periodTotalCostCell" class="num">--</td>
+            <td id="water_estMonthlyCostCell" class="num">--</td>
+          </tr>
+          <tr>
+            <td colspan="12">
+              <div class="progress-container">
+                <div id="water_progressBar" class="progress-bar"></div>
+                <div class="progress-limit-line"></div>
+              </div>
+              <div id="water_limitNote" class="small"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
+  </footer>
+
+    <!-- ======= SCRIPT ======= -->
+  <script>
+  const gasConfig = {
+    prefix: "gas",
+    firstDateStr: "2025-10-06T11:19:57",
+    firstReading: 6982,
+    lastReading: 7061.83,
+    unitPrice: 11.50,
+    limitType: "gas"
+  };
+
+  const elecConfig = {
+    prefix: "elec",
+    firstDateStr: "2025-10-01T09:00:00",
+    firstReading: 1798.723,
+    lastReading: 1926.83,
+    unitPrice: 2.60,
+    dailyLimit: 5.65,
+    monthlyLimit: 169.5,
+    limitType: "fixed"
+  };
+
+  const waterConfig = {
+    prefix: "water",
+    firstDateStr: "2025-10-07T08:20:00",
+    firstReading: 951,
+    lastReading: 963,
+    unitPrice: 25.00,
+    dailyLimit: 0.46,
+    monthlyLimit: 13.8,
+    limitType: "fixed"
+  };
+
+  const fmt = (v, dp=2) => isNaN(v) ? "--" :
+    Number(v).toLocaleString(undefined, { minimumFractionDigits: dp, maximumFractionDigits: dp });
+
+  const monthNamesTr = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+
+  function readMonthlyAnalysis() {
+    const rows = document.querySelectorAll('#monthlyAnalysis tbody tr');
+    if (!rows.length) return {};
+    const months = rows[0].querySelectorAll('td');
+    const dailyAvgs = rows[1].querySelectorAll('td');
+    const monthlyAvgs = rows[2].querySelectorAll('td');
+    const data = {};
+    for (let i = 0; i < months.length; i++) {
+      const name = months[i].textContent.trim();
+      data[name] = { daily: parseFloat(dailyAvgs[i]?.textContent)||0, monthly: parseFloat(monthlyAvgs[i]?.textContent)||0 };
+    }
+    return data;
+  }
+
+  function updateConsumption(cfg, monthlyData={}) {
+    const now = new Date();
+    const firstDate = new Date(cfg.firstDateStr);
+    let daysPassed = (now - firstDate) / (1000 * 60 * 60 * 24);
+    if (daysPassed <= 0.00001) daysPassed = 0.00001;
+    const cons = cfg.lastReading - cfg.firstReading;
+    const dailyAvg = cons / daysPassed;
+    const estMonthly = dailyAvg * 30;
+    const cost = cons * cfg.unitPrice;
+    const estCost = estMonthly * cfg.unitPrice;
+
+    document.getElementById(cfg.prefix+"_firstDateCell").textContent = firstDate.toLocaleString();
+    document.getElementById(cfg.prefix+"_lastReadingCell").textContent = fmt(cfg.lastReading);
+    document.getElementById(cfg.prefix+"_firstReadingCell").textContent = fmt(cfg.firstReading);
+    document.getElementById(cfg.prefix+"_nowDateCell").textContent = now.toLocaleString();
+    document.getElementById(cfg.prefix+"_daysCell").textContent = fmt(daysPassed);
+    document.getElementById(cfg.prefix+"_consCell").textContent = fmt(cons,3);
+    document.getElementById(cfg.prefix+"_dailyAvgCell").textContent = fmt(dailyAvg,3);
+    document.getElementById(cfg.prefix+"_estMonthlyCell").textContent = fmt(estMonthly,2);
+    document.getElementById(cfg.prefix+"_unitPriceCell").textContent = fmt(cfg.unitPrice,2);
+    document.getElementById(cfg.prefix+"_periodTotalCostCell").textContent = fmt(cost,2);
+    document.getElementById(cfg.prefix+"_estMonthlyCostCell").textContent = fmt(estCost,2);
+
+    const noteEl = document.getElementById(cfg.prefix+"_limitNote");
+    const barEl = document.getElementById(cfg.prefix+"_progressBar");
+
+    let dailyLimit = 0, monthlyLimit = 0;
+    if (cfg.limitType === "gas") {
+      const currentMonth = monthNamesTr[now.getMonth()];
+      const avg = monthlyData[currentMonth];
+      if (avg) { dailyLimit = avg.daily*1.25; monthlyLimit = avg.monthly*1.25; }
+    } else {
+      dailyLimit = cfg.dailyLimit; monthlyLimit = cfg.monthlyLimit;
+    }
+
+    let percent = (dailyAvg / dailyLimit) * 100;
+    if (percent > 150) percent = 150;
+    let color = percent>110 ? "red" : percent>90 ? "orange" : "green";
+    barEl.style.width = percent+"%";
+    barEl.style.backgroundColor = color;
+
+    if (cfg.limitType === "water") {
+      noteEl.innerHTML = "<em>Cost calculation for water to be added later.</em>";
+      return;
+    }
+
+    if (dailyAvg > dailyLimit) {
+      const over = estMonthly - monthlyLimit;
+      const extra = over * cfg.unitPrice;
+      noteEl.innerHTML = `<span style="color:${color};font-weight:600;">⚠ Above limit:</span> Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)}  → Est. Monthly ${fmt(estMonthly)} vs limit ${fmt(monthlyLimit)}. <span class='muted'>Extra cost ≈ ${fmt(extra)} TL</span>`;
+    } else {
+      noteEl.innerHTML = `<span style="color:${color};font-weight:600;">✓ Within limit</span> (Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)}, Est. Monthly ${fmt(estMonthly)} / ${fmt(monthlyLimit)})`;
+    }
+  }
+
+  const monthlyData = readMonthlyAnalysis();
+  updateConsumption(gasConfig, monthlyData);
+  updateConsumption(elecConfig);
+  updateConsumption(waterConfig);
+
+  document.getElementById("nowText").textContent = new Date().toLocaleString();
+  </script>
+  
+</body>
+</html>

@@ -1,178 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Energy Dashboard - Fatih Meclis</title>
-  <link rel="stylesheet" href="../../../style.css" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Energy Dashboard - Fatih Meclis (Final)</title>
+  <link rel="stylesheet" href="../../style.css" />
   <style>
-  /* =============== ENERGY DASHBOARD SCOPED STYLES =============== */
-  .energy-dashboard {
-    font-family: "Segoe UI", Arial, sans-serif;
-    padding: 65px;
-    background:#f7f7f7;
-    color:#111;
-    /*display:none; /* hidden until access granted */
-  }
-
-  .energy-dashboard .sheet {
-    background: white;
-    padding:14px;
-    border-radius:6px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    max-width:1200px;
-    margin:auto;
-  }
-
-  .energy-dashboard h1 {
-    margin:0 0 10px 0;
-    font-size:20px;
-  }
-
-  .energy-dashboard table {
-    border-collapse: collapse;
-    width:100%;
-    margin-bottom:1px;
-  }
-
-  .energy-dashboard th, 
-  .energy-dashboard td {
-    border:1px solid #cfcfcf;
-    padding:4px 5px;
-    font-size:13px;
-    vertical-align:middle;
-  }
-
-  .energy-dashboard th {
-    background:#e6f0ff;
-    text-align:center;
-    font-weight:600;
-  }
-
-  .energy-dashboard td.num {
-    text-align:center;
-    font-family: "Segoe UI", Arial, sans-serif; /* unified font */
-  }
-
-/* Center align all date cells */
-.energy-dashboard td[id$="DateCell"] {
-  text-align: center;
-}
-  /* Section titles */
-  .energy-dashboard .section-title {
-    background: #024a4a;
-    color: #fff;
-    font-weight: 700;
-    font-size: 15px;
-    padding: 15px;
-    margin: 10px 0 5px 0;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #8fb6ec;
-  }
-  .energy-dashboard .section-title .pill {
-  font-weight: normal;    /* removes bold */
-  font-size: 13px;        /* smaller text */
-  color: #fff;            /* optional – softer color if you want */
-}
-
-.energy-dashboard .section-title.monthlyAnalysis {
-  padding: 10px;
-  font-size: 14px;
-  font-weight: normal;
-  background: rgb(210, 231, 236);
-  color: #111;
-  border: 1px solid #8fb6ec;
-}  
-    
-  .energy-dashboard .section-title.electricity {
-    background: #024a4a;
-    color: #fff;
-    border: 1px solid #8fb6ec;
-  }
-
-  .energy-dashboard .section-title.water {
-    background: #024a4a;
-    color: #fff;
-    border: 1px solid #8fb6ec;
-  }
-
-  .energy-dashboard .muted { color:#666; font-size:13px; }
-  .energy-dashboard .small { font-size:13px; color:#333; }
-  .energy-dashboard .footnote { font-size:12px; color:#555; margin-top:8px; }
-
-  .energy-dashboard .progress-container {
-    position: relative;
-    width: 60%;
-    margin: 6px 0;
-    background-color: #ddd;
-    border-radius: 10px;
-    height: 12px;
-  }
-
-  .energy-dashboard .progress-bar {
-    height: 100%;
-    border-radius: 10px;
-    transition: width 0.8s ease, background-color 0.8s ease;
-  }
-
-  .energy-dashboard .progress-limit-line {
-    position: absolute;
-    left: 100%;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    background-color: #444;
-    transform: translateX(-1px);
-  }
-
-  @media (max-width:700px){
-    .energy-dashboard table, .energy-dashboard th, .energy-dashboard td {
-      font-size:13px;
-    }
-  }
-
- 
+    /* Scoped styles for dashboard (based on energy3.html but header color updated) */
+  :root { --turkuaz: #009ca6; --turkuaz-dark: #024a4a; --accent: #8fb6ec; }
+  body { font-family: "Segoe UI", Arial, sans-serif; margin:0; background:#fff; color:#111; }
+  .energy-wrap { padding: 80px; background:#f7f7f7; min-height:100vh; }
+  .sheet { background: white; padding:15px; border-radius:6px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); max-width:1200px; margin:auto; }
+  h1 { margin:0 0 10px 0; font-size:20px; }
+  table { border-collapse: collapse; width:100%; margin-bottom:8px; }
+  th, td { border:1px solid #cfcfcf; padding:6px 8px; font-size:13px; vertical-align:middle; }
+  th { background:#e6f0ff; text-align:center; font-weight:600; }
+  td.num { text-align:center; font-family: "Segoe UI", Arial, sans-serif; }
+  .section-title { background: var(--turkuaz-dark); color: #fff; font-weight:700; font-size:15px; padding:10px; margin:16px 0 8px 0; border-radius:6px; display:flex; justify-content:space-between; align-items:center; border:1px solid var(--accent); }
+  .section-title .pill { font-weight:400; font-size:13px; color:#fff; }
+  .section-title.monthlyAnalysis { background: #d2e7ec; color:#111; font-weight:600; border:1px solid var(--accent); display:block; }
+  .progress-container { position: relative; width: 60%; margin: 6px 0; background-color: #ddd; border-radius:10px; height:12px; }
+  .progress-bar { height:100%; border-radius:10px; transition: width 0.8s ease, background-color 0.8s ease; }
+  .progress-limit-line { position:absolute; left:100%; top:0; bottom:0; width:4px; background:#444; transform:translateX(-2px); }
+  .small { font-size:13px; color:#333; }
+  .muted { color:#666; font-size:13px; }
+  .grid { display:flex; gap:18px; align-items:flex-start; }
+  .left { flex:1; }
+  .right { width:360px; }
+  .card { background:#fafafa; padding:10px; border-radius:6px; border:1px solid #eee; }
+  .tariff-table th, .tariff-table td { padding:6px 8px; font-size:13px; text-align:center; }
+  .calc-line { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #eee; }
+  .calc-line:last-child { border-bottom:none; font-weight:700; }
+  .ok { color:green; font-weight:600; }
+  .warn { color:orange; font-weight:700; }
+  .danger { color:#b30000; font-weight:700; }
+  /* center date cells by attribute */
+  td[id$="DateCell"] { text-align:center; }
+  /* responsive */
+  @media (max-width:980px) { .grid { flex-direction:column; } .right{ width:100%; } .progress-container{ width:100%; } }
+  /* Password screen overlay */
+  #accessScreen { display:flex; flex-direction:column; align-items:center; justify-content:center; height:70vh; text-align:center; padding:18px; }
+  #accessScreen input { padding:10px 12px; width:240px; font-size:15px; border-radius:6px; border:1px solid #aaa; margin-top:8px; }
+  #accessScreen button { margin-top:10px; padding:8px 16px; border-radius:6px; border:none; background:var(--turkuaz); color:#fff; cursor:pointer; }
+  #wrongPass { color:red; display:none; margin-top:8px; }
+  /* Header (modified to tela-turkuaz) */
+  header.site-header { background: var(--turkuaz); border-bottom:1px solid rgba(255,255,255,0.08); padding:12px 18px; color:#fff; }
+  header .logo-title { display:flex; gap:10px; align-items:center; color:#fff; }
+  header img{height:40px;}
+  header .logo-title h2, header .logo-title .muted { color: #fff; }
+  header .navbar ul { list-style:none; display:flex; gap:14px; margin:0; padding:0; align-items:center; }
+  header .navbar a { color:#fff; text-decoration:none; font-weight:600; }
+  header .navbar a:hover { text-decoration:underline; }
   </style>
 </head>
-
 <body>
-  <!-- ======= SITE HEADER ======= -->
+
+  <!-- SITE HEADER -->
   <header class="site-header" id="mainHeader">
-    <div class="header-content">
+    <div class="header-content" style="max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;">
       <div class="logo-title">
-        <img src="../../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
-        <div class="site-info">
-          <h1>Fatih Meclis</h1>
-          <p>Personal Website & Engineering Portfolio</p>
+        <img src="../../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo"/>
+        <div>
+          <h2 style="margin:0;font-size:18px;">Fatih Meclis</h2>
+          <div class="muted">Personal Website & Engineering Portfolio</div>
         </div>
       </div>
       <nav class="navbar">
         <ul>
           <li><a href="../../index.html">HOME</a></li>
-		  <li><a href="../../pages/photos/photos.htm">PHOTOS</a></li>
-		  <li><a href="../../pages/myworks/myworks.htm">MY WORKS</a></li>
-          <li><a href="../../pages/special/projectvault.htm" class="vault-link" target="_blank">🔒 VAULT</a></li>          
-          <li><a href="../../pages/aboutme/aboutme.htm">ABOUT ME</a></li>
-          <li><a href="../../pages/blog/blog.htm">BLOG</a></li>
+          <li><a href="../../pages/photos/photos.htm">PHOTOS</a></li>
+          <li><a href="../../pages/myworks/myworks.htm">MY WORKS</a></li>
           <li><a href="../../pages/contact/contact.htm">CONTACT</a></li>
-          
-                   
+          <li><a href="../../pages/blog/blog.htm">BLOG</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- ======= DASHBOARD BODY ======= -->
-  <main id="dashboard" class="energy-dashboard">
+  <!-- ACCESS SCREEN (shows until correct password) -->
+  <div id="accessScreen">
+    <h2>🔒 Restricted Access</h2>
+    <p>Please enter the access code to view Private Area:</p>
+    <input type="password" id="accessCode" placeholder="Enter code..." />
+    <button id="accessBtn">Enter</button>
+    <div id="wrongPass">Incorrect code. Please try again.</div>
+  </div>
+
+  <!-- DASHBOARD (hidden until access granted) -->
+  <div class="energy-wrap" style="display:none;" id="protectedArea">
     <div class="sheet">
 
-      <!-- GAS -->
-      <div class="section-title">BAŞKENTGAZ<div class="pill">Auto-updates: <span id="nowText"></span></div></div>
+      <h1>HOME — Energy Consumption Dashboard</h1>
+      <div class="muted" style="margin-bottom:6px;">Auto-updates on page load. Edit values in the script block to change readings.</div>
 
+      <!-- GAS -->
+      <div class="section-title">BAŞKENTGAZ <div class="pill">Auto-updates: <span id="nowText"></span></div></div>
       <table id="gasTable">
         <thead>
           <tr>
@@ -184,10 +106,10 @@
             <th>Days Passed</th>
             <th>Consumption (m³)</th>
             <th>Daily AVG (m³/d)</th>
-            <th>Estimated Monthly Cons. (m³)</th>
+            <th>Est. Monthly (m³)</th>
             <th>Unit Price (TL/m³)</th>
             <th>Actual Cost (TL)</th>
-            <th>Estimated Monthly Cost (TL)</th>
+            <th>Est. Cost (TL)</th>
           </tr>
         </thead>
         <tbody>
@@ -217,18 +139,15 @@
         </tbody>
       </table>
 
-      <!-- MONTHLY GAS ANALYSIS -->
+      <!-- Monthly analysis (gas) -->
       <div class="section-title monthlyAnalysis">MONTHLY GAS ANALYSIS for past 5 years</div>
       <table id="monthlyAnalysis">
         <tbody>
           <tr style="background-color:#eaf3ff;">
-            <th>Month</th><td>Ocak</td><td>Şubat</td><td>Mart</td><td>Nisan</td><td>Mayıs</td><td>Haziran</td>
-            <td>Temmuz</td><td>Ağustos</td><td>Eylül</td><td>Ekim</td><td>Kasım</td><td>Aralık</td>
+            <th>Month</th><td>Ocak</td><td>Şubat</td><td>Mart</td><td>Nisan</td><td>Mayıs</td><td>Haziran</td><td>Temmuz</td><td>Ağustos</td><td>Eylül</td><td>Ekim</td><td>Kasım</td><td>Aralık</td>
           </tr>
-          <tr><th>Daily AVG (m³/d)</th><td>3.23</td><td>3.91</td><td>2.97</td><td>1.92</td><td>0.89</td><td>0.77</td>
-            <td>0.66</td><td>0.56</td><td>0.72</td><td>1.37</td><td>2.75</td><td>3.35</td></tr>
-          <tr><th>Monthly AVG (m³/mo)</th><td>100.21</td><td>113.46</td><td>91.99</td><td>57.47</td><td>27.74</td><td>23.07</td>
-            <td>20.61</td><td>17.50</td><td>21.52</td><td>42.61</td><td>82.62</td><td>103.78</td></tr>
+          <tr><th>Daily AVG (m³/d)</th><td>3.23</td><td>3.91</td><td>2.97</td><td>1.92</td><td>0.89</td><td>0.77</td><td>0.66</td><td>0.56</td><td>0.72</td><td>1.37</td><td>2.75</td><td>3.35</td></tr>
+          <tr><th>Monthly AVG (m³/mo)</th><td>100.21</td><td>113.46</td><td>91.99</td><td>57.47</td><td>27.74</td><td>23.07</td><td>20.61</td><td>17.50</td><td>21.52</td><td>42.61</td><td>82.62</td><td>103.78</td></tr>
         </tbody>
       </table>
 
@@ -237,9 +156,7 @@
       <table id="elecTable">
         <thead>
           <tr>
-            <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th>
-            <th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th>
-            <th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
+            <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th><th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th><th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
           </tr>
         </thead>
         <tbody>
@@ -271,49 +188,92 @@
 
       <!-- WATER -->
       <div class="section-title water">ASKİ</div>
-      <table id="waterTable">
-        <thead>
-          <tr>
-            <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th>
-            <th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th>
-            <th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="small">Ekim25</td>
-            <td id="water_firstDateCell">--</td>
-            <td id="water_firstReadingCell" class="num">--</td>
-            <td id="water_nowDateCell">--</td>
-            <td id="water_lastReadingCell" class="num">--</td>
-            <td id="water_daysCell" class="num">--</td>
-            <td id="water_consCell" class="num">--</td>
-            <td id="water_dailyAvgCell" class="num">--</td>
-            <td id="water_estMonthlyCell" class="num">--</td>
-            <td id="water_unitPriceCell" class="num">--</td>
-            <td id="water_periodTotalCostCell" class="num">--</td>
-            <td id="water_estMonthlyCostCell" class="num">--</td>
-          </tr>
-          <tr>
-            <td colspan="12">
-              <div class="progress-container">
-                <div id="water_progressBar" class="progress-bar"></div>
-                <div class="progress-limit-line"></div>
-              </div>
-              <div id="water_limitNote" class="small"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
 
-  <footer>
+      <!-- Left: calculations, Right: tariff table -->
+      <div class="grid">
+        <div class="left">
+          <table id="waterTable">
+            <thead>
+              <tr>
+                <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th><th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th><th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="small">Ekim25</td>
+                <td id="water_firstDateCell">--</td>
+                <td id="water_firstReadingCell" class="num">--</td>
+                <td id="water_nowDateCell">--</td>
+                <td id="water_lastReadingCell" class="num">--</td>
+                <td id="water_daysCell" class="num">--</td>
+                <td id="water_consCell" class="num">--</td>
+                <td id="water_dailyAvgCell" class="num">--</td>
+                <td id="water_estMonthlyCell" class="num">--</td>
+                <td id="water_unitPriceCell" class="num">--</td>
+                <td id="water_periodTotalCostCell" class="num">--</td>
+                <td id="water_estMonthlyCostCell" class="num">--</td>
+              </tr>
+              <tr>
+                <td colspan="12">
+                  <div class="progress-container">
+                    <div id="water_progressBar" class="progress-bar"></div>
+                    <div class="progress-limit-line"></div>
+                  </div>
+                  <div id="water_limitNote" class="small"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Detailed breakdown card -->
+          <div class="card" style="margin-top:8px;">
+            <div style="display:flex;justify-content:space-between;font-weight:700;margin-bottom:6px;">Detaylı Su Hesabı<span id="water_total_label" class="muted"></span></div>
+            <div class="calc-line"><div>Su bedeli</div><div id="water_suCost">--</div></div>
+            <div class="calc-line"><div>Atık su bedeli</div><div id="water_atikCost">--</div></div>
+            <div class="calc-line"><div>KDV (su+atik)</div><div id="water_kdv">--</div></div>
+            <div class="calc-line"><div>ÇTV</div><div id="water_ctv">--</div></div>
+            <div class="calc-line"><div>Toplam</div><div id="water_total">--</div></div>
+          </div>
+        </div>
+
+        <!-- Right: tariff table -->
+        <div class="right">
+          <div class="card">
+            <div style="font-weight:700;margin-bottom:8px;">ASKİ Tarifesi (Normal)</div>
+            <table class="tariff-table" id="tariffTable">
+              <thead><tr><th>Kademe</th><th>Su (TL/m³)</th><th>Atık (TL/m³)</th></tr></thead>
+              <tbody id="tariffBody"><tr><td colspan="3">Yükleniyor...</td></tr></tbody>
+            </table>
+            <div style="margin-top:8px;" class="muted">
+              ÇTV: <span id="tariff_ctv">--</span> TL/m³<br/>
+              KDV Su: <span id="tariff_kdv_su">--</span>, KDV Atık: <span id="tariff_kdv_atik">--</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote" style="margin-top:12px;">
+        <strong>How to publish updates:</strong> Edit the values in the script section of this file (variables near top of the script) and commit/push to your GitHub Pages repo.
+      </div>
+
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:18px 0;border-top:1px solid #eee;margin-top:10px;">
     <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
   </footer>
 
-    <!-- ======= SCRIPT ======= -->
+  <!-- ===========================
+       SCRIPTS — merged & final
+       =========================== -->
+
+  <!-- CONFIGS -->
   <script>
+  // Access code
+  const ACCESS_CODE = "231"; // change if needed
+  const tariffFile = "/data/askiTariff.json"; // ROOT/data/askiTariff.json
+
+  // --- Use gas & elec readings from energy.html (preferred) ---
   const gasConfig = {
     prefix: "gas",
     firstDateStr: "2025-10-06T11:19:57",
@@ -334,22 +294,93 @@
     limitType: "fixed"
   };
 
+  // waterConfig use energy3 values (but limitType 'water' so ASKİ logic triggers)
   const waterConfig = {
     prefix: "water",
-    firstDateStr: "2025-10-07T08:20:00",
+    firstDateStr: "2025-10-07T11:19:57",
     firstReading: 951,
-    lastReading: 963,
-    unitPrice: 25.00,
+    lastReading: 961.5,
+    unitPrice: 0, // not used (ASKİ uses tariff)
     dailyLimit: 0.46,
     monthlyLimit: 13.8,
-    limitType: "fixed"
+    limitType: "water"
   };
+  </script>
 
-  const fmt = (v, dp=2) => isNaN(v) ? "--" :
-    Number(v).toLocaleString(undefined, { minimumFractionDigits: dp, maximumFractionDigits: dp });
-
+  <!-- HELPERS -->
+  <script>
+  const fmt = (v, dp=2) => (isNaN(v) || v===null) ? "--" : Number(v).toLocaleString(undefined, { minimumFractionDigits: dp, maximumFractionDigits: dp });
   const monthNamesTr = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+  function daysBetween(d1, d2) { return (d2 - d1) / (1000*60*60*24); }
+  </script>
 
+  <!-- ASKİ calc (from energy3.html) -->
+  <script>
+  async function loadTariff() {
+    try {
+      const r = await fetch(tariffFile);
+      if (!r.ok) throw new Error("Tariff HTTP " + r.status);
+      const j = await r.json();
+      return j;
+    } catch (e) {
+      console.error("Failed to load tariff:", e);
+      return null;
+    }
+  }
+
+  function calcAskiBreakdown(consumption, days, tariffData, mode="normal") {
+    if (!tariffData) return null;
+    const t = tariffData;
+    const BF = []; // su unit prices per band
+    const ATIK = [];
+    if (mode.toLowerCase() === "indirimli") {
+      for (let i=0;i<4;i++){ BF[i]=t.indirimli[i].su; ATIK[i]=t.indirimli[i].atik; }
+    } else {
+      for (let i=0;i<4;i++){ BF[i]=t.normal[i].su; ATIK[i]=t.normal[i].atik; }
+    }
+    const CTV = Number(t.ctv ?? t.CTV ?? 0) || 0;
+    const KDVsu = Number(t.kdv?.su ?? t.KDV?.su ?? 0) || 0;
+    const KDVatik = Number(t.kdv?.atik ?? t.KDV?.atik ?? 0) || 0;
+
+    const AVGD = consumption / days;
+    const KADEME = [0,0,0,0];
+    // thresholds in m3/day (Excel logic)
+    const lim1 = 0.3333, lim2 = 0.5, lim3 = 1.0;
+    if (AVGD <= lim1) {
+      KADEME[0] = AVGD * days;
+    } else if (AVGD <= lim2) {
+      KADEME[0] = lim1 * days;
+      KADEME[1] = (AVGD - lim1) * days;
+    } else if (AVGD <= lim3) {
+      KADEME[0] = lim1 * days;
+      KADEME[1] = (lim2 - lim1) * days;
+      KADEME[2] = (AVGD - lim2) * days;
+    } else {
+      KADEME[0] = lim1 * days;
+      KADEME[1] = (lim2 - lim1) * days;
+      KADEME[2] = (lim3 - lim2) * days;
+      KADEME[3] = (AVGD - lim3) * days;
+    }
+
+    let suBedeli = 0, atikBedeli = 0;
+    for (let i=0;i<4;i++) {
+      suBedeli += KADEME[i] * (BF[i] || 0);
+      atikBedeli += KADEME[i] * (ATIK[i] || 0);
+    }
+    const kdvTutar = (suBedeli * KDVsu) + (atikBedeli * KDVatik);
+    const ctvTutar = AVGD * days * CTV;
+    const total = suBedeli + atikBedeli + kdvTutar + ctvTutar;
+
+    return {
+      avgDaily: AVGD,
+      perBand: KADEME,
+      suBedeli, atikBedeli, kdvTutar, ctvTutar, total
+    };
+  }
+  </script>
+
+  <!-- MAIN updateConsumption (merged gas/elec logic + water ASKİ flow) -->
+  <script>
   function readMonthlyAnalysis() {
     const rows = document.querySelectorAll('#monthlyAnalysis tbody tr');
     if (!rows.length) return {};
@@ -357,17 +388,17 @@
     const dailyAvgs = rows[1].querySelectorAll('td');
     const monthlyAvgs = rows[2].querySelectorAll('td');
     const data = {};
-    for (let i = 0; i < months.length; i++) {
+    for (let i=0;i<months.length;i++){
       const name = months[i].textContent.trim();
       data[name] = { daily: parseFloat(dailyAvgs[i]?.textContent)||0, monthly: parseFloat(monthlyAvgs[i]?.textContent)||0 };
     }
     return data;
   }
 
-  function updateConsumption(cfg, monthlyData={}) {
+  async function updateConsumption(cfg, monthlyData={}) {
     const now = new Date();
     const firstDate = new Date(cfg.firstDateStr);
-    let daysPassed = (now - firstDate) / (1000 * 60 * 60 * 24);
+    let daysPassed = (now - firstDate) / (1000*60*60*24);
     if (daysPassed <= 0.00001) daysPassed = 0.00001;
     const cons = cfg.lastReading - cfg.firstReading;
     const dailyAvg = cons / daysPassed;
@@ -375,21 +406,28 @@
     const cost = cons * cfg.unitPrice;
     const estCost = estMonthly * cfg.unitPrice;
 
-    document.getElementById(cfg.prefix+"_firstDateCell").textContent = firstDate.toLocaleString();
-    document.getElementById(cfg.prefix+"_lastReadingCell").textContent = fmt(cfg.lastReading);
-    document.getElementById(cfg.prefix+"_firstReadingCell").textContent = fmt(cfg.firstReading);
-    document.getElementById(cfg.prefix+"_nowDateCell").textContent = now.toLocaleString();
-    document.getElementById(cfg.prefix+"_daysCell").textContent = fmt(daysPassed);
-    document.getElementById(cfg.prefix+"_consCell").textContent = fmt(cons,3);
-    document.getElementById(cfg.prefix+"_dailyAvgCell").textContent = fmt(dailyAvg,3);
-    document.getElementById(cfg.prefix+"_estMonthlyCell").textContent = fmt(estMonthly,2);
-    document.getElementById(cfg.prefix+"_unitPriceCell").textContent = fmt(cfg.unitPrice,2);
-    document.getElementById(cfg.prefix+"_periodTotalCostCell").textContent = fmt(cost,2);
-    document.getElementById(cfg.prefix+"_estMonthlyCostCell").textContent = fmt(estCost,2);
+    // write common fields
+    const prefix = cfg.prefix;
+    const el = (id)=>document.getElementById(prefix + id);
+    document.getElementById(prefix + "_firstDateCell").textContent = firstDate.toLocaleString();
+    document.getElementById(prefix + "_nowDateCell").textContent = now.toLocaleString();
+    document.getElementById(prefix + "_firstReadingCell").textContent = fmt(cfg.firstReading,2);
+    document.getElementById(prefix + "_lastReadingCell").textContent = fmt(cfg.lastReading,2);
+    document.getElementById(prefix + "_daysCell").textContent = fmt(daysPassed,3);
+    document.getElementById(prefix + "_consCell").textContent = fmt(cons,3);
+    document.getElementById(prefix + "_dailyAvgCell").textContent = fmt(dailyAvg,4);
+    document.getElementById(prefix + "_estMonthlyCell").textContent = fmt(estMonthly,3);
+    document.getElementById(prefix + "_unitPriceCell").textContent = fmt(cfg.unitPrice,2);
 
-    const noteEl = document.getElementById(cfg.prefix+"_limitNote");
-    const barEl = document.getElementById(cfg.prefix+"_progressBar");
+    // For gas & elec: write costs into table (fix from previous mismatch)
+    if (prefix === "gas" || prefix === "elec") {
+      document.getElementById(prefix + "_periodTotalCostCell").textContent = fmt(cost,2);
+      document.getElementById(prefix + "_estMonthlyCostCell").textContent = fmt(estCost,2);
+    }
 
+    // progress/limit
+    const noteEl = document.getElementById(prefix + "_limitNote");
+    const barEl = document.getElementById(prefix + "_progressBar");
     let dailyLimit = 0, monthlyLimit = 0;
     if (cfg.limitType === "gas") {
       const currentMonth = monthNamesTr[now.getMonth()];
@@ -398,34 +436,109 @@
     } else {
       dailyLimit = cfg.dailyLimit; monthlyLimit = cfg.monthlyLimit;
     }
-
-    let percent = (dailyAvg / dailyLimit) * 100;
+    let percent = dailyLimit>0 ? (dailyAvg / dailyLimit) * 100 : 0;
     if (percent > 150) percent = 150;
     let color = percent>110 ? "red" : percent>90 ? "orange" : "green";
-    barEl.style.width = percent+"%";
-    barEl.style.backgroundColor = color;
+    if (barEl) { barEl.style.width = percent + "%"; barEl.style.backgroundColor = color; }
 
+    // special handling for water (ASKİ tariff)
     if (cfg.limitType === "water") {
-      noteEl.innerHTML = "<em>Cost calculation for water to be added later.</em>";
+      noteEl.innerHTML = "<em>Calculating ASKİ...</em>";
+      const tariff = await loadTariff();
+      if (!tariff) {
+        noteEl.innerHTML = "<span style='color:red;'>Tariff load error</span>";
+        document.getElementById(prefix + "_periodTotalCostCell").textContent = fmt(0,2);
+        document.getElementById(prefix + "_estMonthlyCostCell").textContent = fmt(0,2);
+        return;
+      }
+      // actual (for billing period)
+      const breakdownActual = calcAskiBreakdown(cons, daysPassed, tariff, "normal");
+      // estimated monthly: treat estMonthly (m3 per 30 days) as consumption over 30 days
+      const breakdownEst = calcAskiBreakdown(estMonthly, 30, tariff, "normal");
+
+      document.getElementById(prefix + "_periodTotalCostCell").textContent = fmt(breakdownActual.total,2);
+      document.getElementById(prefix + "_estMonthlyCostCell").textContent = fmt(breakdownEst.total,2);
+      document.getElementById("water_suCost").textContent = fmt(breakdownActual.suBedeli,2) + " TL";
+      document.getElementById("water_atikCost").textContent = fmt(breakdownActual.atikBedeli,2) + " TL";
+      document.getElementById("water_kdv").textContent = fmt(breakdownActual.kdvTutar,2) + " TL";
+      document.getElementById("water_ctv").textContent = fmt(breakdownActual.ctvTutar,2) + " TL";
+      document.getElementById("water_total").textContent = fmt(breakdownActual.total,2) + " TL";
+      document.getElementById("water_total_label").textContent = `(${fmt(cons,2)} m³)`;
+      document.getElementById(prefix + "_unitPriceCell").textContent = (cons>0 ? fmt(breakdownActual.total/cons,2) : "--");
+      noteEl.innerHTML = `<span class="ok">✓ ASKİ hesaplandı (Normal)</span> — Günlük ort: ${fmt(breakdownActual.avgDaily,3)} m³/gün`;
+      populateTariffTable(tariff, "normal");
       return;
     }
 
+    // gas/electric default messaging
     if (dailyAvg > dailyLimit) {
       const over = estMonthly - monthlyLimit;
       const extra = over * cfg.unitPrice;
-      noteEl.innerHTML = `<span style="color:${color};font-weight:600;">⚠ Above limit:</span> Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)}  → Est. Monthly ${fmt(estMonthly)} vs limit ${fmt(monthlyLimit)}. <span class='muted'>Extra cost ≈ ${fmt(extra)} TL</span>`;
+      noteEl.innerHTML = `<span style="color:${color};font-weight:600;">⚠ Above limit:</span> Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)} → Est. Monthly ${fmt(estMonthly)} vs limit ${fmt(monthlyLimit)}. <span class='muted'>Extra ≈ ${fmt(extra)} TL</span>`;
     } else {
       noteEl.innerHTML = `<span style="color:${color};font-weight:600;">✓ Within limit</span> (Daily ${fmt(dailyAvg)}/${fmt(dailyLimit)}, Est. Monthly ${fmt(estMonthly)} / ${fmt(monthlyLimit)})`;
     }
   }
-
-  const monthlyData = readMonthlyAnalysis();
-  updateConsumption(gasConfig, monthlyData);
-  updateConsumption(elecConfig);
-  updateConsumption(waterConfig);
-
-  document.getElementById("nowText").textContent = new Date().toLocaleString();
   </script>
-  
+
+  <!-- TARIFF TABLE POPULATOR + BOOT -->
+  <script>
+  function populateTariffTable(tariffData, mode="normal") {
+    if (!tariffData) return;
+    const t = tariffData;
+    const arr = (mode==="indirimli") ? t.indirimli : t.normal;
+    const tbody = document.getElementById("tariffBody");
+    tbody.innerHTML = "";
+    for (let i=0;i<arr.length;i++){
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>Kademe ${i+1}</td><td>${fmt(arr[i].su,2)}</td><td>${fmt(arr[i].atik,2)}</td>`;
+      tbody.appendChild(row);
+    }
+    document.getElementById("tariff_ctv").textContent = fmt(t.ctv ?? t.CTV ?? 0,2);
+    document.getElementById("tariff_kdv_su").textContent = fmt(t.kdv?.su ?? t.KDV?.su ?? 0,2);
+    document.getElementById("tariff_kdv_atik").textContent = fmt(t.kdv?.atik ?? t.KDV?.atik ?? 0,2);
+  }
+
+  // bootstrap routine
+  (async function boot() {
+    const protectedArea = document.getElementById("protectedArea");
+    const accessScreen = document.getElementById("accessScreen");
+    if (sessionStorage.getItem("energyAccess")==="granted") {
+      accessScreen.style.display = "none";
+      protectedArea.style.display = "block";
+    } else {
+      accessScreen.style.display = "flex";
+      protectedArea.style.display = "none";
+    }
+
+    document.getElementById("accessBtn").addEventListener("click", ()=>{
+      const entered = document.getElementById("accessCode").value.trim();
+      if (entered === ACCESS_CODE) {
+        sessionStorage.setItem("energyAccess","granted");
+        accessScreen.style.display = "none";
+        protectedArea.style.display = "block";
+        runAll();
+      } else {
+        const wp = document.getElementById("wrongPass");
+        wp.style.display = "block";
+        setTimeout(()=>wp.style.display="none",2000);
+      }
+    });
+
+    if (sessionStorage.getItem("energyAccess")==="granted") runAll();
+  })();
+
+  async function runAll() {
+    document.getElementById("nowText").textContent = new Date().toLocaleString();
+    const monthlyData = readMonthlyAnalysis();
+    // run gas & elec & water — pass monthly data for gas to derive limit; pass same to elec optional
+    await updateConsumption(gasConfig, monthlyData);
+    await updateConsumption(elecConfig, monthlyData);
+    await updateConsumption(waterConfig, monthlyData);
+  }
+
+  window.runAll = runAll;
+  </script>
+
 </body>
 </html>
