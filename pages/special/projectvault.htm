@@ -190,228 +190,214 @@
   </footer>
 
   <script>
-    /********** CONFIG **********/
-    // Projects: id, title, teaser, redirect, password (client-side for now)
-    const PROJECTS = [
-      { id:'p1', title:'Energy Consumption Dashboard', teaser:'Household & small business energy usage analytics.', redirect:'energy.html', password:'231' },
-      { id:'p2', title:'Project Alpha', teaser:'Project management and reporting for internal teams.', redirect:'projects/alpha/index.html', password:'alpha-secret' },
-      { id:'p3', title:'Project Beta', teaser:'Field engineering logs and daily reports.', redirect:'projects/beta/index.html', password:'beta2025' },
-      { id:'p4', title:'Thermal Efficiency Analyzer', teaser:'Industrial energy efficiency dashboards.', redirect:'projects/efficiency/index.html', password:'thermalX' },
-      { id:'p5', title:'Structural Load Calculator', teaser:'Static load calculators and templates.', redirect:'projects/loadcalc/index.html', password:'struct2025' },
-      { id:'p6', title:'Research Archive', teaser:'Technical reports, field notes and references.', redirect:'projects/archive/index.html', password:'archiveFM' }
-    ];
-    const MAX_ATTEMPTS = 5;
+  /********** CONFIG **********/
+  const PROJECTS = [
+    { id:'p1', title:'Energy Consumption Dashboard', teaser:'Household & small business energy usage analytics.', redirect:'energy.html', password:'231' },
+    { id:'p2', title:'Project Alpha', teaser:'Project management and reporting for internal teams.', redirect:'projects/alpha/index.html', password:'alpha-secret' },
+    { id:'p3', title:'Project Beta', teaser:'Field engineering logs and daily reports.', redirect:'projects/beta/index.html', password:'beta2025' },
+    { id:'p4', title:'Thermal Efficiency Analyzer', teaser:'Industrial energy efficiency dashboards.', redirect:'projects/efficiency/index.html', password:'thermalX' },
+    { id:'p5', title:'Structural Load Calculator', teaser:'Static load calculators and templates.', redirect:'projects/loadcalc/index.html', password:'struct2025' },
+    { id:'p6', title:'Research Archive', teaser:'Technical reports, field notes and references.', redirect:'projects/archive/index.html', password:'archiveFM' }
+  ];
+  const MAX_ATTEMPTS = 5;
 
-    /********** BOOT SEQUENCE (visual) **********/
-    const bootLines = [
-      'BOOT SEQUENCE 0xAF... OK',
-      'SECURITY MODULE LOADING... OK',
-      'VAULT INTERFACE INITIALIZING... OK',
-      'SCANNING INTEGRITY CHECKS... OK',
-      'SECURE CHANNELS STANDBY... OK',
-      'SYSTEM READY. WELCOME.'
-    ];
-    const bootLinesTarget = document.getElementById('bootLines');
-    const bootFill = document.getElementById('bootFill');
-    let bootIdx = 0;
+  /********** BOOT SEQUENCE (visual) **********/
+  const bootLines = [
+    'BOOT SEQUENCE 0xAF... OK',
+    'SECURITY MODULE LOADING... OK',
+    'VAULT INTERFACE INITIALIZING... OK',
+    'SCANNING INTEGRITY CHECKS... OK',
+    'SECURE CHANNELS STANDBY... OK',
+    'SYSTEM READY. WELCOME.'
+  ];
+  const bootLinesTarget = document.getElementById('bootLines');
+  const bootFill = document.getElementById('bootFill');
+  let bootIdx = 0;
 
-    function runBoot() {
-      // show lines one by one and fill bar
-      function step() {
-        if (bootIdx >= bootLines.length) {
-          // finish: hide boot overlay after slight delay
-          document.getElementById('bootScreen').style.transition = 'opacity 0.6s ease';
-          document.getElementById('bootScreen').style.opacity = '0';
-          setTimeout(()=> {
-            document.getElementById('bootScreen').style.display = 'none';
-            document.getElementById('vaultContainer').style.opacity = '1';
-            document.getElementById('vaultContainer').setAttribute('aria-hidden','false');
-          }, 650);
-          return;
-        }
-        const line = document.createElement('div');
-        line.textContent = bootLines[bootIdx];
-        bootLinesTarget.appendChild(line);
-        bootIdx++;
-        bootFill.style.width = Math.round((bootIdx / bootLines.length) * 100) + '%';
-        setTimeout(step, 500);
+  function runBoot() {
+    function step() {
+      if (bootIdx >= bootLines.length) {
+        document.getElementById('bootScreen').style.transition = 'opacity 0.6s ease';
+        document.getElementById('bootScreen').style.opacity = '0';
+        setTimeout(()=> {
+          document.getElementById('bootScreen').style.display = 'none';
+          document.getElementById('vaultContainer').style.opacity = '1';
+          document.getElementById('vaultContainer').setAttribute('aria-hidden','false');
+        }, 650);
+        return;
       }
-      step();
+      const line = document.createElement('div');
+      line.textContent = bootLines[bootIdx];
+      bootLinesTarget.appendChild(line);
+      bootIdx++;
+      bootFill.style.width = Math.round((bootIdx / bootLines.length) * 100) + '%';
+      setTimeout(step, 500);
     }
+    step();
+  }
 
-    /********** RENDER PROJECT CARDS **********/
-    const vaultGrid = document.getElementById('vaultGrid');
-    function loadAttempts(projId) {
-      const obj = JSON.parse(localStorage.getItem('vaultAttempts') || '{}');
-      return obj[projId] || 0;
-    }
-    function saveAttempts(projId, count) {
-      const obj = JSON.parse(localStorage.getItem('vaultAttempts') || '{}');
-      obj[projId] = count;
-      localStorage.setItem('vaultAttempts', JSON.stringify(obj));
-    }
-    function logAccess(projId, code, success) {
-      const log = JSON.parse(localStorage.getItem('vaultLog') || '[]');
-      log.push({project:projId, time:new Date().toISOString(), codeAttempt:code, success:!!success});
-      localStorage.setItem('vaultLog', JSON.stringify(log));
-    }
+  /********** RENDER PROJECT CARDS **********/
+  const vaultGrid = document.getElementById('vaultGrid');
+  function loadAttempts(projId) {
+    const obj = JSON.parse(localStorage.getItem('vaultAttempts') || '{}');
+    return obj[projId] || 0;
+  }
+  function saveAttempts(projId, count) {
+    const obj = JSON.parse(localStorage.getItem('vaultAttempts') || '{}');
+    obj[projId] = count;
+    localStorage.setItem('vaultAttempts', JSON.stringify(obj));
+  }
+  function logAccess(projId, code, success) {
+    const log = JSON.parse(localStorage.getItem('vaultLog') || '[]');
+    log.push({project:projId, time:new Date().toISOString(), codeAttempt:code, success:!!success});
+    localStorage.setItem('vaultLog', JSON.stringify(log));
+  }
 
-    function createCard(p) {
-      const attempts = loadAttempts(p.id);
-      const locked = attempts >= MAX_ATTEMPTS;
-      const card = document.createElement('div');
-      card.className = 'project-card';
-      card.id = p.id;
-      card.innerHTML = `
-        <div class="project-title">${p.title}</div>
-        <div class="project-teaser">${p.teaser}</div>
-        <div class="project-meta">
-          <div class="project-lock">${locked ? 'Locked' : ''}</div>
-          <div>
-            <button class="enter-btn" ${locked? 'disabled' : ''} data-proj="${p.id}">Enter</button>
-          </div>
+  function createCard(p) {
+    const attempts = loadAttempts(p.id);
+    const locked = attempts >= MAX_ATTEMPTS;
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.id = p.id;
+    card.innerHTML = `
+      <div class="project-title">${p.title}</div>
+      <div class="project-teaser">${p.teaser}</div>
+      <div class="project-meta">
+        <div class="project-lock">${locked ? 'Locked' : ''}</div>
+        <div>
+          <button class="enter-btn" ${locked? 'disabled' : ''} data-proj="${p.id}">Enter</button>
         </div>
-      `;
-      vaultGrid.appendChild(card);
-    }
+      </div>
+    `;
+    vaultGrid.appendChild(card);
+  }
 
-    PROJECTS.forEach(createCard);
+  PROJECTS.forEach(createCard);
 
-    /********** MODAL HANDLING **********/
-    const pwdModal = document.getElementById('pwdModal');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-    const pwdInput = document.getElementById('pwdInput');
-    const pwdSubmit = document.getElementById('pwdSubmit');
-    const pwdCancel = document.getElementById('pwdCancel');
-    const modalStatus = document.getElementById('modalStatus');
-    let activeProject = null;
+  /********** MODAL HANDLING **********/
+  const pwdModal = document.getElementById('pwdModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const pwdInput = document.getElementById('pwdInput');
+  const pwdSubmit = document.getElementById('pwdSubmit');
+  const pwdCancel = document.getElementById('pwdCancel');
+  const modalStatus = document.getElementById('modalStatus');
+  let activeProject = null;
 
-    // open modal for a project
-    document.querySelectorAll('.enter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const pid = e.currentTarget.dataset.proj;
-        openModal(pid);
-      });
+  document.querySelectorAll('.enter-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const pid = e.currentTarget.dataset.proj;
+      openModal(pid);
     });
+  });
 
-    function openModal(projId) {
-      activeProject = PROJECTS.find(x=>x.id===projId);
-      modalTitle.textContent = `Enter access code`;
-      modalDesc.textContent = `Project: ${activeProject.title}`;
-      modalStatus.textContent = '';
-      pwdInput.value = '';
-      pwdModal.style.display = 'block';
-      pwdInput.focus();
-    }
-    function closeModal() {
-      activeProject = null;
-      pwdModal.style.display = 'none';
-    }
+  function openModal(projId) {
+    activeProject = PROJECTS.find(x=>x.id===projId);
+    modalTitle.textContent = `Enter access code`;
+    modalDesc.textContent = `Project: ${activeProject.title}`;
+    modalStatus.textContent = '';
+    pwdInput.value = '';
+    pwdModal.style.display = 'block';
+    pwdInput.focus();
+  }
+  function closeModal() {
+    activeProject = null;
+    pwdModal.style.display = 'none';
+  }
 
-    pwdCancel.addEventListener('click', closeModal);
+  pwdCancel.addEventListener('click', closeModal);
 
-    // submit handler
-    pwdSubmit.addEventListener('click', () => {
-      if (!activeProject) return;
-      const code = pwdInput.value.trim();
-      if (!code) { modalStatus.textContent = 'Please enter a code.'; return; }
-      // check
-      if (code === activeProject.password) {
-        // success
-        logAccess(activeProject.id, code, true);
-        // show access overlay + countdown
-        showAccessOverlay(activeProject.title, activeProject.redirect);
-        closeModal();
-      } else {
-        // failed
-        logAccess(activeProject.id, code, false);
-        let attempts = loadAttempts(activeProject.id) + 1;
-        saveAttempts(activeProject.id, attempts);
-        modalStatus.textContent = `Access denied. (${attempts} failed attempt(s))`;
-        // update card UI + possibly lock
-        const cardLock = document.querySelector(`#${activeProject.id} .project-lock`);
-        const btn = document.querySelector(`#${activeProject.id} .enter-btn`);
-        if (attempts >= MAX_ATTEMPTS) {
-          cardLock.textContent = 'Locked';
-          btn.disabled = true;
-          modalStatus.textContent = 'Too many failed attempts — project temporarily locked.';
-        }
+  pwdSubmit.addEventListener('click', () => {
+    if (!activeProject) return;
+    const code = pwdInput.value.trim();
+    if (!code) { modalStatus.textContent = 'Please enter a code.'; return; }
+
+    if (code === activeProject.password) {
+      logAccess(activeProject.id, code, true);
+      showAccessOverlay(activeProject);
+      closeModal();
+    } else {
+      logAccess(activeProject.id, code, false);
+      let attempts = loadAttempts(activeProject.id) + 1;
+      saveAttempts(activeProject.id, attempts);
+      modalStatus.textContent = `Access denied. (${attempts} failed attempt(s))`;
+      const cardLock = document.querySelector(`#${activeProject.id} .project-lock`);
+      const btn = document.querySelector(`#${activeProject.id} .enter-btn`);
+      if (attempts >= MAX_ATTEMPTS) {
+        cardLock.textContent = 'Locked';
+        btn.disabled = true;
+        modalStatus.textContent = 'Too many failed attempts — project temporarily locked.';
       }
-    });
-
-    // allow Enter key in input
-    pwdInput.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Enter') pwdSubmit.click();
-      if (ev.key === 'Escape') pwdCancel.click();
-    });
-
-    /********** ACCESS OVERLAY & REDIRECT **********/
-    const accessOverlay = document.getElementById('accessOverlay');
-    const accessMsg = document.getElementById('accessMsg');
-    const accessSub = document.getElementById('accessSub');
-
-    function showAccessOverlay(title, redirectUrl) {
-      accessMsg.textContent = 'ACCESS GRANTED — INITIALIZING SECURE CHANNEL...';
-      accessSub.textContent = `Establishing secure connection to ${title}...`;
-      accessOverlay.classList.add('active');
-      // play small beep (requires user gesture usually — try/catch)
-      try {
-        const audio = new Audio();
-        // tiny beep via base64 short wav (low size)
-        audio.src = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=";
-        audio.play().catch(()=>{/* ignore */});
-      } catch (e) {}
-      // redirect after short sequence with small progress updates
-      let step=0;
-      const steps = [
-        {delay:700, text:'Authenticating session...'},
-        {delay:700, text:'Negotiating secure channel...'},
-        {delay:900, text:'Finalizing environment...'}
-      ];
-      let idx=0;
-      const t = setInterval(()=>{
-        if (idx < steps.length) {
-          accessSub.textContent = steps[idx].text;
-          idx++;
-        } else {
-          clearInterval(t);
-          // final small delay then redirect
-          setTimeout(()=> {
-            // hide overlay and redirect
-            window.location.href = redirectUrl;
-          }, 500);
-        }
-      }, steps[0].delay);
     }
+  });
 
-    /********** ADMIN HELPERS (console) **********/
-    window.vaultAdmin = {
-      getLog: () => JSON.parse(localStorage.getItem('vaultLog') || '[]'),
-      clearLog: () => { localStorage.removeItem('vaultLog'); localStorage.removeItem('vaultAttempts'); alert('Vault logs & attempts cleared'); location.reload(); },
-      showAttempts: () => JSON.parse(localStorage.getItem('vaultAttempts') || '{}')
-    };
+  pwdInput.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter') pwdSubmit.click();
+    if (ev.key === 'Escape') pwdCancel.click();
+  });
 
-    /********** START BOOT ON LOAD **********/
-    window.addEventListener('load', () => {
-      // run boot sequence
-      runBoot();
-      // After boot, ensure vault cards reflect current attempt/lock state
-      setTimeout(() => {
-        // update card locked states if needed (in case attempts exist)
-        PROJECTS.forEach(p=>{
-          const attempts = loadAttempts(p.id);
-          if (attempts >= MAX_ATTEMPTS) {
-            const lockEl = document.querySelector(`#${p.id} .project-lock`);
-            const btn = document.querySelector(`#${p.id} .enter-btn`);
-            if (lockEl) lockEl.textContent = 'Locked';
-            if (btn) btn.disabled = true;
+  /********** ACCESS OVERLAY **********/
+  const accessOverlay = document.getElementById('accessOverlay');
+  const accessMsg = document.getElementById('accessMsg');
+  const accessSub = document.getElementById('accessSub');
+
+  function showAccessOverlay(project) {
+    accessMsg.textContent = 'ACCESS GRANTED — INITIALIZING SECURE CHANNEL...';
+    accessSub.textContent = `Establishing secure connection to ${project.title}...`;
+    accessOverlay.classList.add('active');
+
+    const steps = [
+      {delay:700, text:'Authenticating session...'},
+      {delay:700, text:'Negotiating secure channel...'},
+      {delay:900, text:'Finalizing environment...'}
+    ];
+    let idx=0;
+    const t = setInterval(()=>{
+      if (idx < steps.length) {
+        accessSub.textContent = steps[idx].text;
+        idx++;
+      } else {
+        clearInterval(t);
+        setTimeout(()=> {
+          accessOverlay.classList.remove('active');
+          // redirect logic
+          if (project.id === 'p1') {
+            window.location.href = project.redirect;
+          } else {
+            alert(`Access granted to ${project.title}\nModule under construction — returning to Vault Interface.`);
+            // küçük gecikmeyle geri dönüş efekti
+            setTimeout(()=> {
+              accessOverlay.classList.remove('active');
+            }, 500);
           }
-        });
-      }, 1600);
-    });
+        }, 500);
+      }
+    }, steps[0].delay);
+  }
 
-  </script>
+  /********** ADMIN HELPERS **********/
+  window.vaultAdmin = {
+    getLog: () => JSON.parse(localStorage.getItem('vaultLog') || '[]'),
+    clearLog: () => { localStorage.removeItem('vaultLog'); localStorage.removeItem('vaultAttempts'); alert('Vault logs & attempts cleared'); location.reload(); },
+    showAttempts: () => JSON.parse(localStorage.getItem('vaultAttempts') || '{}')
+  };
+
+  /********** START BOOT ON LOAD **********/
+  window.addEventListener('load', () => {
+    runBoot();
+    setTimeout(() => {
+      PROJECTS.forEach(p=>{
+        const attempts = loadAttempts(p.id);
+        if (attempts >= MAX_ATTEMPTS) {
+          const lockEl = document.querySelector(`#${p.id} .project-lock`);
+          const btn = document.querySelector(`#${p.id} .enter-btn`);
+          if (lockEl) lockEl.textContent = 'Locked';
+          if (btn) btn.disabled = true;
+        }
+      });
+    }, 1600);
+  });
+</script>
+
 </body>
 </html>

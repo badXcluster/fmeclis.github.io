@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PROJECT VAULT - Restricted Access</title>
+<link rel="stylesheet" href="../../../style.css" />
+
+<style>
+/* ========== VAULT GLOBAL STYLES ========== */
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0a0a0a 10%, #000 80%);
+  color: #e0f7fa;
+  font-family: "Consolas", "Courier New", monospace;
+  overflow-x: hidden;
+}
+
+header.site-header {
+  background: #000;
+  border-bottom: 2px solid #009688;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+}
+
+/* Navbar */
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: #eee;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.navbar a.vault-link {
+  color: #00fff7;
+  animation: vaultGlow 2.2s ease-in-out infinite;
+}
+
+@keyframes vaultGlow {
+  0%, 100% { text-shadow: 0 0 5px #00fff7, 0 0 15px #009688; }
+  50% { text-shadow: 0 0 15px #00fff7, 0 0 35px #00c9b7; }
+}
+
+/* ========== INITIALIZING SCREEN ========== */
+#initScreen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #00ffc8;
+  z-index: 9999;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#initScreen span {
+  display: inline-block;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ========== MAIN VAULT AREA ========== */
+.vault-container {
+  padding: 80px 30px 100px;
+  text-align: center;
+}
+
+.vault-container h1 {
+  font-size: 26px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  color: #00fff7;
+  text-shadow: 0 0 8px #009688;
+}
+
+.vault-container p {
+  font-size: 15px;
+  color: #b2dfdb;
+  margin-bottom: 50px;
+}
+
+.vault-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.vault-card {
+  background: rgba(0, 30, 30, 0.65);
+  border: 1px solid #00a89f;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,255,255,0.2);
+  padding: 25px;
+  width: 240px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.vault-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0,255,255,0.4);
+}
+
+.vault-card h3 {
+  color: #00fff7;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.vault-card input {
+  width: 80%;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+  margin-top: 5px;
+  background: #001818;
+  color: #00fff7;
+}
+
+.vault-card button {
+  margin-top: 10px;
+  padding: 6px 16px;
+  background: #00bfa5;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.vault-card button:hover {
+  background: #00ffe0;
+}
+
+/* TEAL UNDERLINE */
+.vault-header-line {
+  width: 90px;
+  height: 2px;
+  background: #00bfa5;
+  margin: 12px auto 30px;
+  border-radius: 3px;
+}
+
+/* ON CONSTRUCTION POPUP */
+#popupOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+}
+
+#popupBox {
+  background: #001a1a;
+  border: 1px solid #00bfa5;
+  border-radius: 10px;
+  padding: 30px 50px;
+  color: #00fff7;
+  font-size: 17px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+  text-align: center;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  color: #66fff6;
+  font-size: 13px;
+  border-top: 1px solid #00695c;
+  padding: 20px;
+  background: #000;
+}
+</style>
+</head>
+
+<body>
+  <!-- ======= INIT SCREEN ======= -->
+  <div id="initScreen">System initializing<span>...</span></div>
+
+  <!-- ======= HEADER ======= -->
+  <header class="site-header" id="mainHeader">
+    <div class="header-content">
+      <div class="logo-title">
+        <img src="../../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+        <div class="site-info">
+          <h1>Fatih Meclis</h1>
+          <p>Personal Website & Engineering Portfolio</p>
+        </div>
+      </div>
+
+      <nav class="navbar">
+        <ul>
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../../pages/photos/photos.htm">PHOTOS</a></li>
+          <li><a href="../../pages/myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="../../pages/special/projectvault.htm" class="vault-link" target="_blank">🔒 VAULT</a></li>
+          <li><a href="../../pages/aboutme/aboutme.htm">ABOUT ME</a></li>
+          <li><a href="../../pages/blog/blog.htm">BLOG</a></li>
+          <li><a href="../../pages/contact/contact.htm">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======= MAIN VAULT BODY ======= -->
+  <main class="vault-container">
+    <h1>PROJECT VAULT ACCESS PANEL</h1>
+    <div class="vault-header-line"></div>
+    <p>Restricted projects access node. Enter authorization codes to unlock mission data.</p>
+
+    <div class="vault-grid">
+      <div class="vault-card">
+        <h3>ENERGY DASHBOARD</h3>
+        <input type="password" id="pwd1" placeholder="Access code..." />
+        <button onclick="checkAccess(1)">Enter</button>
+      </div>
+
+      <div class="vault-card">
+        <h3>PROJECT ALPHA</h3>
+        <input type="password" id="pwd2" placeholder="Access code..." />
+        <button onclick="checkAccess(2)">Enter</button>
+      </div>
+
+      <div class="vault-card">
+        <h3>PROJECT BETA</h3>
+        <input type="password" id="pwd3" placeholder="Access code..." />
+        <button onclick="checkAccess(3)">Enter</button>
+      </div>
+
+      <div class="vault-card">
+        <h3>PROJECT GAMMA</h3>
+        <input type="password" id="pwd4" placeholder="Access code..." />
+        <button onclick="checkAccess(4)">Enter</button>
+      </div>
+
+      <div class="vault-card">
+        <h3>PROJECT DELTA</h3>
+        <input type="password" id="pwd5" placeholder="Access code..." />
+        <button onclick="checkAccess(5)">Enter</button>
+      </div>
+
+      <div class="vault-card">
+        <h3>PROJECT EPSILON</h3>
+        <input type="password" id="pwd6" placeholder="Access code..." />
+        <button onclick="checkAccess(6)">Enter</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======= ON CONSTRUCTION POPUP ======= -->
+  <div id="popupOverlay">
+    <div id="popupBox">
+      ⚙️ Access node currently under maintenance.<br>
+      Returning to Vault main screen...
+    </div>
+  </div>
+
+  <!-- ======= FOOTER ======= -->
+  <footer>
+    <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
+  </footer>
+
+  <script>
+  /* INIT SCREEN */
+  window.addEventListener("load", () => {
+    const init = document.getElementById("initScreen");
+    setTimeout(() => { init.style.display = "none"; }, 2000);
+  });
+
+  /* ACCESS LOGIC */
+  const ACCESS_CODE = "231";
+
+  function checkAccess(n) {
+    const entered = document.getElementById("pwd" + n).value.trim();
+    if (n === 1 && entered === ACCESS_CODE) {
+      showInitAndRedirect("../../../pages/special/energy.html");
+    } else {
+      showUnderConstruction();
+    }
+  }
+
+  function showInitAndRedirect(url) {
+    const init = document.getElementById("initScreen");
+    init.style.display = "flex";
+    init.innerHTML = "Access confirmed<br>Loading mission data<span>...</span>";
+    setTimeout(() => { window.location.href = url; }, 2200);
+  }
+
+  function showUnderConstruction() {
+    const overlay = document.getElementById("popupOverlay");
+    overlay.style.display = "flex";
+    setTimeout(() => { overlay.style.display = "none"; }, 2500);
+  }
+  </script>
+</body>
+</html>
