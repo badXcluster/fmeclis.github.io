@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Energy Dashboard - Fatih Meclis</title>
+  <title>Energy Dashboard - Fatih Meclis (Final)</title>
   <link rel="stylesheet" href="../../style.css" />
   <style>
-  
-    /* Scoped styles for dashboard */
-  :root { --turkuaz-dark: #024a4a; --turkuaz-darker: #013536; --accent: #8fb6ec; }
+    /* Scoped styles for dashboard (based on energy3.html but header color updated) */
+  :root { --turkuaz: #009ca6; --turkuaz-dark: #024a4a; --accent: #8fb6ec; }
   body { font-family: "Segoe UI", Arial, sans-serif; margin:0; background:#fff; color:#111; }
   .energy-wrap { padding: 80px; background:#f7f7f7; min-height:100vh; }
   .sheet { background: white; padding:15px; border-radius:6px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); max-width:1200px; margin:auto; }
@@ -42,23 +41,16 @@
   /* Password screen overlay */
   #accessScreen { display:flex; flex-direction:column; align-items:center; justify-content:center; height:70vh; text-align:center; padding:18px; }
   #accessScreen input { padding:10px 12px; width:240px; font-size:15px; border-radius:6px; border:1px solid #aaa; margin-top:8px; }
-  #accessScreen button { margin-top:10px; padding:8px 16px; border-radius:6px; border:none; background:var(--turkuaz-dark); color:#fff; cursor:pointer; }
+  #accessScreen button { margin-top:10px; padding:8px 16px; border-radius:6px; border:none; background:var(--turkuaz); color:#fff; cursor:pointer; }
   #wrongPass { color:red; display:none; margin-top:8px; }
-  /* keep header simple */
-  header.site-header { background:#fff; border-bottom:1px solid #eee; padding:10px 18px; }
-  header .logo-title { display:flex; gap:10px; align-items:center; }
+  /* Header (modified to tela-turkuaz) */
+  header.site-header { background: var(--turkuaz); border-bottom:1px solid rgba(255,255,255,0.08); padding:12px 18px; color:#fff; }
+  header .logo-title { display:flex; gap:10px; align-items:center; color:#fff; }
   header img{height:40px;}
-    
-  /* Sayfanın geri kalanı kendi renginde kalacak, ama header orijinal stil dosyasından beslenecek */
-  header.site-header {
-    background: transparent !important;
-  }
-
-  /* Eğer sayfanın body kısmına özel bir arka plan atadıysak, sadece ana içerik için uygula */
-  main.page-content {
-    background-color: #f8f9fa; /* veya eski energy dashboard'un arka planı */
-  }  
-    
+  header .logo-title h2, header .logo-title .muted { color: #fff; }
+  header .navbar ul { list-style:none; display:flex; gap:14px; margin:0; padding:0; align-items:center; }
+  header .navbar a { color:#fff; text-decoration:none; font-weight:600; }
+  header .navbar a:hover { text-decoration:underline; }
   </style>
 </head>
 <body>
@@ -74,12 +66,12 @@
         </div>
       </div>
       <nav class="navbar">
-        <ul style="list-style:none;display:flex;gap:14px;margin:0;padding:0;">
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="pages/photos/photos.htm">PHOTOS</a></li>
-          <li><a href="pages/myworks/myworks.htm">MY WORKS</a></li>
-          <li><a href="pages/contact/contact.htm">CONTACT</a></li>
-          <li><a href="pages/blog/blog.htm">BLOG</a></li>
+        <ul>
+          <li><a href="../../index.html">HOME</a></li>
+          <li><a href="../../pages/photos/photos.htm">PHOTOS</a></li>
+          <li><a href="../../pages/myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="../../pages/contact/contact.htm">CONTACT</a></li>
+          <li><a href="../../pages/blog/blog.htm">BLOG</a></li>
         </ul>
       </nav>
     </div>
@@ -272,54 +264,57 @@
   </footer>
 
   <!-- ===========================
-       SCRIPTS — ordered and modular
+       SCRIPTS — merged & final
        =========================== -->
 
-  <!-- 1) CONFIGS / CONSTANTS -->
+  <!-- CONFIGS -->
   <script>
   // Access code
-  const ACCESS_CODE = "231"; // change as you like
-  const tariffFile = "data/askiTariff.json"; // must exist in repo root /data/askiTariff.json
+  const ACCESS_CODE = "231"; // change if needed
+  const tariffFile = "/data/askiTariff.json"; // ROOT/data/askiTariff.json
 
-  // Editable readings (change these values when you update readings)
+  // --- Use gas & elec readings from energy.html (preferred) ---
   const gasConfig = {
     prefix: "gas",
     firstDateStr: "2025-10-06T11:19:57",
     firstReading: 6982,
-    lastReading: 7043.32,
+    lastReading: 7061.83,
     unitPrice: 11.50,
     limitType: "gas"
   };
+
   const elecConfig = {
     prefix: "elec",
     firstDateStr: "2025-10-01T09:00:00",
     firstReading: 1798.723,
-    lastReading: 1902.55,
+    lastReading: 1926.83,
     unitPrice: 2.60,
     dailyLimit: 5.65,
     monthlyLimit: 169.5,
     limitType: "fixed"
   };
+
+  // waterConfig use energy3 values (but limitType 'water' so ASKİ logic triggers)
   const waterConfig = {
     prefix: "water",
     firstDateStr: "2025-10-07T11:19:57",
     firstReading: 951,
     lastReading: 961.5,
-    unitPrice: 0, // not used for ASKİ normal calc; kept for fallback
+    unitPrice: 0, // not used (ASKİ uses tariff)
     dailyLimit: 0.46,
     monthlyLimit: 13.8,
     limitType: "water"
   };
   </script>
 
-  <!-- 2) HELPERS -->
+  <!-- HELPERS -->
   <script>
   const fmt = (v, dp=2) => (isNaN(v) || v===null) ? "--" : Number(v).toLocaleString(undefined, { minimumFractionDigits: dp, maximumFractionDigits: dp });
   const monthNamesTr = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
   function daysBetween(d1, d2) { return (d2 - d1) / (1000*60*60*24); }
   </script>
 
-  <!-- 3) ASKİ calc (matches Excel MYSU logic) -->
+  <!-- ASKİ calc (from energy3.html) -->
   <script>
   async function loadTariff() {
     try {
@@ -334,8 +329,6 @@
   }
 
   function calcAskiBreakdown(consumption, days, tariffData, mode="normal") {
-    // tariffData: object parsed from JSON
-    // mode: "normal" or "indirimli"
     if (!tariffData) return null;
     const t = tariffData;
     const BF = []; // su unit prices per band
@@ -349,10 +342,9 @@
     const KDVsu = Number(t.kdv?.su ?? t.KDV?.su ?? 0) || 0;
     const KDVatik = Number(t.kdv?.atik ?? t.KDV?.atik ?? 0) || 0;
 
-    // daily average (AVGD)
     const AVGD = consumption / days;
     const KADEME = [0,0,0,0];
-    // Excel logic: thresholds in m3/day
+    // thresholds in m3/day (Excel logic)
     const lim1 = 0.3333, lim2 = 0.5, lim3 = 1.0;
     if (AVGD <= lim1) {
       KADEME[0] = AVGD * days;
@@ -370,7 +362,6 @@
       KADEME[3] = (AVGD - lim3) * days;
     }
 
-    // compute costs
     let suBedeli = 0, atikBedeli = 0;
     for (let i=0;i<4;i++) {
       suBedeli += KADEME[i] * (BF[i] || 0);
@@ -388,7 +379,7 @@
   }
   </script>
 
-  <!-- 4) MAIN updateConsumption and orchestration -->
+  <!-- MAIN updateConsumption (merged gas/elec logic + water ASKİ flow) -->
   <script>
   function readMonthlyAnalysis() {
     const rows = document.querySelectorAll('#monthlyAnalysis tbody tr');
@@ -416,19 +407,27 @@
     const estCost = estMonthly * cfg.unitPrice;
 
     // write common fields
-    document.getElementById(cfg.prefix + "_firstDateCell").textContent = firstDate.toLocaleString();
-    document.getElementById(cfg.prefix + "_nowDateCell").textContent = now.toLocaleString();
-    document.getElementById(cfg.prefix + "_firstReadingCell").textContent = fmt(cfg.firstReading,2);
-    document.getElementById(cfg.prefix + "_lastReadingCell").textContent = fmt(cfg.lastReading,2);
-    document.getElementById(cfg.prefix + "_daysCell").textContent = fmt(daysPassed,3);
-    document.getElementById(cfg.prefix + "_consCell").textContent = fmt(cons,3);
-    document.getElementById(cfg.prefix + "_dailyAvgCell").textContent = fmt(dailyAvg,4);
-    document.getElementById(cfg.prefix + "_estMonthlyCell").textContent = fmt(estMonthly,3);
-    document.getElementById(cfg.prefix + "_unitPriceCell").textContent = fmt(cfg.unitPrice,2);
+    const prefix = cfg.prefix;
+    const el = (id)=>document.getElementById(prefix + id);
+    document.getElementById(prefix + "_firstDateCell").textContent = firstDate.toLocaleString();
+    document.getElementById(prefix + "_nowDateCell").textContent = now.toLocaleString();
+    document.getElementById(prefix + "_firstReadingCell").textContent = fmt(cfg.firstReading,2);
+    document.getElementById(prefix + "_lastReadingCell").textContent = fmt(cfg.lastReading,2);
+    document.getElementById(prefix + "_daysCell").textContent = fmt(daysPassed,3);
+    document.getElementById(prefix + "_consCell").textContent = fmt(cons,3);
+    document.getElementById(prefix + "_dailyAvgCell").textContent = fmt(dailyAvg,4);
+    document.getElementById(prefix + "_estMonthlyCell").textContent = fmt(estMonthly,3);
+    document.getElementById(prefix + "_unitPriceCell").textContent = fmt(cfg.unitPrice,2);
+
+    // For gas & elec: write costs into table (fix from previous mismatch)
+    if (prefix === "gas" || prefix === "elec") {
+      document.getElementById(prefix + "_periodTotalCostCell").textContent = fmt(cost,2);
+      document.getElementById(prefix + "_estMonthlyCostCell").textContent = fmt(estCost,2);
+    }
 
     // progress/limit
-    const noteEl = document.getElementById(cfg.prefix + "_limitNote");
-    const barEl = document.getElementById(cfg.prefix + "_progressBar");
+    const noteEl = document.getElementById(prefix + "_limitNote");
+    const barEl = document.getElementById(prefix + "_progressBar");
     let dailyLimit = 0, monthlyLimit = 0;
     if (cfg.limitType === "gas") {
       const currentMonth = monthNamesTr[now.getMonth()];
@@ -442,38 +441,36 @@
     let color = percent>110 ? "red" : percent>90 ? "orange" : "green";
     if (barEl) { barEl.style.width = percent + "%"; barEl.style.backgroundColor = color; }
 
-    // special handling for water (use tariff)
+    // special handling for water (ASKİ tariff)
     if (cfg.limitType === "water") {
       noteEl.innerHTML = "<em>Calculating ASKİ...</em>";
-      // load tariff, then calc
       const tariff = await loadTariff();
       if (!tariff) {
         noteEl.innerHTML = "<span style='color:red;'>Tariff load error</span>";
-        document.getElementById(cfg.prefix + "_periodTotalCostCell").textContent = fmt(0,2);
-        document.getElementById(cfg.prefix + "_estMonthlyCostCell").textContent = fmt(0,2);
+        document.getElementById(prefix + "_periodTotalCostCell").textContent = fmt(0,2);
+        document.getElementById(prefix + "_estMonthlyCostCell").textContent = fmt(0,2);
         return;
       }
-      // compute actual and estimated
+      // actual (for billing period)
       const breakdownActual = calcAskiBreakdown(cons, daysPassed, tariff, "normal");
-      const breakdownEst = calcAskiBreakdown(estMonthly, 30, tariff, "normal"); // estMonthly is m3 per 30 days? keep consistent: we pass amount and days -> but calcAskiBreakdown expects consumption and days; Excel used AVGD and GUN; for est we treat estMonthly amount over 30 days
-      // show details
-      document.getElementById(cfg.prefix + "_periodTotalCostCell").textContent = fmt(breakdownActual.total,2);
-      document.getElementById(cfg.prefix + "_estMonthlyCostCell").textContent = fmt(breakdownEst.total,2);
+      // estimated monthly: treat estMonthly (m3 per 30 days) as consumption over 30 days
+      const breakdownEst = calcAskiBreakdown(estMonthly, 30, tariff, "normal");
+
+      document.getElementById(prefix + "_periodTotalCostCell").textContent = fmt(breakdownActual.total,2);
+      document.getElementById(prefix + "_estMonthlyCostCell").textContent = fmt(breakdownEst.total,2);
       document.getElementById("water_suCost").textContent = fmt(breakdownActual.suBedeli,2) + " TL";
       document.getElementById("water_atikCost").textContent = fmt(breakdownActual.atikBedeli,2) + " TL";
       document.getElementById("water_kdv").textContent = fmt(breakdownActual.kdvTutar,2) + " TL";
       document.getElementById("water_ctv").textContent = fmt(breakdownActual.ctvTutar,2) + " TL";
       document.getElementById("water_total").textContent = fmt(breakdownActual.total,2) + " TL";
       document.getElementById("water_total_label").textContent = `(${fmt(cons,2)} m³)`;
-      // set unit price cell to average unit price (total/cons) when cons>0
-      document.getElementById(cfg.prefix + "_unitPriceCell").textContent = (cons>0 ? fmt(breakdownActual.total/cons,2) : "--");
+      document.getElementById(prefix + "_unitPriceCell").textContent = (cons>0 ? fmt(breakdownActual.total/cons,2) : "--");
       noteEl.innerHTML = `<span class="ok">✓ ASKİ hesaplandı (Normal)</span> — Günlük ort: ${fmt(breakdownActual.avgDaily,3)} m³/gün`;
-      // populate tariff table on right
       populateTariffTable(tariff, "normal");
       return;
     }
 
-    // gas/electricity default behavior
+    // gas/electric default messaging
     if (dailyAvg > dailyLimit) {
       const over = estMonthly - monthlyLimit;
       const extra = over * cfg.unitPrice;
@@ -484,7 +481,7 @@
   }
   </script>
 
-  <!-- 5) TARIFF TABLE POPULATOR + BOOT -->
+  <!-- TARIFF TABLE POPULATOR + BOOT -->
   <script>
   function populateTariffTable(tariffData, mode="normal") {
     if (!tariffData) return;
@@ -504,7 +501,6 @@
 
   // bootstrap routine
   (async function boot() {
-    // show/hide protected area based on session
     const protectedArea = document.getElementById("protectedArea");
     const accessScreen = document.getElementById("accessScreen");
     if (sessionStorage.getItem("energyAccess")==="granted") {
@@ -515,7 +511,6 @@
       protectedArea.style.display = "none";
     }
 
-    // wire access button
     document.getElementById("accessBtn").addEventListener("click", ()=>{
       const entered = document.getElementById("accessCode").value.trim();
       if (entered === ACCESS_CODE) {
@@ -530,22 +525,18 @@
       }
     });
 
-    // if already allowed, run
     if (sessionStorage.getItem("energyAccess")==="granted") runAll();
   })();
 
   async function runAll() {
-    // update now text
     document.getElementById("nowText").textContent = new Date().toLocaleString();
-    // read monthly analysis
     const monthlyData = readMonthlyAnalysis();
-    // run gas & elec & water
+    // run gas & elec & water — pass monthly data for gas to derive limit; pass same to elec optional
     await updateConsumption(gasConfig, monthlyData);
     await updateConsumption(elecConfig, monthlyData);
     await updateConsumption(waterConfig, monthlyData);
   }
 
-  // also expose runAll to console
   window.runAll = runAll;
   </script>
 
