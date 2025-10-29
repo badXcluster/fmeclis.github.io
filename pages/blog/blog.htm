@@ -5,7 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Comments & Feedback - Fatih Meclis</title>
   <link rel="stylesheet" href="../../style.css" />
+
+  <style>
+    /* --- Quote Card System --- */
+    article {
+      max-width: 800px;
+      margin: 2em auto;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .quote-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-left: 3px solid #ccc;
+      padding: 0.75em 1em;
+      margin: 1em 2em;
+      font-style: italic;
+      background: #fafafa;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      max-width: 320px;
+    }
+
+    .quote-card footer {
+      margin-top: 0.5em;
+      font-style: normal;
+      font-size: 0.9em;
+      color: #555;
+      align-self: flex-end;
+    }
+
+    .quote-card.left {
+      float: left;
+      margin-right: 1.5em;
+    }
+
+    .quote-card.right {
+      float: right;
+      margin-left: 1.5em;
+    }
+
+    .quote-card.center {
+      float: none;
+      margin: 2em auto;
+      max-width: 600px;
+      text-align: left;
+    }
+
+    .quote-card img.quote-gif {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 0.5em;
+    }
+
+    @media (max-width: 768px) {
+      .quote-card.left,
+      .quote-card.right {
+        float: none;
+        margin: 1.5em auto;
+        max-width: 90%;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header class="site-header" id="mainHeader">
     <div class="header-content">
@@ -19,14 +84,12 @@
       <nav class="navbar">
         <ul>
           <li><a href="../../index.html">HOME</a></li>
-		  <li><a href="../../pages/photos/photos.htm">PHOTOS</a></li>
-		  <li><a href="../../pages/myworks/myworks.htm">MY WORKS</a></li>
-          <li><a href="../../pages/special/projectvault.htm" class="vault-link" target="_blank">🔒 VAULT</a></li>          
+          <li><a href="../../pages/photos/photos.htm">PHOTOS</a></li>
+          <li><a href="../../pages/myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="../../pages/special/projectvault.htm" class="vault-link" target="_blank">🔒 VAULT</a></li>
           <li><a href="../../pages/aboutme/aboutme.htm">ABOUT ME</a></li>
           <li><a href="../../pages/blog/blog.htm" class="active">BLOG</a></li>
           <li><a href="../../pages/contact/contact.htm">CONTACT</a></li>
-          
-                   
         </ul>
       </nav>
     </div>
@@ -34,23 +97,58 @@
 
   <main class="page-content">
     <section class="content-section">
-  <div class="section-header">
-    <h2>Free Zone</h2>
-    <p>Where opinions flow, ideas spark, and everyday life gets a voice.</p>
-  </div>
-</section>
-    <br>
-    <br>
-    
+      <div class="section-header">
+        <h2>Free Zone</h2>
+        <p>Where opinions flow, ideas spark, and everyday life gets a voice.</p>
+      </div>
+    </section>
+    <br><br>
+
+    <!-- Your existing Dostoyevski section -->
     <p><img src="../../images/siteimages/lifecycle.gif" alt="Dostoyevski" /></p>  
-     <br>
-    <br>
-      <p><strong><em>"The best time for people to get to know each other is when they are about to part."</em> </strong> </p>
-  
-      
-      <p><strong style="color:#9a0707;">Fyodor Mikhailovich Dostoevsky </strong></p>
-        <p>From The Karamazov Brothers (-Rebellion, Ivan and Alyosha)</p>
-      
+    <br><br>
+    <p><strong><em>"The best time for people to get to know each other is when they are about to part."</em></strong></p>
+    <p><strong style="color:#9a0707;">Fyodor Mikhailovich Dostoevsky</strong></p>
+    <p>From The Karamazov Brothers (-Rebellion, Ivan and Alyosha)</p>
+
+    <hr style="margin: 3em 0; border: none; border-top: 1px solid #ddd;">
+
+    <!-- 🌿 New Blog System Section -->
+    <article>
+      <h2>Reflections & Inspirations</h2>
+      <p>
+        Life often flows between knowing and not knowing — between wisdom and wonder.
+        Each realization shapes how we see ourselves and the world around us.
+      </p>
+
+      <div class="quote-card left">
+        <blockquote>
+          "He who does not know, and does not know that he does not know, is ignorant; teach him.<br>
+          He who does not know, and knows that he does not know, is a learner; guide him.<br>
+          He who does not know, but thinks he knows, is a fool; avoid him."
+        </blockquote>
+        <footer>
+          <em>Traditional proverb, often misattributed to Confucius; origins uncertain (possibly Persian or Arabic).</em>
+        </footer>
+      </div>
+
+      <p>
+        Some words stay with us not because they are ancient, but because they touch something timeless.
+        The above proverb reminds us that self-awareness is the first step to growth — and humility the path to wisdom.
+      </p>
+
+      <div class="quote-card right">
+        <img src="../../images/siteimages/flowing-water.gif" alt="Flowing Water" class="quote-gif">
+        <blockquote>
+          "The mind that is still, the water that flows — both reflect the truth more clearly."
+        </blockquote>
+        <footer><em>Inspired reflection</em></footer>
+      </div>
+
+      <p>
+        Let thoughts flow, not rush. Let learning ripple quietly, like water moving around the stones of life.
+      </p>
+    </article>
   </main>
 
   <footer>
