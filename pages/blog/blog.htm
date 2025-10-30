@@ -129,7 +129,15 @@
       font-size: 0.9em;
       margin-top: auto;
     }
-    
+/* ADDED for lifecycle.gif dimensions keepin in original */
+    .quote-card.center .gif-original {
+      width: auto;         /* genişliği kartın boyutuna göre esnetme */
+      height: auto;        /* orantıyı koru */
+      max-width: 100%;     /* kart taşmasın */
+      display: block;
+      margin: 0 auto 10px; /* ortala ve altta biraz boşluk bırak */
+      }
+
     
   </style>
 </head>
@@ -166,18 +174,21 @@
       </div>
     </section>
 
-    <!-- Dostoyevski section -->
-    <br><br>
-    <p><strong><em>"The best time for people to get to know each other is when they are about to part."</em></strong></p>
-    <p><strong style="color:#9a0707;">Fyodor Mikhailovich Dostoevsky</strong></p>
-    <p>From The Karamazov Brothers (-Rebellion, Ivan and Alyosha)</p>
-    <br>
-    <p><img src="../../images/siteimages/lifecycle.gif" alt="Dostoyevski" /></p>
     <hr style="margin: 1em 0; border: none; border-top: 1px solid #ddd;">
 
     <!-- 🌿 Blog section -->
     <article>
       <h2>Reflections & Inspirations</h2>
+      <div class="quote-card center">
+        <img src="../../images/siteimages/lifecycle.gif" alt="Life cycle animation" class="gif-original">
+        <blockquote>
+          "The best time for people to get to know each other is when they are about to part."
+        </blockquote>
+        <footer>Fyodor Mikhailovich Dostoevsky<br>
+        <em>From The Karamazov Brothers – Rebellion (Ivan and Alyosha)</em>
+        </footer>
+      </div>    
+      
       <p>
         Life often flows between knowing and not knowing — between wisdom and wonder.
         Each realization shapes how we see ourselves and the world around us.
