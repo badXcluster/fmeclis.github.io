@@ -126,13 +126,42 @@ async function updateWater() {
   document.getElementById("waterUpdate").textContent = now.toLocaleTimeString();
   const table = document.getElementById("waterTable");
 
-  // --- 1️⃣ Consumption calculations (like gas/electricity)
   const firstDate = new Date(waterConfig.firstDateStr);
   const days = daysBetween(firstDate, now);
   const cons = waterConfig.lastReading - waterConfig.firstReading;
   const daily = cons / days;
   const est = daily * 30;
 
+  // --- Kademe sınırları
+  const kademeLimits = [10, 15, 30]; // upper bounds for first three tiers
+
+  // --- 30 günlük tahmini tüketimi kademelere dağıt
+  let kademeler = [0, 0, 0, 0];
+  let remaining = est;
+  if (remaining > 0) {
+    kademeler[0] = Math.min(remaining, kademeLimits[0]); remaining -= kademeler[0];
+    kademeler[1] = Math.min(Math.max(0, remaining), kademeLimits[1]-kademeLimits[0]); remaining -= kademeler[1];
+    kademeler[2] = Math.min(Math.max(0, remaining), kademeLimits[2]-kademeLimits[1]); remaining -= kademeler[2];
+    kademeler[3] = Math.max(0, remaining);
+  }
+
+  let totalInd = 0, totalNor = 0;
+  if (tariff) {
+    for (let i = 0; i < 4; i++) {
+      const ind = tariff.indirimli[i];
+      const nor = tariff.normal[i];
+      const vol = kademeler[i];
+      totalInd += vol * (ind.su + ind.atik);
+      totalNor += vol * (nor.su + nor.atik);
+    }
+    // CTV ve KDV ekle
+    totalInd += tariff.ctv;
+    totalNor += tariff.ctv;
+    totalInd *= (1 + tariff.kdv.su + tariff.kdv.atik);
+    totalNor *= (1 + tariff.kdv.su + tariff.kdv.atik);
+  }
+
+  // --- 1️⃣ Üst tablo: kullanım ve tahmini tutarlar
   let consumptionHTML = `
     <thead>
       <tr>
@@ -145,6 +174,8 @@ async function updateWater() {
         <th>Usage (m³)</th>
         <th>Daily Avg (m³)</th>
         <th>Est. 30d (m³)</th>
+        <th>Est. Discounted (TL)</th>
+        <th>Est. Normal (TL)</th>
       </tr>
     </thead>
     <tbody>
@@ -158,11 +189,13 @@ async function updateWater() {
         <td>${fmt(cons, 2)}</td>
         <td>${fmt(daily, 3)}</td>
         <td>${fmt(est, 2)}</td>
+        <td>${fmt(totalInd, 2)}</td>
+        <td>${fmt(totalNor, 2)}</td>
       </tr>
     </tbody>
   `;
 
-  // --- 2️⃣ Tariff table (indirimli & normal)
+  // --- 2️⃣ Tarife tablosu (alt kısım)
   if (!tariff) {
     table.innerHTML = consumptionHTML + "<tr><td>Tarife yüklenemedi.</td></tr>";
     return;
@@ -206,9 +239,9 @@ async function updateWater() {
     </tfoot>
   `;
 
-  // --- Combine both parts into one table area
-  table.innerHTML = consumptionHTML + "<tr><td colspan='9' style='padding:4px;'></td></tr>" + tariffHTML;
+  table.innerHTML = consumptionHTML + "<tr><td colspan='11' style='padding:4px;'></td></tr>" + tariffHTML;
 }
+
 
 
 async function runAll(){
