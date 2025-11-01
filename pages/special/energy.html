@@ -126,21 +126,56 @@ async function updateWater() {
   document.getElementById("waterUpdate").textContent = now.toLocaleTimeString();
   const table = document.getElementById("waterTable");
 
+  // --- 1️⃣ Consumption calculations (like gas/electricity)
+  const firstDate = new Date(waterConfig.firstDateStr);
+  const days = daysBetween(firstDate, now);
+  const cons = waterConfig.lastReading - waterConfig.firstReading;
+  const daily = cons / days;
+  const est = daily * 30;
+
+  let consumptionHTML = `
+    <thead>
+      <tr>
+        <th>Period</th>
+        <th>First Date</th>
+        <th>First Reading</th>
+        <th>Now</th>
+        <th>Last Reading</th>
+        <th>Days</th>
+        <th>Usage (m³)</th>
+        <th>Daily Avg (m³)</th>
+        <th>Est. 30d (m³)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ekim25</td>
+        <td>${firstDate.toLocaleString()}</td>
+        <td>${fmt(waterConfig.firstReading)}</td>
+        <td>${now.toLocaleString()}</td>
+        <td>${fmt(waterConfig.lastReading)}</td>
+        <td>${fmt(days, 2)}</td>
+        <td>${fmt(cons, 2)}</td>
+        <td>${fmt(daily, 3)}</td>
+        <td>${fmt(est, 2)}</td>
+      </tr>
+    </tbody>
+  `;
+
+  // --- 2️⃣ Tariff table (indirimli & normal)
   if (!tariff) {
-    table.innerHTML = "<tr><td>Tarife yüklenemedi.</td></tr>";
+    table.innerHTML = consumptionHTML + "<tr><td>Tarife yüklenemedi.</td></tr>";
     return;
   }
 
   const len = Math.max(tariff.indirimli.length, tariff.normal.length);
-  let rows = "";
-
+  let tariffRows = "";
   for (let i = 0; i < len; i++) {
     const indSu = tariff.indirimli[i]?.su ?? "-";
     const indAtik = tariff.indirimli[i]?.atik ?? "-";
     const norSu = tariff.normal[i]?.su ?? "-";
     const norAtik = tariff.normal[i]?.atik ?? "-";
-
-    rows += `
+    tariffRows += `
       <tr>
         <td>${i + 1}</td>
         <td>${indSu}</td>
@@ -151,7 +186,7 @@ async function updateWater() {
     `;
   }
 
-  table.innerHTML = `
+  const tariffHTML = `
     <thead>
       <tr>
         <th>Kademe</th>
@@ -161,15 +196,18 @@ async function updateWater() {
         <th>Normal Atık (TL/m³)</th>
       </tr>
     </thead>
-    <tbody>${rows}</tbody>
+    <tbody>${tariffRows}</tbody>
     <tfoot>
       <tr>
         <td colspan="5" style="text-align:left;font-size:12px;color:#555;">
-          CTV: ${tariff.ctv} TL • KDV (su): ${tariff.kdv.su * 100}% • KDV (atık): ${tariff.kdv.atik * 100}%
+          CTV: ${tariff.ctv} TL • KDV (su): ${(tariff.kdv.su * 100).toFixed(0)}% • KDV (atık): ${(tariff.kdv.atik * 100).toFixed(0)}%
         </td>
       </tr>
     </tfoot>
   `;
+
+  // --- Combine both parts into one table area
+  table.innerHTML = consumptionHTML + "<tr><td colspan='9' style='padding:4px;'></td></tr>" + tariffHTML;
 }
 
 
