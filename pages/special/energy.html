@@ -131,23 +131,47 @@ async function updateWater() {
     return;
   }
 
-  // assume your JSON looks like: { "indirimli": [...], "normal": [...] }
   const len = Math.max(tariff.indirimli.length, tariff.normal.length);
-
   let rows = "";
+
   for (let i = 0; i < len; i++) {
-    const ind = tariff.indirimli[i] ? tariff.indirimli[i].toFixed(2) : "-";
-    const nor = tariff.normal[i] ? tariff.normal[i].toFixed(2) : "-";
-    rows += `<tr><td>${i + 1}</td><td>${ind}</td><td>${nor}</td></tr>`;
+    const indSu = tariff.indirimli[i]?.su ?? "-";
+    const indAtik = tariff.indirimli[i]?.atik ?? "-";
+    const norSu = tariff.normal[i]?.su ?? "-";
+    const norAtik = tariff.normal[i]?.atik ?? "-";
+
+    rows += `
+      <tr>
+        <td>${i + 1}</td>
+        <td>${indSu}</td>
+        <td>${indAtik}</td>
+        <td>${norSu}</td>
+        <td>${norAtik}</td>
+      </tr>
+    `;
   }
 
   table.innerHTML = `
     <thead>
-      <tr><th>Kademe</th><th>İndirimli (TL/m³)</th><th>Normal (TL/m³)</th></tr>
+      <tr>
+        <th>Kademe</th>
+        <th>İndirimli Su (TL/m³)</th>
+        <th>İndirimli Atık (TL/m³)</th>
+        <th>Normal Su (TL/m³)</th>
+        <th>Normal Atık (TL/m³)</th>
+      </tr>
     </thead>
     <tbody>${rows}</tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" style="text-align:left;font-size:12px;color:#555;">
+          CTV: ${tariff.ctv} TL • KDV (su): ${tariff.kdv.su * 100}% • KDV (atık): ${tariff.kdv.atik * 100}%
+        </td>
+      </tr>
+    </tfoot>
   `;
 }
+
 
 async function runAll(){
   await updateConsumption(gasConfig);
