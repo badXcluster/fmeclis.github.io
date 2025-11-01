@@ -120,33 +120,19 @@ async function updateConsumption(cfg){
   document.getElementById(cfg.prefix+"Update").textContent = now.toLocaleTimeString();
 }
 
-async function updateWater() {
+async function updateWater(){
   const tariff = await loadTariff();
   const now = new Date();
+  const firstDate = new Date(waterConfig.firstDateStr);
+  const days = daysBetween(firstDate,now);
+  const cons = waterConfig.lastReading - waterConfig.firstReading;
+  const daily = cons/days;
+  const est = daily*30;
   document.getElementById("waterUpdate").textContent = now.toLocaleTimeString();
   const table = document.getElementById("waterTable");
-
-  if (!tariff) {
-    table.innerHTML = "<tr><td>Tarife yüklenemedi.</td></tr>";
-    return;
-  }
-
-  // assume your JSON looks like: { "indirimli": [...], "normal": [...] }
-  const len = Math.max(tariff.indirimli.length, tariff.normal.length);
-
-  let rows = "";
-  for (let i = 0; i < len; i++) {
-    const ind = tariff.indirimli[i] ? tariff.indirimli[i].toFixed(2) : "-";
-    const nor = tariff.normal[i] ? tariff.normal[i].toFixed(2) : "-";
-    rows += `<tr><td>${i + 1}</td><td>${ind}</td><td>${nor}</td></tr>`;
-  }
-
-  table.innerHTML = `
-    <thead>
-      <tr><th>Kademe</th><th>İndirimli (TL/m³)</th><th>Normal (TL/m³)</th></tr>
-    </thead>
-    <tbody>${rows}</tbody>
-  `;
+  if(!tariff){table.innerHTML="<tr><td>Tarife yüklenemedi.</td></tr>";return;}
+  table.innerHTML = `<thead><tr><th>Period</th><th>Days</th><th>Usage</th><th>Daily</th><th>Est. 30d</th></tr></thead>
+  <tbody><tr><td>Ekim25</td><td>${fmt(days,2)}</td><td>${fmt(cons,2)}</td><td>${fmt(daily,3)}</td><td>${fmt(est,2)}</td></tr></tbody>`;
 }
 
 async function runAll(){
