@@ -196,10 +196,23 @@ async function updateWater() {
   `;
 
   // --- 2️⃣ Tarife tablosu (alt kısım)
-  if (!tariff) {
-    table.innerHTML = consumptionHTML + "<tr><td>Tarife yüklenemedi.</td></tr>";
-    return;
+  if (tariff) {
+  for (let i = 0; i < 4; i++) {
+    const ind = tariff.indirimli[i];
+    const nor = tariff.normal[i];
+    const vol = kademeler[i];
+
+    // İndirimli: su indirimli, atık normal
+    totalInd += vol * (ind.su + nor.atik);
+    // Normal: su + atık her ikisi normal
+    totalNor += vol * (nor.su + nor.atik);
   }
+
+  // CTV sabit ekle (KDV hariç)
+  totalInd = totalInd * (1 + tariff.kdv.su + tariff.kdv.atik) + tariff.ctv;
+  totalNor = totalNor * (1 + tariff.kdv.su + tariff.kdv.atik) + tariff.ctv;
+}
+
 
   const len = Math.max(tariff.indirimli.length, tariff.normal.length);
   let tariffRows = "";
