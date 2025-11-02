@@ -113,7 +113,6 @@
             <th>Est. Monthly (m³)</th>
             <th>Unit Price (TL/m³)</th>
             <th>Actual Cost (TL)</th>
-            <th>Est. Dist. Cost (TL)</th>
             <th>Est. Cost (TL)</th>
           </tr>
         </thead>
@@ -200,7 +199,18 @@
           <table id="waterTable">
             <thead>
               <tr>
-                <th>Period</th><th>First Date</th><th>First Reading</th><th>Last Date</th><th>Last Reading</th><th>Days</th><th>Usage</th><th>Daily AVG</th><th>Est. Monthly</th><th>Unit Price</th><th>Actual Cost</th><th>Est. Cost</th>
+                <th>Period</th>
+                <th>First Date</th>
+                <th>First Reading</th>
+                <th>Last Date</th>
+                <th>Last Reading</th>
+                <th>Days</th>
+                <th>Usage</th>
+                <th>Daily AVG</th>
+                <th>Est. Monthly</th>
+                <th>Unit Price</th>
+                <th>Actual Cost</th>
+                <th>Est. Cost</th>
               </tr>
             </thead>
             <tbody>
@@ -214,7 +224,9 @@
                 <td id="water_consCell" class="num">--</td>
                 <td id="water_dailyAvgCell" class="num">--</td>
                 <td id="water_estMonthlyCell" class="num">--</td>
-                <td id="water_unitPriceCell" class="num">--</td>
+                <td>From Tariff</td>
+                <td id="water_periodTotalCostCell" class="num">
+                <!-- <td id="water_unitPriceCell" class="num">--</td> -->
                 <td id="water_periodTotalCostCell" class="num">--</td>
                 <td id="water_estMonthlyCostCell" class="num">--</td>
               </tr>
