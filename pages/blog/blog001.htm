@@ -19,95 +19,126 @@
       flex: 1;
     }
 
-/* === BLOG CARD SYSTEM V2 === */
+    /* --- Harmonized Article Section (matching Free Zone) --- */
+    article {   /*Article içindeki gövde metninin formatı*/
+      max-width: 1200px;
+      margin: 2em auto 4em auto;
+      line-height: 1.7;
+      font-size: 1rem;
+      background: linear-gradient(180deg, #ffffff 0%, #f9f9f9 50%, #f3f3f3 100%);
+      padding: 2.5em;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      text-align: left;
+    }
 
-/* Base article layout */
-article {
-  max-width: 1200px;
-  margin: 2em auto;
-  line-height: 1.7;
-  font-size: 1rem;
-  text-align: left;
-}
+    article h2 {
+      display: flex;
+      align-items: center;
+      font-size: 1.6em;
+      color: #333;
+      margin-bottom: 1em;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3em;
+      font-weight: 600;
+    }
 
-article p {
-  text-indent: 2em;
-  margin-bottom: 1.2em;
-}
+    article h2::before {
+      content: "⚜️";
+      color: #8c1515;
+      font-size: 1.2em;
+      margin-right: 0.6em;
+    }
 
-/* Unified card style */
-.quote-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #fafafa;
-  border-left: 4px solid #008080;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  padding: 1em 1.2em;
-  margin: 2em auto;
-  font-style: italic;
-  max-width: 600px; /* Default width (can override inline in HTML) */
-  transition: box-shadow 0.3s ease;
-}
+    /* Paragraph formatting inside article */
+    article p {
+      text-indent: 1.5em;
+      margin-bottom: 1em;
+      color: #222;
+    }
 
-.quote-card:hover {
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-}
+    /* --- Quote Card System (independent typography & footer) --- */
+    .quote-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-left: 3px solid #b33;
+      padding: 1em 1.2em;
+      margin: 1.5em 2em;
+      font-style: italic;
+      background: #fffdfa;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      max-width: 360px;
+    }
 
-/* Alignment modifiers */
-.quote-card.left {
-  float: left;
-  margin-right: 2em;
-}
+    .quote-card blockquote {
+      margin: 0;
+      font-size: 1.02em;
+      color: #444;
+      line-height: 1.6;
+    }
 
-.quote-card.right {
-  float: right;
-  margin-left: 2em;
-}
+    .quote-footer {
+      margin-top: 0.6em;
+      font-style: normal;
+      font-size: 0.9em;
+      color: #e83a3a; /*footer arka gölge rengi ve footer text rengi*/
+      align-self: flex-end;
+      text-align: right;
+    }
 
-.quote-card.center {
-  float: none;
-  margin: 2em auto;
-}
+    .quote-card.left {
+      float: left;
+      margin-right: 1.5em;
+    }
 
-/* GIFs: responsive to card width, keep original smaller sizes */
-.quote-card img.quote-gif {
-  display: block;
-  margin: 0.5em auto;
-  width: auto;
-  max-width: 100%; /* shrink if too large */
-  height: auto;
-  border-radius: 8px;
-}
+    .quote-card.right {
+      float: right;
+      margin-left: 1.5em;
+    }
 
-/* Independent footer style (not affected by site footer) */
-.quote-card footer {
-  margin-top: 0.8em;
-  font-style: normal;
-  font-size: 0.9em;
-  color: #444;
-  border-top: 1px solid #ddd;
-  padding-top: 0.4em;
-  text-align: right;
-  align-self: stretch;
-}
+    .quote-card.center {
+      float: none;
+      margin: 2em auto;
+      max-width: 600px;
+      text-align: center;
+    }
 
-/* Optional hover effect for footer */
-.quote-card footer:hover {
-  color: #008080;
-}
+    .quote-card img.quote-gif {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 0.5em;
+    }
 
-/* Responsive fix */
-@media (max-width: 768px) {
-  .quote-card.left,
-  .quote-card.right {
-    float: none;
-    margin: 1.5em auto;
-    max-width: 90%;
-  }
-}
+    @media (max-width: 768px) {
+      .quote-card.left,
+      .quote-card.right {
+        float: none;
+        margin: 1.5em auto;
+        max-width: 90%;
+      }
+    }
 
+    /* --- Independent main footer (not affected by .quote-footer) --- */
+    footer.site-footer {
+      text-align: center;
+      padding: 1em 0;
+      background-color: #222;
+      color: #ccc;
+      font-size: 0.9em;
+      margin-top: auto;
+    }
+/* ADDED for lifecycle.gif dimensions keepin in original */
+    .quote-card.center .gif-original {
+      width: auto;         /* genişliği kartın boyutuna göre esnetme */
+      height: auto;        /* orantıyı koru */
+      max-width: 100%;     /* kart taşmasın */
+      display: block;
+      margin: 0 auto 10px; /* ortala ve altta biraz boşluk bırak */
+      }
+
+    
   </style>
 </head>
 
@@ -146,7 +177,7 @@ article p {
     <!-- 🌿 Blog section -->
     <article>
       <h2>Reflections & Inspirations</h2>
-      <div class="quote-card center">
+      <div class="quote-card left" style="max-width: 400px;">
         <img src="../../images/siteimages/lifecycle.gif" alt="Life cycle animation" class="gif-original">
         <blockquote>
           "The best time for people to get to know each other is when they are about to part."
@@ -161,7 +192,7 @@ article p {
         Each realization shapes how we see ourselves and the world around us.
       </p>
 
-      <div class="quote-card right">
+      <div class="quote-card right" style="max-width: 400px;">
         <blockquote>
           "He who does not know, and does not know that he does not know, is ignorant; teach him.<br><br>
           He who does not know, and knows that he does not know, is a learner; guide him.<br><br>
@@ -177,7 +208,7 @@ article p {
         The above proverb reminds us that self-awareness is the first step to growth — and humility the path to wisdom.
       </p>
 
-      <div class="quote-card left">
+      <div class="quote-card left" style="max-width: 400px;">
         <img src="kayak-river.gif" alt="Flowing Water" class="quote-gif">
         <blockquote>
           "The mind that is still, the water that flows — both reflect the truth more clearly."
