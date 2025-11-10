@@ -41,36 +41,71 @@
         <h2>Who I am and what drives my work</h2>
       </div>
 
-      <div class="about-intro">
-        <p>
-          I'm <strong>Fatih Meclis</strong>, an engineer with a passion for designing, building,
-          and improving systems that make a real-world impact.
-          Over the years, I’ve worked on multidisciplinary projects across different countries,
-          combining technical expertise with practical experience.
-        </p>
+<style>
+.about-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.7;
+  color: #222;
+}
 
-        <p>
-          My background includes energy, infrastructure, and industrial projects,
-          with hands-on experience in both engineering and management roles.
-        </p>
-      </div>
+.about-section ul {
+  list-style: none; /* varsayılan bullet kaldır */
+  padding-left: 24px; /* hafif içeriden hizalama */
+  margin: 0;
+}
 
-      <div class="about-timeline">
-        <h3>Career Highlights</h3>
-        <ul>
-          <li><strong>2020–Present:</strong> Independent Engineering Consultant</li>
-          <li><strong>2014–2020:</strong> Project Engineer – International Assignments</li>
-          <li><strong>2010–2014:</strong> Field Engineer – Energy Projects</li>
-          <li><strong>2005–2010:</strong> Bachelor’s Degree in Engineering</li>
-        </ul>
-      </div>
+.about-section li {
+  position: relative;
+  margin-bottom: 1em;
+  padding-left: 16px;
+  text-align: justify;
+}
 
-      <div class="about-contact">
-        <p>
-          You can connect with me on 
-          <a href="https://www.linkedin.com/in/fatih-meclis" target="_blank" rel="noopener">LinkedIn</a>.
-        </p>
-      </div>
+.about-section li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: #010510; /* modern mavi ton */
+  font-size: 1.1em;
+  line-height: 1.2;
+}
+
+.about-section strong {
+  color: #010510;
+  font-weight: 600;
+}
+
+.about-section li:hover::before {
+  color: #010510; /* hover sırasında biraz daha canlı mavi */
+}
+
+.about-section li:last-child {
+  font-style: italic;
+  color: #444;
+}
+</style>
+
+<div class="about-section">
+  <ul>
+    <li>I’m <strong>Fatih Meclis</strong>, a <strong>Business Administration graduate from Hacettepe University (1997)</strong> with a career path shaped by both <strong>analytical thinking</strong> and <strong>hands-on engineering experience</strong>.</li>
+
+    <li>Although I began my professional journey in <strong>finance and the stock market</strong>, I was naturally drawn toward the <strong>construction and engineering world</strong> — a field deeply rooted in my family background (two surveyors, a civil engineer, and an environmental engineer) and in my own early studies in engineering.</li>
+
+    <li>Since the early 2000s, I’ve contributed to numerous <strong>large-scale projects</strong> both in Turkey and abroad, taking on roles from <strong>land surveyor</strong> to <strong>survey team manager</strong>. These experiences taught me that <strong>precision, collaboration, and adaptability</strong> are at the heart of any successful project.</li>
+
+    <li>Early on, I developed a strong passion for <strong>programming</strong> — not as a side skill, but as a creative way to <strong>solve real problems</strong>. I enjoy building <strong>custom tools and solutions</strong> that make technical work faster, more efficient, and less prone to error.</li>
+
+    <li>Today, I’m focused on bringing together <strong>field expertise and digital innovation</strong> — creating <strong>interactive, web-based technical presentations</strong>, <strong>project tracking templates</strong>, and <strong>engineering calculation tools</strong> that help transform data into clarity and action.</li>
+
+    <li>For me, <strong>technology isn’t just about automation</strong> — it’s about <strong>making knowledge accessible</strong> and <strong>turning complexity into simplicity</strong>.</li>
+  </ul>
+</div>
+
+
+
     </section>
   </main>
 
