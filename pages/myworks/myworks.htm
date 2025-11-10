@@ -72,6 +72,28 @@
       line-height: 1.55;
       color: #444;
     }
+   .work-card ul {
+  list-style: none; /* varsayılan bullet kaldır */
+  padding-left: 24px; /* hafif içeriden hizalama */
+  margin: 0;
+} 
+    .work-card li {
+  position: relative;
+  margin-bottom: 1em;
+  padding-left: 16px;
+  text-align: justify;
+}
+
+.work-card li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: #1d4ed8; /* modern mavi ton */
+  font-size: 1.1em;
+  line-height: 1.2;
+}
+
+    
   </style>
 </head>
 
@@ -125,7 +147,15 @@
             <p>
               An Excel-VBA based data visualization and editing tool designed to manage and modify road & pipeline centerline data efficiently.
               It features dynamic geometry updates, section-based attributes, and export options for CAD integration.
-            </p>
+            </p><br>
+            <p><strong>Key Features</strong></p>
+            <ul>
+            <li>mports coordinate data directly into Excel</li>
+            <li>Locates points precisely along the centerline</li>
+            <li>Calculates deviations and alignment differences</li>
+            <li>Highlights out-of-tolerance deviations with color indicators</li>  
+            <li>Supports multiple parallel offset axes</li>  
+              </ul>
           </div>
         </div>
 
