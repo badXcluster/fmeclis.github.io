@@ -85,6 +85,42 @@
         height: 320px;
       }
     }
+    /* GALLERY ARROWS */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.nav-arrow:hover {
+  background: rgba(0,0,0,0.75);
+}
+
+.nav-arrow.left {
+  left: 10px;
+}
+
+.nav-arrow.right {
+  right: 10px;
+}
+
+/* Mobile biraz küçültelim */
+@media (max-width: 600px) {
+  .nav-arrow {
+    font-size: 2rem;
+    padding: 4px 10px;
+  }
+}
+
+    
   </style>
 </head>
 
@@ -163,18 +199,61 @@
   });
 
   /* image click gallery */
+  /* header scroll */
+  window.addEventListener('scroll', function () {
+    const header = document.getElementById('mainHeader');
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  /* ===== GALLERY ===== */
   let currentPhoto = 1;
   const totalPhotos = 12;
   const img = document.getElementById("roomImage");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
 
-  img.addEventListener("click", () => {
-    currentPhoto = currentPhoto % totalPhotos + 1;
+  function showPhoto(n) {
     img.style.opacity = 0;
     setTimeout(() => {
-      img.src = `images/rooms/room${currentPhoto}.jpg`;
+      img.src = `images/rooms/room${n}.jpg`;
       img.style.opacity = 1;
     }, 150);
+  }
+
+  function nextPhoto() {
+    currentPhoto = currentPhoto % totalPhotos + 1;
+    showPhoto(currentPhoto);
+  }
+
+  function prevPhoto() {
+    currentPhoto = currentPhoto - 1;
+    if (currentPhoto < 1) currentPhoto = totalPhotos;
+    showPhoto(currentPhoto);
+  }
+
+  nextBtn.addEventListener("click", () => {
+    nextPhoto();
+    resetAutoPlay();
   });
+
+  prevBtn.addEventListener("click", () => {
+    prevPhoto();
+    resetAutoPlay();
+  });
+
+  img.addEventListener("click", () => {
+    nextPhoto();
+    resetAutoPlay();
+  });
+
+  /* AUTOPLAY */
+  let autoPlay = setInterval(nextPhoto, 4000); // 4 saniye
+
+  function resetAutoPlay() {
+    clearInterval(autoPlay);
+    autoPlay = setInterval(nextPhoto, 4000);
+  }
+
 </script>
 
 </body>
