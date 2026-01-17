@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Photos - Fatih Meclis</title>
+  <link rel="stylesheet" href="../../style.css" />
+  
+         <style>
+           .map-container {
+  display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  text-align: center;
+}
+
+.map-buttons {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.map-buttons a {
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: white;
+  background-color: #0078d7;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.map-buttons a:hover {
+  background-color: #005fa3;
+}
+  
+           
+/* ADDED FOR 2 COLUMN RIGHT FOR MAP, LEFT FOR FORM*/
+.contact-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.contact-info {
+  flex: 1 1 300px;
+  max-width: 450px;
+}
+
+.contact-info a {
+  color: #0078d7;
+  text-decoration: none;
+}
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.contact-form button {
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.contact-form button:hover {
+  background-color: #005fa3;
+}
+
+.map-container {
+  flex: 1 1 400px;
+  height: 450px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.map-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.map-buttons a {
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: white;
+  background-color: #0078d7;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+.map-buttons a:hover {
+  background-color: #005fa3;
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .map-container {
+    width: 100%;
+    height: 350px;
+  }
+}  
+           
+/* --- Compact form style --- */
+.contact-form.compact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Satır aralığı azaldı */
+  margin-top: 10px;
+}
+
+.contact-form.compact .form-row {
+  display: grid;
+  grid-template-columns: 120px 1fr; /* solda label, sağda input */
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-form.compact label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.contact-form.compact input,
+.contact-form.compact textarea {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+.contact-form.compact textarea {
+  resize: vertical;
+}
+
+.contact-form.compact .form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contact-form.compact button {
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.contact-form.compact button:hover {
+  background-color: #005fa3;
+}
+           
+           .contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  margin: 6px 0;
+}
+/*CSS ile ikonları hizalayalım:*/
+.contact-info i {
+  color: #008080; /* ikon rengi */
+  font-size: 1.1rem;
+  width: 20px; /* hizalama için sabit genişlik */
+  text-align: center;
+}
+
+/* Mobile adjustment */
+@media (max-width: 600px) {
+  .contact-form.compact .form-row {
+    grid-template-columns: 1fr;
+  }
+  .contact-form.compact label {
+    text-align: left;
+  }
+}           
+         </style>
+/*FONT AWESOME _____*/   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+/*FONT AWESOME ___________*/   
+
+  
+</head>
+<body>
+  <header class="site-header" id="mainHeader">
+    <div class="header-content">
+      <div class="logo-title">
+        <img src="../../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+        <div class="site-info">
+          <h1>Fatih Meclis</h1>
+          <p>Personal Website & Professional Portfolio</p>
+        </div>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../../index.html">HOME</a></li>
+		  <li><a href="../../pages/gallery/gallery.htm">GALLERY</a></li>
+		  <li><a href="../../pages/myworks/myworks.htm">MY WORKS</a></li>
+          <li><a href="../../pages/special/projectvault.htm" class="vault-link" target="_blank">🔒 VAULT</a></li>          
+          <li><a href="../../pages/aboutme/aboutme.htm">ABOUT ME</a></li>
+          <li><a href="../../pages/blog/blog.htm">BLOG</a></li>
+          <li><a href="../../pages/contact/contact.htm" class="active">CONTACT</a></li>
+          
+                   
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+  <section class="contact-wrapper">
+    
+    <!-- LEFT SIDE -->
+    <div class="contact-info">
+      <h2 style="color: #008080;text-align:center;" >Contact Information</h2>
+
+       <p><i class="fa-solid fa-phone"></i> +90 532 578 9654</p>
+  <p><i class="fa-solid fa-envelope"></i> 
+    <a href="mailto:fatihmeclis@gmail.com">fatihmeclis@gmail.com</a>
+  </p>
+  <p><i class="fa-solid fa-house"></i> Ankara, Turkey</p>
+
+      <h3 style="color: #008080;text-align:center;">Contact Form</h3>
+      <form action="mailto:fatihmeclis@gmail.com" method="post" enctype="text/plain" class="contact-form compact">
+  <div class="form-row">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required>
+  </div>
+
+  <div class="form-row">
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+
+  <div class="form-row">
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit">Send Message</button>
+  </div>
+</form>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="map-container">
+      <p>Home</p>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d4435.567642970999!2d32.83766318466395!3d39.919162538291864!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDU1JzEyLjYiTiAzMsKwNTAnMjQuOCJF!5e1!3m2!1str!2sus!4v1761399608630!5m2!1str!2sus" 
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title= "MyLocation">
+      </iframe>
+      <div class="map-buttons">
+        <a href="https://www.google.com/maps?q=39.92077,32.85411" target="_blank">View on Big Map</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=39.92077,32.85411" target="_blank">Get Directions</a>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+  <footer>
+    <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 50) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+  </script>
+</body>
+</html>
