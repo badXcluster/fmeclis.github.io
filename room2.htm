@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kiralık Oda - Fatih Meclis</title>
+
+  <!-- ROOT CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ===== PAGE CONTENT ONLY ===== */
+
+    .page-content {
+      padding: 40px 20px;
+    }
+
+    .contact-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 20px;
+    }
+
+    /* LEFT SIDE */
+    .contact-info {
+      flex: 1 1 320px;
+      max-width: 450px;
+    }
+
+    .contact-info h2 {
+      color: #008080;
+      text-align: center;
+    }
+
+    .contact-info p {
+      line-height: 1.6;
+  font-size: 1rem;
+  text-align: left;
+    }
+
+    /* RIGHT SIDE (IMAGE AREA) */
+    .map-container {
+      flex: 1 1 400px;
+      height: 450px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    #roomImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .map-container::after {
+      content: "Fotoğrafa tıklayın";
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      .map-container {
+        width: 100%;
+        height: 320px;
+      }
+    }
+    /* GALLERY ARROWS */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.nav-arrow:hover {
+  background: rgba(0,0,0,0.75);
+}
+
+.nav-arrow.left {
+  left: 10px;
+}
+
+.nav-arrow.right {
+  right: 10px;
+}
+
+/* Mobile biraz küçültelim */
+@media (max-width: 600px) {
+  .nav-arrow {
+    font-size: 2rem;
+    padding: 4px 10px;
+  }
+}
+/* PAGE TITLE */
+.room-title {
+  text-align: center;
+  color: #008080;
+  margin-bottom: 30px;
+}
+
+/* TWO COLUMN AREA */
+.contact-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* MAP & GALLERY SAME STYLE */
+.map-container {
+  flex: 1 1 420px;
+  height: 420px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+/* IMAGE */
+#roomImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+/* ARROWS */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
+.nav-arrow.left { left: 10px; }
+.nav-arrow.right { right: 10px; }
+
+/* DETAILS */
+.room-details {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.icon-list {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  width: 100%;
+}
+
+.icon-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  margin: 10px 0;
+}
+
+.icon-list i {
+  color: #008080;
+  width: 22px;
+  text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .map-container {
+    width: 100%;
+    height: 320px;
+  }
+}
+
+    
+  </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER (styled by style.css) ===== -->
+<header class="site-header" id="mainHeader">
+  <div class="header-content">
+    <div class="logo-title">
+      <img src="images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+      <div class="site-info">
+        <h1>Fatih Meclis</h1>
+        <p>Personal Website & Professional Portfolio</p>
+      </div>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="pages/gallery/gallery.htm">GALLERY</a></li>
+        <li><a href="pages/myworks/myworks.htm">MY WORKS</a></li>
+        <li><a href="pages/special/projectvault.htm" target="_blank">🔒 VAULT</a></li>
+        <li><a href="pages/aboutme/aboutme.htm">ABOUT ME</a></li>
+        <li><a href="pages/blog/blog.htm">BLOG</a></li>
+        <li><a href="pages/contact/contact.htm">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="page-content">
+
+  <!-- PAGE TITLE -->
+  <h2 class="room-title">Kiralık Oda</h2>
+
+  <!-- MAP + GALLERY -->
+  <section class="contact-wrapper">
+
+    <!-- LEFT : MAP -->
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d4435.567642970999!2d32.83766318466395!3d39.919162538291864!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDU1JzEyLjYiTiAzMsKwNTAnMjQuOCJF"
+        width="100%" height="100%" style="border:0;" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <!-- RIGHT : GALLERY -->
+    <div class="map-container">
+      <span class="nav-arrow left" id="prevBtn">&#10094;</span>
+      <img id="roomImage" src="images/rooms/room1.jpg" alt="Kiralık Oda">
+      <span class="nav-arrow right" id="nextBtn">&#10095;</span>
+    </div>
+
+  </section>
+
+  <!-- DETAILS -->
+  <section class="room-details">
+    <ul class="icon-list">
+      <li><i class="fa-solid fa-bed"></i> Oda eşyalıdır (yatak, dolap, çalışma masası)</li>
+      <li><i class="fa-solid fa-wifi"></i> Sınırsız internet (Wi-Fi)</li>
+      <li><i class="fa-solid fa-kitchen-set"></i> Ortak mutfak kullanımı</li>
+      <li><i class="fa-solid fa-bath"></i> Ortak banyo</li>
+      <li><i class="fa-solid fa-building"></i> Sessiz ve güvenli apartman</li>
+      <li><i class="fa-solid fa-calendar-check"></i> Uzun süreli kiralama tercih edilir</li>
+      <li><i class="fa-solid fa-location-dot"></i> Ankara / Merkez</li>
+    </ul>
+  </section>
+
+</main>
+
+
+<!-- ===== FOOTER (styled by style.css) ===== -->
+<footer>
+  <p>&copy; 2025 Fatih Meclis. All rights reserved.</p>
+</footer>
+
+<script>
+  /* header scroll effect (style.css uyumlu) */
+  window.addEventListener('scroll', function () {
+    const header = document.getElementById('mainHeader');
+    if (window.scrollY > 50) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+
+  /* image click gallery */
+  /* header scroll */
+  window.addEventListener('scroll', function () {
+    const header = document.getElementById('mainHeader');
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  /* ===== GALLERY ===== */
+  let currentPhoto = 1;
+  const totalPhotos = 12;
+  const img = document.getElementById("roomImage");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+
+  function showPhoto(n) {
+    img.style.opacity = 0;
+    setTimeout(() => {
+      img.src = `images/rooms/room${n}.jpg`;
+      img.style.opacity = 1;
+    }, 150);
+  }
+
+  function nextPhoto() {
+    currentPhoto = currentPhoto % totalPhotos + 1;
+    showPhoto(currentPhoto);
+  }
+
+  function prevPhoto() {
+    currentPhoto = currentPhoto - 1;
+    if (currentPhoto < 1) currentPhoto = totalPhotos;
+    showPhoto(currentPhoto);
+  }
+
+  nextBtn.addEventListener("click", () => {
+    nextPhoto();
+    resetAutoPlay();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    prevPhoto();
+    resetAutoPlay();
+  });
+
+  img.addEventListener("click", () => {
+    nextPhoto();
+    resetAutoPlay();
+  });
+
+  /* AUTOPLAY */
+  let autoPlay = setInterval(nextPhoto, 4000); // 4 saniye
+
+  function resetAutoPlay() {
+    clearInterval(autoPlay);
+    autoPlay = setInterval(nextPhoto, 4000);
+  }
+
+</script>
+
+</body>
+</html>
