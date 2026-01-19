@@ -172,55 +172,60 @@
 .nav-arrow.left { left: 10px; }
 .nav-arrow.right { right: 10px; }
 
-/* DETAILS */
+/* ===== DETAILS (CLEAN & ISOLATED) ===== */
+
 .room-details {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
+  max-width: 900px;
+  margin: 60px auto 0;
+  padding: 0 15px;
 }
 
-.icon-list {
-  list-style: none;
-  padding: 0;
-  max-width: 700px;
-  width: 100%;
-}
-
-.icon-list li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.05rem;
-  margin: 10px 0;
-}
-
-.icon-list i {
-  color: #008080;
-  width: 22px;
+/* MAIN TITLE */
+.room-details .details-title {
   text-align: center;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .map-container {
-    width: 100%;
-    height: 320px;
-  }
-}
-
- .details-title {
-  text-align: center;
-  margin: 30px 0 15px;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  margin-bottom: 25px;
   color: #333;
 }
 
-.details-subtitle {
-  margin: 30px 0 10px;
+/* SECTION HEADINGS */
+.room-details .details-subtitle {
   text-align: center;
+  font-size: 1.15rem;
+  margin: 35px 0 15px;
   color: #008080;
-  font-size: 1.1rem;
 }
+
+/* ICON LIST */
+.room-details .icon-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.room-details .icon-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.room-details .icon-list i {
+  color: #008080;
+  min-width: 22px;
+  text-align: center;
+  margin-top: 3px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .room-details .icon-list li {
+    font-size: 1rem;
+  }
+}
+
    
   </style>
 </head>
