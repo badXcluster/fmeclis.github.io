@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rental Room - Anıttepe</title>
+
+  <!-- ROOT CSS -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ===== PAGE CONTENT ONLY ===== */
+
+    .page-content {
+      padding: 40px 20px;
+    }
+
+    .contact-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 20px;
+    }
+
+    /* LEFT SIDE */
+    .contact-info {
+      flex: 1 1 320px;
+      max-width: 450px;
+    }
+
+    .contact-info h2 {
+      color: #008080;
+      text-align: center;
+    }
+
+    .contact-info p {
+      line-height: 1.6;
+  font-size: 1rem;
+  text-align: left;
+    }
+
+    /* RIGHT SIDE (IMAGE AREA) */
+    .map-container {
+      flex: 1 1 400px;
+      height: 450px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    #roomImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .map-container::after {
+      content: "Detay";
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      .map-container {
+        width: 100%;
+        height: 320px;
+      }
+    }
+    /* GALLERY ARROWS */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.nav-arrow:hover {
+  background: rgba(0,0,0,0.75);
+}
+
+.nav-arrow.left {
+  left: 10px;
+}
+
+.nav-arrow.right {
+  right: 10px;
+}
+
+/* Mobile biraz küçültelim */
+@media (max-width: 600px) {
+  .nav-arrow {
+    font-size: 2rem;
+    padding: 4px 10px;
+  }
+}
+/* PAGE TITLE */
+.room-title {
+  text-align: center;
+  color: #008080;
+  margin-bottom: 30px;
+}
+
+/* TWO COLUMN AREA */
+.contact-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* MAP & GALLERY SAME STYLE */
+.map-container {
+  flex: 1 1 420px;
+  height: 420px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+/* IMAGE */
+#roomImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+/* ARROWS */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
+.nav-arrow.left { left: 10px; }
+.nav-arrow.right { right: 10px; }
+
+/* ===== DETAILS (CLEAN & ISOLATED) ===== */
+
+.room-details {
+  max-width: 900px;
+  margin: 60px auto 0;
+  padding: 0 15px;
+}
+
+/* MAIN TITLE */
+.room-details .details-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* SECTION HEADINGS */
+.room-details .details-subtitle {
+  text-align: center;
+  font-size: 1.15rem;
+  margin: 35px 0 15px;
+  color: #008080;
+}
+
+/* ICON LIST */
+.room-details .icon-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.room-details .icon-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.room-details .icon-list i {
+  color: #008080;
+  min-width: 22px;
+  text-align: center;
+  margin-top: 3px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .room-details .icon-list li {
+    font-size: 1rem;
+  }
+}
+
+   
+  </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER (styled by style.css) ===== -->
+<header class="site-header" id="mainHeader">
+  <div class="header-content">
+    <div class="logo-title">
+      <img src="../images/siteimages/FMLOGO.bmp" alt="Fatih Meclis Logo" />
+      <div class="site-info">
+        <h1>Fatih Meclis</h1>
+        <p>Personal Website & Professional Portfolio</p>
+      </div>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="../index.html">HOME</a></li>
+        <li><a href="../pages/gallery/gallery.htm">GALLERY</a></li>
+        <li><a href="../pages/myworks/myworks.htm">MY WORKS</a></li>
+        <li><a href="../pages/special/projectvault.htm" target="_blank">🔒 VAULT</a></li>
+        <li><a href="../pages/aboutme/aboutme.htm">ABOUT ME</a></li>
+        <li><a href="../pages/blog/blog.htm">BLOG</a></li>
+        <li><a href="../pages/contact/contact.htm">CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="page-content">
+
+  <!-- PAGE TITLE -->
+  <h2 class="room-title">Room Available in Anıttepe – Central Ankara</h2>
+
+  <!-- MAP + GALLERY -->
+  <section class="contact-wrapper">
+
+    <!-- LEFT : MAP -->
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d4435.567642970999!2d32.84028!3d39.919121!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDU1JzEyLjYiTiAzMsKwNTAnMjQuOCJF!5e1!3m2!1str!2sus!4v1761399608630!5m2!1str!2sus" 
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title= "MyLocation">
+      </iframe>
+    </div>
+
+    <!-- RIGHT : GALLERY -->
+    <div class="map-container">
+      <span class="nav-arrow left" id="prevBtn">&#10094;</span>
+      <img id="roomImage" src="../images/rooms/room1.jpg" alt="Kiralık Oda">
+      <span class="nav-arrow right" id="nextBtn">&#10095;</span>
+    </div>
+
+  </section>
+
+  <!-- DETAILS -->
+  <section class="room-details">
+
+    <!-- silinebilir section
+  <h3 class="details-title">
+    Room Available in Anıttepe – Central Ankara
+  </h3>
+-->
+
+  <ul class="icon-list">
+    <li><i class="fa-solid fa-location-dot"></i> Furnished room in a 3+1 apartment in Anıttepe</li>
+    <li><i class="fa-solid fa-city"></i> One of Ankara’s old, quiet and central neighborhoods</li>
+  </ul>
+
+  <h4 class="details-subtitle">📍 Very Central Location</h4>
+  <ul class="icon-list">
+    <li><i class="fa-solid fa-walking"></i> 10 min walk to Kızılay</li>
+    <li><i class="fa-solid fa-location-arrow"></i> 5 min to Maltepe</li>
+    <li><i class="fa-solid fa-road"></i> 10–15 min to Tandoğan, Bahçelievler, Eskişehir Road</li>
+    <li><i class="fa-solid fa-bus"></i> Easy access to public transport in all directions</li>
+  </ul>
+
+  <h4 class="details-subtitle">🏠 About the Flat</h4>
+  <ul class="icon-list">
+    <li><i class="fa-solid fa-sun"></i> Ground floor but bright, open and green (no humidity)</li>
+    <li><i class="fa-solid fa-screwdriver-wrench"></i> Fully renovated interior (new plumbing, combi, parquet)</li>
+    <li><i class="fa-solid fa-building"></i> Calm and clean building (families & students)</li>
+  </ul>
+
+  <h4 class="details-subtitle">🛏 Room Furnishing</h4>
+  <ul class="icon-list">
+    <li><i class="fa-solid fa-bed"></i> Large comfortable bed, sofa / sofa-bed</li>
+    <li><i class="fa-solid fa-chair"></i> Desk, chair, wardrobe, bedside table</li>
+    <li><i class="fa-solid fa-sliders"></i> Flexible furniture arrangement possible</li>
+  </ul>
+
+  <h4 class="details-subtitle">🏡 Apartment Includes</h4>
+  <ul class="icon-list">
+    <li><i class="fa-solid fa-shirt"></i> Washing machine, iron, vacuum cleaner</li>
+    <li><i class="fa-solid fa-kitchen-set"></i> Fridge, microwave, oven</li>
+    <li><i class="fa-solid fa-wifi"></i> High-speed internet</li>
+    <li><i class="fa-solid fa-tv"></i> Shared living room with Samsung Smart TV</li>
+    <li><i class="fa-solid fa-receipt"></i> All bills included (gas, electricity, water, internet, maintenance)</li>
+  </ul>
+
+  <h4 class="details-subtitle">📌 Location Perks</h4>
+  <ul class="icon-list">
+    <li><i class="fa-solid fa-shop"></i> Markets & barber: 20 m</li>
+    <li><i class="fa-solid fa-basket-shopping"></i> BIM / Şok / A101, local bazaar: 100 m</li>
+    <li><i class="fa-solid fa-dumbbell"></i> ANITTEPE Public Sport Facilities: 50 m</li>
+    <li><i class="fa-solid fa-hospital"></i> Başkent Hospital & metro stations: 500–600 m</li>
+  </ul>
+
+  <h4 class="details-subtitle">⚖️ House Rules & Preferences</h4>
+  <ul class="icon-list">
+    <li><i class="fa-solid fa-volume-low"></i> Quiet and respectful environment</li>
+    <li><i class="fa-solid fa-user-group"></i> Guests 1–2 days a week are fine</li>
+    <li><i class="fa-solid fa-wine-glass"></i> No strict restrictions (alcohol / smoking ok if respectful)</li>
+    <li><i class="fa-solid fa-cat"></i> One cat lives in the house</li>
+    <li><i class="fa-solid fa-user-check"></i> Looking for a clean, reliable person (student, graduate, engineer, full-time worker)</li>
+  </ul>
+    <br>
+    
+    <h4 class="details-subtitle">💰 Rental Terms</h4>
+<ul class="icon-list">
+  <li>
+    <i class="fa-solid fa-money-bill-wave"></i>
+    <strong>Monthly Rent:</strong> 17,500 TL (approx. 350 EUR)
+  </li>
+  <li>
+    <i class="fa-solid fa-file-invoice"></i>
+    All utilities included (electricity, water, natural gas, high-speed internet, maintenance)
+  </li>
+  <li>
+    <i class="fa-solid fa-calendar-check"></i>
+    <strong>Minimum stay:</strong> 3 months
+  </li>
+  <li>
+    <i class="fa-solid fa-house-circle-check"></i>
+    Private home (not a dormitory or hostel); suitable for international students, graduate students, and visiting academics
+  </li>
+</ul>
+
+    
+ <!-- 
+<p style="text-align:left; padding-left:0px;"> bilgi amaçlı sola dayalı indent 40 tanımlı 
+-->
+    
+<p>
+        <strong>Contact:</strong><br>
+        📞 +90 532 578 96 54<br>
+        ✉️ fatihmeclis@gmail.com
+      </p>
+</section>
+
+
+
+</main>
+
+<!-- ===== FOOTER (styled by style.css) ===== -->
+<footer>
+  <p>&copy; 2026 Fatih Meclis. All rights reserved.</p>
+</footer>
+
+<script>
+  /* header scroll effect (style.css uyumlu) */
+  window.addEventListener('scroll', function () {
+    const header = document.getElementById('mainHeader');
+    if (window.scrollY > 50) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+
+  /* image click gallery */
+  /* header scroll */
+  window.addEventListener('scroll', function () {
+    const header = document.getElementById('mainHeader');
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  /* ===== GALLERY ===== */
+  let currentPhoto = 1;
+  const totalPhotos = 14;
+  const img = document.getElementById("roomImage");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+
+  function showPhoto(n) {
+    img.style.opacity = 0;
+    setTimeout(() => {
+      img.src = `../images/rooms/room${n}.jpg`;
+      img.style.opacity = 1;
+    }, 150);
+  }
+
+  function nextPhoto() {
+    currentPhoto = currentPhoto % totalPhotos + 1;
+    showPhoto(currentPhoto);
+  }
+
+  function prevPhoto() {
+    currentPhoto = currentPhoto - 1;
+    if (currentPhoto < 1) currentPhoto = totalPhotos;
+    showPhoto(currentPhoto);
+  }
+
+  nextBtn.addEventListener("click", () => {
+    nextPhoto();
+    resetAutoPlay();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    prevPhoto();
+    resetAutoPlay();
+  });
+
+  img.addEventListener("click", () => {
+    nextPhoto();
+    resetAutoPlay();
+  });
+
+  /* AUTOPLAY */
+  let autoPlay = setInterval(nextPhoto, 4000); // 4 saniye
+
+  function resetAutoPlay() {
+    clearInterval(autoPlay);
+    autoPlay = setInterval(nextPhoto, 4000);
+  }
+
+</script>
+
+</body>
+</html>
