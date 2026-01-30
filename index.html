@@ -101,6 +101,21 @@ window.onload = function() {
   slideshow.addEventListener('mouseout', () => autoPlay = setInterval(autoSlide, slideDuration));
 }
 </script>
+
+/* HEADER MAIN BOŞLUĞUNU OTOMATİK AYARLAMAK İÇİN EKLENEN SCRIPT */  
+  <script>
+function adjustHeaderSpace() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+
+  const headerHeight = header.offsetHeight;
+  document.documentElement.style.setProperty("--header-height", headerHeight + "px");
+}
+
+window.addEventListener("load", adjustHeaderSpace);
+window.addEventListener("resize", adjustHeaderSpace);
+</script>
+
 </body>
   
 </html>

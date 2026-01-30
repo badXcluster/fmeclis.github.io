@@ -415,3 +415,14 @@ footer {
     transform: translateY(0);
   }
 }
+
+/* HEADER-MAIN ARA BOŞLUĞU AYARLAMAK İÇİN EKLENEN 30.01.2026
+  Sayfa main baş kısımlarına da ek kod eklendi css  */
+:root {
+  --header-height: 140px; /* JS bunu güncelleyecek */
+}
+
+main.page-content {
+  padding-top: var(--header-height);
+}
+
