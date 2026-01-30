@@ -86,7 +86,7 @@ body {
 .slideshow-container {
   display: flex;
   justify-content: center;
-  margin-top: 90px; /* leave room for header */
+/* leave room for header */
 }
 .slideshow {
   position: relative;
@@ -419,7 +419,7 @@ footer {
 /* HEADER-MAIN ARA BOŞLUĞU AYARLAMAK İÇİN EKLENEN 30.01.2026
   Sayfa main baş kısımlarına da ek kod eklendi css  */
 :root {
-  --header-height: 140px; /* JS bunu güncelleyecek */
+  --header-height: 0px;
 }
 
 main.page-content {
