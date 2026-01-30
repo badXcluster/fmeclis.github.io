@@ -416,8 +416,7 @@ footer {
   }
 }
 
-/* HEADER-MAIN ARA BOŞLUĞU AYARLAMAK İÇİN EKLENEN 30.01.2026
-  Sayfa main baş kısımlarına da ek kod eklendi css  */
+/* HEADER-MAIN ARA BOŞLUĞU AYARLAMAK İÇİN EKLENEN 30.01.2026  */
 :root {
   --header-height: 0px;
 }
