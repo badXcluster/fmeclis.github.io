@@ -103,21 +103,6 @@ window.onload = function() {
 }
 </script>
 
-
-  <script>
-    /* HEADER MAIN BOŞLUĞUNU OTOMATİK AYARLAMAK İÇİN EKLENEN SCRIPT duzeltmexx*/  
-function adjustHeaderSpace() {
-  const header = document.querySelector(".site-header");
-  if (!header) return;
-
-  const headerHeight = header.offsetHeight;
-  document.documentElement.style.setProperty("--header-height", headerHeight + "px");
-}
-
-window.addEventListener("load", adjustHeaderSpace);
-window.addEventListener("resize", adjustHeaderSpace);
-</script>
-
 </body>
   
 </html>

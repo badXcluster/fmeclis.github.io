@@ -415,13 +415,3 @@ footer {
     transform: translateY(0);
   }
 }
-
-/* HEADER-MAIN ARA BOŞLUĞU AYARLAMAK İÇİN EKLENEN 30.01.2026  */
-:root {
-  --header-height:90px
-}
-
-main.page-content {
-  padding-top: var(--header-height);
-}
-
