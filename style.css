@@ -296,7 +296,7 @@ footer {
 }
 
 /* 📱 MOBİL HEADER KOMPAKT */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
 
   .header-content {
     flex-direction: column;
@@ -317,12 +317,11 @@ footer {
   }
 
   .site-info p {
-    display: none; /* Uzun alt başlık mobilde gizli */
+    display: none; /* Artık yatay modda da gizlenecek */
   }
 
-  /* Header küçüldüğü için içerik daha az aşağı insin */
   .page-content,
   .slideshow-container {
-    margin-top: 150px;
+    margin-top: 180px; /* 200 fazla gelirse 180 ideal */
   }
 }
