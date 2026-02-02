@@ -16,7 +16,7 @@ body {
   line-height: 1.6;
 }
 
-/* Header ______________________________*/
+/* Header */
 .site-header {
   position: fixed;
   top: 0;
@@ -27,11 +27,13 @@ body {
   z-index: 1000;
   padding: 10px 0;
 }
+
 .header-content .site-info h1,
 .header-content .site-info p,
 .navbar a {
   color: #fff; /* Always white text for contrast */
 }
+
 .header-content {
   display: flex;
   align-items: center;
@@ -40,32 +42,36 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
+
 .logo-title {
   display: flex;
   align-items: center;
   gap: 15px;
 }
+
 .logo-title img {
   height: 50px;
   width: auto;
 }
+
 .site-info h1 {
   color: #30D5C8;
   font-size: 1.3rem;
   margin-bottom: 2px;
 }
+
 .site-info p {
   color: #444;
   font-size: 0.9rem;
 }
-/* Header ___________________________________________________________________*/
 
-/* NAVBAR __________________________*/
+/* Navbar */
 .navbar ul {
   list-style: none;
   display: flex;
   gap: 25px;
 }
+
 .navbar a {
   color: #fff;
   text-decoration: none;
@@ -73,21 +79,25 @@ body {
   font-size: 1rem;
   transition: color 0.3s;
 }
+
 .site-header.scrolled .navbar a {
   color: #fff;
 }
+
 .navbar a:hover,
 .navbar a.active {
   text-decoration: underline;
 }
-/* NAVBAR ______________________________________________________*/
 
-/* SLIDESHOW _____________________*/
+/* Slideshow */
+
+
 .slideshow-container {
   display: flex;
   justify-content: center;
-/* leave room for header */
+  margin-top: 90px; /* leave room for header */
 }
+
 .slideshow {
   position: relative;
   max-width: 1200px;
@@ -95,6 +105,7 @@ body {
   overflow: hidden;
   border-radius: 8px;
 }
+
 .slideshow img {
   width: 100%;
   height: auto;
@@ -102,9 +113,11 @@ body {
   transition: opacity 0.5s ease-in-out;
   border-radius: 8px;
 }
+
 .fade-out {
   opacity: 0;
 }
+
 .overlay {
   position: absolute;
   top: 0;
@@ -116,9 +129,11 @@ body {
   pointer-events: none;
   border-radius: 8px;
 }
+
 .slideshow:hover .overlay {
   background: rgba(0, 0, 0, 0.45);
 }
+
 .prev, .next {
   position: absolute;
   top: 50%;
@@ -132,66 +147,42 @@ body {
   font-size: 18px;
   transition: background-color 0.3s;
 }
+
 .prev:hover, .next:hover {
   background-color: rgba(0, 128, 128, 1);
 }
+
 .prev { left: 10px; }
 .next { right: 10px; }
-/* SLIDESHOW __________________________________________________________________*/
 
-/* Intro Section _________________________*/
+/* Intro Section */
 .intro {
   max-width: 900px;
   margin: 40px auto 60px;
   text-align: center;
   padding: 0 20px;
 }
+
 .intro h2 {
   color: #008080;
   margin-bottom: 15px;
 }
+
 .intro a {
   color: #0000ff;
   text-decoration: none;
 }
+
 .intro a:hover {
   text-decoration: underline;
 }
-/* Intro Section _________________________________________________________________*/
 
-/* ADDED _______________________________*/
-.page-content { max-width: 1200px; margin: 130 auto 60px; padding: 0 20px; }
+/* ADDED */
+.page-content { max-width: 900px; margin: 120px auto 60px; padding: 0 20px; text-align: center; }
 .content-section h2 { color: #008080; font-size: 1.8rem; margin-bottom: 15px; }
 .content-section p { color: #444; font-size: 1rem; }
-/* ADDED ________________________________________________________________________*/
+/* ADDED */
 
-/* ADDED _______________________________*/
-/* Başlık ve açıklama aynı satırda */
-.section-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: center; /* sayfa başlığı sola yaslı: flex-start, merkez: center */
-  gap: 15px;
-  flex-wrap: wrap;
-  border-bottom: 1px solid #008080; /* TEAL çizgi */
-  padding-bottom: 1px; /* çizgiye biraz boşluk kod not olarak duruyor şu an SIFIR*/
-  margin-bottom: 2px; /* alttaki içerikten ayır */
-}
-
-.section-header h2 {
-  color: #008080;
-  font-size: 1.8rem;
-  margin: 0;
-}
-
-.section-header p {
-  color: #666; /* Açıklama biraz daha yumuşak gri */
-  font-size: 1rem;
-  font-style: italic; /* hafif vurgu */
-  margin: 0;
-}
-
-/* ADDED ________________________________________________________________________*/
 
 
 /* Footer */
@@ -238,7 +229,7 @@ footer {
     }
 
     .photos-country h3 {
-      /*border-bottom: 10px solid #ccc;*/
+      border-bottom: 2px solid #ccc;
       padding-bottom: 0.3rem;
       margin-bottom: 0.8rem;
       color: #333;
@@ -290,128 +281,5 @@ footer {
 
     .photo-item:hover .photo-caption {
       opacity: 1;
-      
-    
     }
  /* --- Page-specific styling PHOTOS--- Added 20.10.2025*/
-
-/* COUNTRY HEADER (bayrak + ülke adı + açıklama) */
-.country-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: center; 
-  gap: 15px;
-  flex-wrap: wrap;
-  
- 
-  margin-bottom: 1.5rem;
-}
-
-.country-header h3 {
-  color: #333;
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.country-header p {
-  color: #666;
-  font-size: 1rem;
-  font-style: normal;
-  margin: 0;
-}
-
-/* PHOTOS SECTION boşluk ayarı */
-.photos-country {
-  margin: 1rem auto; /* önceden 3rem idi, biraz yukarı alıyoruz */
-  max-width: 1000px;
-  border-bottom: 1px solid #12629d; /* alt çizgi (gri, ince) */
-  padding-bottom: 1rem; /* çizgiye biraz nefes alanı */
-  
-  
-}
-
-/* Hidden link ayarı */
-.hidden-link {
-  opacity: 0.5;
-  font-size: 0.9rem;
-  text-align: center;
-  margin-top: 40px;
-}
-.hidden-link a {
-  color: #008080;
-  text-decoration: none;
-  font-style: italic;
-}
-.hidden-link a:hover {
-  opacity: 1;
-  text-decoration: underline;
-}
-
-/* 🔐 Vault Link – Gizemli Stil */
-/* 🔐 Vault Link – Scan Glow Efekti */
-.vault-link {
-  position: relative;
-  color: rgba(255, 255, 255, 0.7);
-  font-style: italic;
-  letter-spacing: 1px;
-  text-shadow: 0 0 5px rgba(48, 213, 200, 0.3);
-  transition: all 0.3s ease;
-  animation: vaultGlow 3s infinite alternate ease-in-out;
-}
-
-/* Hover efekti */
-.vault-link:hover {
-  color: #30D5C8;
-  text-shadow: 0 0 10px rgba(48, 213, 200, 0.9);
-}
-
-/* Hafif parlayan animasyon */
-@keyframes vaultGlow {
-  0% {
-    text-shadow: 0 0 4px rgba(48, 213, 200, 0.2);
-    color: rgba(255, 255, 255, 0.7);
-  }
-  100% {
-    text-shadow: 0 0 12px rgba(48, 213, 200, 0.8);
-    color: #30D5C8;
-  }
-}
-
-@keyframes vaultGlow {
-  0% {
-    text-shadow: 0 0 4px rgba(48, 213, 200, 0.3);
-  }
-  100% {
-    text-shadow: 0 0 12px rgba(48, 213, 200, 0.8);
-  }
-}
-
-/* 🔎 Scan Glow efekti — üstten alta geçen ince ışık çizgisi */
-.vault-link::after {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #30D5C8, transparent);
-  opacity: 0;
-  transform: translateY(0);
-  animation: vaultScan 4s infinite ease-in-out;
-}
-
-/* Tarama efekti animasyonu */
-@keyframes vaultScan {
-  0%, 90% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-  95% {
-    opacity: 0.8;
-    transform: translateY(1px);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-}
