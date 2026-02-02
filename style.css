@@ -302,7 +302,7 @@ footer {
   }
 
   .logo {
-    font-size: 20px;
+    font-size: 15px;
     text-align: center;
   }
 
@@ -314,13 +314,13 @@ footer {
   }
 
   nav ul li a {
-    font-size: 14px;
+    font-size: 10px;
     padding: 6px 8px;
   }
 }
 
 @media (max-width: 768px) {
   .page-content {
-    margin-top: 220px;
+    margin-top: 300px;
   }
 }
