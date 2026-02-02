@@ -418,7 +418,7 @@ footer {
 
 /* HEADER-MAIN ARA BOŞLUĞU AYARLAMAK İÇİN EKLENEN 30.01.2026  */
 :root {
-  --header-height:130px
+  --header-height:0px
 }
 
 main.page-content {
