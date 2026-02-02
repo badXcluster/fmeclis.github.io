@@ -282,4 +282,15 @@ footer {
     .photo-item:hover .photo-caption {
       opacity: 1;
     }
- /* --- Page-specific styling PHOTOS--- Added 20.10.2025*/
+
+ /* --- Gövde üst boşluk ayarlama02 02 2026 */
+
+.page-content {
+  margin-top: 120px;
+}
+
+@media (max-width: 768px) {
+  .page-content {
+    margin-top: 160px;
+  }
+}
