@@ -311,10 +311,11 @@ footer {
 
   /* Header küçüldüğü için içerik boşluğunu azalt */
   .page-content {
-    margin-top: 140px;
+    margin-top: 210px;
   }
 
   .slideshow-container {
-    margin-top: 140px;
+    margin-top: 210px;
   }
+
 }
