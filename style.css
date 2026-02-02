@@ -178,7 +178,6 @@ body {
 }
 
 /* ADDED */
-.page-content { max-width: 1200px; margin: 120px auto 60px; padding: 0 20px; text-align: center; }
 .content-section h2 { color: #008080; font-size: 1.8rem; margin-bottom: 15px; }
 .content-section p { color: #444; font-size: 1rem; }
 /* ADDED */
@@ -283,39 +282,47 @@ footer {
       opacity: 1;
     }
 
- /* --- Gövde üst boşluk ayarlama02 02 2026 */
 
+/* HEADER FIXED OLDUĞU İÇİN GÖVDEYİ AŞAĞI İT */
 .page-content {
-  margin-top: 90px;
+  margin-top: 120px;   /* Masaüstü için ideal */
+  padding: 0 20px;
+  text-align: center;
 }
 
-/* MOBİL HEADER KOMPAKTLAŞTIRMA */
+/* SLIDESHOW DA HEADER ALTINDAN BAŞLASIN */
+.slideshow-container {
+  margin-top: 120px;
+}
+
+/* 📱 MOBİL HEADER KOMPAKT */
 @media (max-width: 768px) {
 
-  .site-info {
-    text-align: center;
+  .header-content {
+    flex-direction: column;
+    gap: 6px;
   }
 
-  .site-info h1 {
-    font-size: 1.1rem;   /* İsmi biraz küçült */
-    margin-bottom: 2px;
-  }
-
-  .site-info p {
-    display: none;       /* Uzun açıklamayı mobilde gizle */
+  .logo-title {
+    flex-direction: column;
+    gap: 4px;
   }
 
   .logo-title img {
-    height: 38px;        /* Logoyu da biraz küçült */
+    height: 38px;
   }
 
-  /* Header küçüldüğü için içerik boşluğunu azalt */
-  .page-content {
-    margin-top: 210px;
+  .site-info h1 {
+    font-size: 1.05rem;
   }
 
+  .site-info p {
+    display: none; /* Uzun alt başlık mobilde gizli */
+  }
+
+  /* Header küçüldüğü için içerik daha az aşağı insin */
+  .page-content,
   .slideshow-container {
-    margin-top: 210px;
+    margin-top: 150px;
   }
-
 }
