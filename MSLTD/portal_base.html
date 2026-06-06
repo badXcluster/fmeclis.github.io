@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MSLTD System Portal | TM SAVUNMA</title>
+
+  <style>
+
+    /* ===============================
+       LOGIN SCREEN
+       =============================== */
+    #loginPage{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:24px;
+      background:#f2f4f5;
+    }
+
+    .login-container{
+      width:340px;
+      background:#fff;
+      border-radius:14px;
+      padding:30px 28px 24px;
+      text-align:center;
+      border-top:4px solid #0f6b68;
+      box-shadow:0 18px 48px rgba(17,24,39,.12);
+    }
+
+    .login-logo{width:96px;margin-bottom:12px;}
+    .portal-title{font-size:20px;font-weight:800;color:#0f6b68;margin-bottom:4px;}
+    .portal-subtitle{font-size:12px;color:#6b7778;margin-bottom:24px;}
+
+    .input-group{margin-bottom:14px;text-align:left;}
+    .input-group label{display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:#334244;}
+    .input-group input{
+      width:100%;
+      padding:11px 12px;
+      border:1px solid #cfd7d8;
+      border-radius:8px;
+      font-size:13px;
+      outline:none;
+      background:#fafafa;
+    }
+    .input-group input:focus{border-color:#0f6b68;background:#fff;}
+
+    .login-btn{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:8px;
+      background:#0f6b68;
+      color:white;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      margin-top:6px;
+    }
+
+    .error-message{
+      display:none;
+      margin-top:14px;
+      font-size:12px;
+      color:#b3261e;
+      background:#fdecea;
+      padding:9px;
+      border-radius:8px;
+    }
+
+    .login-footer{margin-top:22px;font-size:10.5px;color:#7c8788;line-height:1.45;}
+    #dashboardPage{display:none;min-height:100vh;}
+    .logout-nav{margin-top:10px;color:rgba(255,255,255,.68)!important;}
+
+
+    /* ===============================
+       TM SAVUNMA MODULAR PANEL
+       Source: ModularPanel.html
+       =============================== */
+
+    :root{
+      --bg:#eef2f6;
+      --panel:#ffffff;
+      --ink:#17202a;
+      --muted:#6b7280;
+      --line:#d8dee8;
+      --nav:#132235;
+      --nav2:#1d314b;
+      --blue:#1f4e79;
+      --softblue:#d9e8f7;
+      --green:#d9ead3;
+      --yellow:#fff2cc;
+      --red:#f4cccc;
+      --shadow:0 18px 48px rgba(17,24,39,.12);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+    }
+
+    .app{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:260px 1fr;
+    }
+
+    .sidebar{
+      background:linear-gradient(180deg,var(--nav),var(--nav2));
+      color:white;
+      padding:22px 18px;
+      position:sticky;
+      top:0;
+      height:100vh;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding-bottom:20px;
+      border-bottom:1px solid rgba(255,255,255,.14);
+    }
+
+    .brand-badge{
+      width:42px;height:42px;border-radius:12px;
+      background:#fff;
+      color:var(--nav);
+      display:grid;place-items:center;
+      font-weight:800;
+      letter-spacing:.5px;
+    }
+
+    .brand-title{font-weight:700;font-size:15px;line-height:1.25}
+    .brand-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:3px}
+
+    .client-card{
+      margin:22px 0;
+      padding:16px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      text-align:center;
+    }
+
+    .client-card img{max-width:150px;max-height:72px;object-fit:contain;background:white;border-radius:12px;padding:8px}
+    .client-name{font-size:13px;margin-top:10px;font-weight:700}
+    .client-code{font-size:11px;color:rgba(255,255,255,.62);margin-top:3px}
+
+    .nav-section{font-size:11px;color:rgba(255,255,255,.52);margin:22px 10px 8px;text-transform:uppercase;letter-spacing:.12em}
+
+    .nav-item{
+      width:100%;
+      display:flex;align-items:center;gap:10px;
+      padding:12px 13px;
+      border:0;
+      border-radius:13px;
+      color:rgba(255,255,255,.82);
+      background:transparent;
+      cursor:pointer;
+      text-align:left;
+      font-size:14px;
+      transition:.18s;
+    }
+    .nav-item:hover,.nav-item.active{background:rgba(255,255,255,.12);color:#fff}
+    .dot{width:8px;height:8px;border-radius:50%;background:#9fb5cc}
+    .nav-item.active .dot{background:#ffffff}
+
+    .powered{
+      position:absolute;
+      bottom:18px;left:18px;right:18px;
+      opacity:.92;
+      text-align:center;
+    }
+    .powered img{max-width:150px;opacity:.85}
+
+    main{padding:24px 30px 42px;}
+
+    .topbar{
+      height:72px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 22px;
+      margin-bottom:22px;
+    }
+    .crumb{font-size:13px;color:var(--muted)}
+    .page-title{font-size:22px;font-weight:800;margin-top:4px}
+    .user-pill{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:9px 13px;color:#374151;background:#f8fafc}
+
+    .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+    .kpi{background:white;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 12px 30px rgba(17,24,39,.07)}
+    .kpi .label{font-size:12px;color:var(--muted)}
+    .kpi .value{font-size:28px;font-weight:800;margin-top:8px}
+    .kpi .note{font-size:12px;color:var(--muted);margin-top:6px}
+
+    .module-card{background:white;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+    .module-head{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line);background:#fbfcfe}
+    .module-head h2{margin:0;font-size:18px}
+    .module-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:9px;flex-wrap:wrap}
+    .btn{border:1px solid #cfd8e3;background:white;color:#233044;border-radius:12px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px}
+    .btn.primary{background:var(--blue);border-color:var(--blue);color:white}
+
+    .content{padding:20px 22px 26px}
+    .hidden{display:none!important}
+
+    .sheet-wrap{background:#f4f6fa;border:1px solid var(--line);border-radius:20px;padding:18px;overflow:auto}
+    .sheet{
+      width:1120px;
+      margin:0 auto;
+      background:white;
+      padding:16px;
+      box-shadow:0 8px 24px rgba(15,23,42,.08);
+    }
+    .excel-header{display:grid;grid-template-columns:170px 1fr 190px;border:2px solid #1f2937;margin-bottom:12px}
+    .excel-logo,.excel-powered{display:flex;align-items:center;justify-content:center;min-height:86px;background:#f8fafc;padding:8px}
+    .excel-logo{border-right:2px solid #1f2937}.excel-powered{border-left:2px solid #1f2937}
+    .excel-logo img{max-width:145px;max-height:72px;object-fit:contain}.excel-powered img{max-width:150px;object-fit:contain}
+    .excel-title{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px}
+    .excel-title strong{font-size:20px;letter-spacing:.3px}.excel-title span{font-size:12px;color:#4b5563;margin-top:5px}
+
+    table.excel{width:100%;border-collapse:collapse;table-layout:fixed;font-size:12px;color:#111827}
+    table.excel th, table.excel td{border:1px solid #2f3b4c;padding:6px;vertical-align:middle;height:30px}
+    table.excel th{background:#d9e8f7;font-weight:800;text-align:center}
+    .bluebar{background:#1f4e79!important;color:white!important;font-weight:800;text-align:left!important}
+    .field-label{background:#eaf2fb;font-weight:800}.field-value{background:#fff}.center{text-align:center}.right{text-align:right}.muted{color:#6b7280}.bold{font-weight:800}
+    .status-ok{background:var(--green);color:#0f5132;font-weight:800;text-align:center}.status-watch{background:var(--yellow);color:#7a4d00;font-weight:800;text-align:center}.status-bad{background:var(--red);color:#842029;font-weight:800;text-align:center}
+    .input-cell{background:#fffdf4}.input-cell input{width:100%;border:0;background:transparent;text-align:center;font:inherit;outline:none}.formula{background:#f8fafc;color:#374151}.period{background:#eef6ff;font-weight:800;text-align:center}
+
+    .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:white;padding:9px 12px;border-radius:999px;cursor:pointer;font-weight:700;font-size:13px}.tab.active{background:var(--blue);border-color:var(--blue);color:white}
+
+    @media(max-width:980px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.powered{position:static;margin-top:22px}.dashboard-grid{grid-template-columns:repeat(2,1fr)}main{padding:18px}.topbar{height:auto;padding:16px;align-items:flex-start;gap:12px}.sheet{margin:0}}
+  
+  </style>
+</head>
+<body>
+  <div id="loginPage">
+    <div class="login-container">
+      <img
+        src="https://raw.githubusercontent.com/badXcluster/fmeclis.github.io/refs/heads/main/MSLTD/assets/MSLOGO_LIGHT.svg"
+        alt="MSLTD Logo"
+        class="login-logo"
+      >
+
+      <div class="portal-title">MSLTD System Portal</div>
+      <div class="portal-subtitle">Corporate Operations Relay V1</div>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <label>Kullanıcı</label>
+          <input type="text" id="username" placeholder="Kullanıcı adı">
+        </div>
+
+        <div class="input-group">
+          <label>Access Code</label>
+          <input type="password" id="accessCode" placeholder="Access code" required>
+        </div>
+
+        <button type="submit" class="login-btn">Giriş Yap</button>
+
+        <div id="errorMessage" class="error-message">
+          Geçersiz access code. Lütfen tekrar deneyiniz.
+        </div>
+      </form>
+
+      <div class="login-footer">
+        ISO Management Systems Platform<br>
+        Powered by Google Workspace
+      </div>
+    </div>
+  </div>
+
+  <div id="dashboardPage">
+<div class="app">
+<aside class="sidebar">
+<div class="brand">
+<div class="brand-badge">MS</div>
+<div>
+<div class="brand-title">MSLTD COR Portal</div>
+<div class="brand-sub">Firma erişim paneli</div>
+</div>
+</div>
+<div class="client-card">
+<img alt="TM SAVUNMA Logo" src="https://raw.githubusercontent.com/badXcluster/fmeclis.github.io/refs/heads/main/MSLTD/assets/clients/1_TmSavunma/TM_logo_basic_SVG.png"/>
+<div class="client-name">TM SAVUNMA</div>
+<div class="client-code">Firma paneli</div>
+</div>
+<div class="nav-section">Modüller</div>
+<button class="nav-item active" onclick="showView('home', this)"><span class="dot"></span>Genel Bakış</button>
+<button class="nav-item" onclick="showView('process', this)"><span class="dot"></span>Süreç Performans</button>
+<button class="nav-item" onclick="showView('form', this)"><span class="dot"></span>Süreç Bilgi Formu</button>
+<button class="nav-item" onclick="showView('docs', this)"><span class="dot"></span>Dokümanlar</button>
+<button class="nav-item logout-nav" onclick="logout()"><span class="dot"></span>Çıkış</button>
+<div class="powered">
+<img alt="Powered by MSLTD" src="https://raw.githubusercontent.com/badXcluster/fmeclis.github.io/692a09d5c5797eaa428da3699f3f3ea3bc82940a/MSLTD/assets/PoweredBy_SVG_Dark.svg"/>
+</div>
+</aside>
+<main>
+<div class="topbar">
+<div>
+<div class="crumb" id="crumb">Dashboard / Genel Bakış</div>
+<div class="page-title" id="pageTitle">TM SAVUNMA Firma Paneli</div>
+</div>
+<div class="user-pill" id="userPill">Giriş: -</div>
+</div>
+<section id="homeView">
+<div class="dashboard-grid">
+<div class="kpi"><div class="label">Tanımlı Gösterge</div><div class="value">15</div><div class="note">G1–G15 çoğaltılabilir yapı</div></div>
+<div class="kpi"><div class="label">Uygun Gösterge</div><div class="value">9</div><div class="note">Limit içinde</div></div>
+<div class="kpi"><div class="label">İzleme Gereken</div><div class="value">4</div><div class="note">Yakın takip</div></div>
+<div class="kpi"><div class="label">Aksiyon Gereken</div><div class="value">2</div><div class="note">Limit dışı</div></div>
+</div>
+<div class="module-card">
+<div class="module-head">
+<div><h2>Süreç Performans Modülü</h2><p>Sheet altyapısından beslenen, Excel görünümünü koruyan HTML arayüz prototipi.</p></div>
+<button class="btn primary" onclick="document.querySelectorAll('.nav-item')[1].click()">Sürece Git</button>
+</div>
+<div class="content">
+            Kullanıcı burada Google Sheet menülerini görmeden sadece tanımlı alanları, göstergeleri ve performans durumlarını izler. Veri girişi HTML üzerinden yapılabilir; düzenleme gerektiğinde ilgili Sheet ayrı sekmede açılır.
+          </div>
+</div>
+</section>
+<section class="hidden" id="processView">
+<div class="module-card">
+<div class="module-head">
+<div><h2>G1 Gösterge Sayfası</h2><p>Satır/sütun düzeni Drive HTML çıktısındaki G1 mantığına göre modellenmiştir.</p></div>
+<div class="actions">
+<button class="btn" onclick="calculateG1()">Hesapla</button>
+<a class="btn primary" href="https://docs.google.com/spreadsheets/d/1jDm4uxMDR0Y-mG5TOD0yeWfBYEZtlSm2pZYhilAGmOg/edit" target="_blank">İncele / Düzenle</a>
+</div>
+</div>
+<div class="content">
+<div class="tabs">
+<button class="tab active">G1</button><button class="tab">G2</button><button class="tab">G3</button><button class="tab">G4</button><button class="tab">G5</button><button class="tab">G6–G15</button>
+</div>
+<div class="sheet-wrap">
+<div class="sheet">
+<div class="excel-header">
+<div class="excel-logo"><img alt="TM SAVUNMA" src="https://raw.githubusercontent.com/badXcluster/fmeclis.github.io/refs/heads/main/MSLTD_assets/CLIENTS/TM SAVUNMA_LOGO.png"/></div>
+<div class="excel-title"><strong>SÜREÇ PERFORMANS GÖSTERGESİ</strong><span>G1 · Zaman bazlı hedef / gerçekleşen izleme tablosu</span></div>
+<div class="excel-powered"><img alt="Powered By" src="https://raw.githubusercontent.com/badXcluster/fmeclis.github.io/refs/heads/main/MSLTD_assets/PoweredBy5.png"/></div>
+</div>
+<table class="excel">
+<colgroup>
+<col style="width:115px"/><col style="width:125px"/><col style="width:125px"/><col style="width:125px"/><col style="width:125px"/><col style="width:125px"/><col style="width:125px"/><col style="width:125px"/><col style="width:125px"/>
+</colgroup>
+<tr><td class="bluebar" colspan="9">GÖSTERGE KİMLİK BİLGİLERİ</td></tr>
+<tr><td class="field-label">Gösterge Kodu</td><td class="field-value bold" colspan="3">G1</td><td class="field-label">Ölçü Birimi</td><td class="field-value" colspan="4">%</td></tr>
+<tr><td class="field-label">Gösterge Adı</td><td class="field-value" colspan="3">Zamanında Teslimat Oranı</td><td class="field-label">Hedef Toplam</td><td class="field-value" colspan="4">90</td></tr>
+<tr><td class="field-label">Amaç</td><td class="field-value" colspan="3">Teslimat performansının izlenmesi</td><td class="field-label">Hedef Türü</td><td class="field-value" colspan="4">Yüksek değer iyi</td></tr>
+<tr><td class="field-label">Süreç</td><td class="field-value" colspan="3">Satın Alma / Lojistik</td><td class="field-label">Alt Limit</td><td class="field-value" colspan="4">85</td></tr>
+<tr><td class="field-label">Sorumlu</td><td class="field-value" colspan="3">Süreç Sorumlusu</td><td class="field-label">Üst Limit</td><td class="field-value" colspan="4">100</td></tr>
+</table>
+<br/>
+<table class="excel" id="g1Table">
+<colgroup>
+<col style="width:115px"/><col span="12" style="width:74px"/><col style="width:88px"/>
+</colgroup>
+<tr><td class="bluebar" colspan="14">PERFORMANS ZAMAN TABLOSU</td></tr>
+<tr>
+<th>Dönem</th><th>Ocak</th><th>Şubat</th><th>Mart</th><th>Nisan</th><th>Mayıs</th><th>Haziran</th><th>Temmuz</th><th>Ağustos</th><th>Eylül</th><th>Ekim</th><th>Kasım</th><th>Aralık</th><th>Toplam</th>
+</tr>
+<tr class="target-row"><td class="field-label">Hedef</td></tr>
+<tr class="actual-row"><td class="field-label">Gerçekleşen</td></tr>
+<tr class="diff-row"><td class="field-label">Fark</td></tr>
+<tr class="upper-row"><td class="field-label">Üst Limit</td></tr>
+<tr class="lower-row"><td class="field-label">Alt Limit</td></tr>
+<tr class="status-row"><td class="field-label">Değerlendirme</td></tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="hidden" id="formView">
+<div class="module-card">
+<div class="module-head">
+<div><h2>Süreç Bilgi Formu</h2><p>Gösterge kimlikleri, değişkenleri ve limitleri burada tanımlanır.</p></div>
+<a class="btn primary" href="https://docs.google.com/spreadsheets/d/1jDm4uxMDR0Y-mG5TOD0yeWfBYEZtlSm2pZYhilAGmOg/edit" target="_blank">Sheet’i Aç</a>
+</div>
+<div class="content">
+<div class="sheet-wrap">
+<div class="sheet">
+<div class="excel-header">
+<div class="excel-logo"><img alt="TM SAVUNMA" src="https://raw.githubusercontent.com/badXcluster/fmeclis.github.io/refs/heads/main/MSLTD_assets/CLIENTS/TM SAVUNMA_LOGO.png"/></div>
+<div class="excel-title"><strong>SÜREÇ BİLGİ FORMU</strong><span>Gösterge tanımları ve hesaplama değişkenleri</span></div>
+<div class="excel-powered"><img alt="Powered By" src="https://raw.githubusercontent.com/badXcluster/fmeclis.github.io/692a09d5c5797eaa428da3699f3f3ea3bc82940a/MSLTD/assets/PoweredBy_SVG_Dark.svg"/></div>
+</div>
+<table class="excel">
+<tr><td class="bluebar" colspan="6">SÜREÇ TANIMI</td></tr>
+<tr><td class="field-label">Süreç Adı</td><td colspan="2">Satın Alma / Lojistik</td><td class="field-label">Sorumlu</td><td colspan="2">Süreç Sorumlusu</td></tr>
+<tr><td class="field-label">Gösterge Kodu</td><td>G1</td><td class="field-label">Gösterge Adı</td><td colspan="3">Zamanında Teslimat Oranı</td></tr>
+<tr><td class="field-label">Hesaplama</td><td colspan="5">(Zamanında Teslim Edilen Sipariş / Toplam Sipariş) × 100</td></tr>
+<tr><td class="bluebar" colspan="6">DEĞİŞKENLER</td></tr>
+<tr><th>Kod</th><th>Değişken</th><th>Birim</th><th>Kaynak</th><th>Giriş Tipi</th><th>Açıklama</th></tr>
+<tr><td class="center bold">A</td><td>Zamanında teslim edilen sipariş</td><td class="center">Adet</td><td>Operasyon kaydı</td><td class="center">Manuel</td><td>HTML üzerinden girilebilir</td></tr>
+<tr><td class="center bold">B</td><td>Toplam sipariş</td><td class="center">Adet</td><td>Operasyon kaydı</td><td class="center">Manuel</td><td>HTML üzerinden girilebilir</td></tr>
+<tr><td class="center bold">G</td><td>Gerçekleşen değer</td><td class="center">%</td><td>A/B×100</td><td class="center">Otomatik</td><td>Limit kontrolüne girer</td></tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="hidden" id="docsView">
+<div class="module-card"><div class="module-head"><div><h2>Dokümanlar</h2><p>Bu alan sonraki aşamada Drive klasörleriyle bağlanacak.</p></div></div><div class="content">Demo placeholder.</div></div>
+</section>
+</main>
+</div>
+  </div>
+
+<script>
+
+  const portalUsers = [
+    {
+      access_code: "METIN2026",
+      role: "reviewer",
+      client_code: "INTERNAL",
+      display_name: "Metin Şenyurt",
+      active: true
+    },
+    {
+      access_code: "ABC123",
+      role: "client",
+      client_code: "TM-SAVUNMA",
+      display_name: "TM SAVUNMA",
+      active: true
+    },
+    {
+      access_code: "TM2026",
+      role: "client",
+      client_code: "TM-SAVUNMA",
+      display_name: "TM SAVUNMA",
+      active: true
+    }
+  ];
+
+  let currentUser = null;
+
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const enteredCode = document.getElementById("accessCode").value.trim();
+    const user = portalUsers.find(function(item) {
+      return item.access_code === enteredCode && item.active === true;
+    });
+
+    if (user) {
+      currentUser = user;
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("dashboardPage").style.display = "block";
+      document.getElementById("userPill").innerText = "Giriş: " + user.display_name + " · " + user.client_code;
+      document.getElementById("errorMessage").style.display = "none";
+    } else {
+      document.getElementById("errorMessage").style.display = "block";
+      document.getElementById("accessCode").value = "";
+      document.getElementById("accessCode").focus();
+    }
+  });
+
+  function logout(){
+    currentUser = null;
+    document.getElementById("dashboardPage").style.display = "none";
+    document.getElementById("loginPage").style.display = "flex";
+    document.getElementById("accessCode").value = "";
+    document.getElementById("errorMessage").style.display = "none";
+  }
+
+
+  /* ===============================
+     TM SAVUNMA MODULAR PANEL SCRIPT
+     =============================== */
+
+  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jDm4uxMDR0Y-mG5TOD0yeWfBYEZtlSm2pZYhilAGmOg/edit';
+  const periods = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  const target = 90;
+  const lower = 85;
+  const upper = 100;
+  const demoActual = [94, 92, 87, 84, 91, 90, 88, 96, 93, 89, 86, 95];
+
+  function showView(view, el){
+    document.querySelectorAll('section[id$="View"]').forEach(s=>s.classList.add('hidden'));
+    document.getElementById(view+'View').classList.remove('hidden');
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    if(el) el.classList.add('active');
+    const titles = {
+      home:['Dashboard / Genel Bakış','TM SAVUNMA Firma Paneli'],
+      process:['Dashboard / Süreç Performans','Süreç Performans İzleme'],
+      form:['Dashboard / Süreç Bilgi Formu','Süreç Bilgi Formu'],
+      docs:['Dashboard / Dokümanlar','Dokümanlar']
+    };
+    document.getElementById('crumb').textContent = titles[view][0];
+    document.getElementById('pageTitle').textContent = titles[view][1];
+  }
+
+  function cell(content, cls='center'){
+    const td = document.createElement('td');
+    td.className = cls;
+    td.innerHTML = content;
+    return td;
+  }
+
+  function buildG1(){
+    const targetRow = document.querySelector('.target-row');
+    const actualRow = document.querySelector('.actual-row');
+    const diffRow = document.querySelector('.diff-row');
+    const upperRow = document.querySelector('.upper-row');
+    const lowerRow = document.querySelector('.lower-row');
+    const statusRow = document.querySelector('.status-row');
+
+    periods.forEach((p,i)=>{
+      targetRow.appendChild(cell(target));
+      actualRow.appendChild(cell(`<input type="number" value="${demoActual[i]}" oninput="calculateG1()">`, 'input-cell'));
+      diffRow.appendChild(cell('', 'formula center'));
+      upperRow.appendChild(cell(upper));
+      lowerRow.appendChild(cell(lower));
+      statusRow.appendChild(cell('', 'center'));
+    });
+    targetRow.appendChild(cell('', 'formula center'));
+    actualRow.appendChild(cell('', 'formula center'));
+    diffRow.appendChild(cell('', 'formula center'));
+    upperRow.appendChild(cell(upper));
+    lowerRow.appendChild(cell(lower));
+    statusRow.appendChild(cell('', 'center'));
+    calculateG1();
+  }
+
+  function calculateG1(){
+    const actualInputs = [...document.querySelectorAll('.actual-row input')];
+    const diffCells = [...document.querySelectorAll('.diff-row td')].slice(1);
+    const statusCells = [...document.querySelectorAll('.status-row td')].slice(1);
+    const targetCells = [...document.querySelectorAll('.target-row td')].slice(1);
+    const actualCells = [...document.querySelectorAll('.actual-row td')].slice(1);
+
+    let actualTotal = 0;
+    actualInputs.forEach((input,i)=>{
+      const value = Number(input.value || 0);
+      actualTotal += value;
+      const diff = value - target;
+      diffCells[i].textContent = diff > 0 ? '+'+diff : diff;
+      let label = 'Uygun', cls = 'status-ok';
+      if(value < lower){ label='Uygun Değil'; cls='status-bad'; }
+      else if(value < target){ label='İzle'; cls='status-watch'; }
+      statusCells[i].textContent = label;
+      statusCells[i].className = cls;
+    });
+
+    const avg = Math.round((actualTotal / actualInputs.length) * 10) / 10;
+    targetCells[12].textContent = target;
+    actualCells[12].textContent = avg;
+    diffCells[12].textContent = (avg-target) > 0 ? '+'+(avg-target) : (avg-target);
+    let totalLabel = 'Uygun', totalCls='status-ok';
+    if(avg < lower){ totalLabel='Uygun Değil'; totalCls='status-bad'; }
+    else if(avg < target){ totalLabel='İzle'; totalCls='status-watch'; }
+    statusCells[12].textContent = totalLabel;
+    statusCells[12].className = totalCls;
+  }
+
+  buildG1();
+
+</script>
+</body>
+</html>
