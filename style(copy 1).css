@@ -22,7 +22,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #008080;
+  background-color: #008080;  /* solid Turkuaz */
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   z-index: 1000;
   padding: 10px 0;
@@ -31,7 +31,7 @@ body {
 .header-content .site-info h1,
 .header-content .site-info p,
 .navbar a {
-  color: #fff;
+  color: #fff; /* Always white text for contrast */
 }
 
 .header-content {
@@ -89,25 +89,13 @@ body {
   text-decoration: underline;
 }
 
-/* MSLTD Portal Navbar Item */
-.navbar .msltd-portal-link {
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  border-radius: 8px;
-  padding: 5px 10px;
-  transition: all 0.25s ease;
-}
-
-.navbar .msltd-portal-link:hover {
-  background-color: #005f5f;
-  color: #ffffff;
-  text-decoration: none;
-  border-color: #ffffff;
-}
-
 /* Slideshow */
+
+
 .slideshow-container {
   display: flex;
   justify-content: center;
+  margin-top: 90px; /* leave room for header */
 }
 
 .slideshow {
@@ -194,6 +182,8 @@ body {
 .content-section p { color: #444; font-size: 1rem; }
 /* ADDED */
 
+
+
 /* Footer */
 footer {
   background-color: #f1f1f1;
@@ -225,30 +215,30 @@ footer {
   }
 }
 
-/* --- Page-specific styling PHOTOS--- Added 20.10.2025*/
-.photos-intro {
-  text-align: center;
-  margin: 2rem auto;
-  max-width: 800px;
-}
+    /* --- Page-specific styling PHOTOS--- Added 20.10.2025*/
+    .photos-intro {
+      text-align: center;
+      margin: 2rem auto;
+      max-width: 800px;
+    }
 
-.photos-country {
-  margin: 3rem auto;
-  max-width: 1000px;
-}
+    .photos-country {
+      margin: 3rem auto;
+      max-width: 1000px;
+    }
 
-.photos-country h3 {
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 0.3rem;
-  margin-bottom: 0.8rem;
-  color: #333;
-}
+    .photos-country h3 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.8rem;
+      color: #333;
+    }
 
-.photos-country p {
-  color: #666;
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
-}
+    .photos-country p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
 
 .photo-grid {
   display: grid;
@@ -256,45 +246,46 @@ footer {
   gap: 15px;
 }
 
-.photo-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
-}
+    .photo-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
 
-.photo-item:hover {
-  transform: scale(1.03);
-}
+    .photo-item:hover {
+      transform: scale(1.03);
+    }
 
-.photo-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-.photo-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  padding: 8px 10px;
-  font-size: 0.9rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 8px 10px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-.photo-item:hover .photo-caption {
-  opacity: 1;
-}
+    .photo-item:hover .photo-caption {
+      opacity: 1;
+    }
+
 
 /* HEADER FIXED OLDUĞU İÇİN GÖVDEYİ AŞAĞI İT */
 .page-content {
-  margin-top: 120px;
+  margin-top: 120px;   /* Masaüstü için ideal */
   padding: 0 20px;
   text-align: center;
 }
@@ -326,11 +317,11 @@ footer {
   }
 
   .site-info p {
-    display: none;
+    display: none; /* Artık yatay modda da gizlenecek */
   }
 
   .page-content,
   .slideshow-container {
-    margin-top: 180px;
+    margin-top: 180px; /* 200 fazla gelirse 180 ideal */
   }
 }
